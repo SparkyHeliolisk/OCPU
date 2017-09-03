@@ -283,6 +283,7 @@ exports.BattleStatuses = {
 	},
 	choicelock: {
 		onStart: function (pokemon) {
+<<<<<<< HEAD
 			if (!this.activeMove.id || this.activeMove.hasBounced) return false;
 			this.effectData.move = this.activeMove.id;
 		},
@@ -291,6 +292,12 @@ exports.BattleStatuses = {
 				pokemon.removeVolatile('choicelock');
 				return;
 			}
+=======
+			if (!this.activeMove.id || this.activeMove.sourceEffect && this.activeMove.sourceEffect !== this.activeMove.id) return false;
+			this.effectData.move = this.activeMove.id;
+		},
+		onBeforeMove: function (pokemon, target, move) {
+>>>>>>> Restart all files
 			if (move.id !== this.effectData.move && move.id !== 'struggle') {
 				// Fails even if the Choice item is being ignored, and no PP is lost
 				this.addMove('move', pokemon, move.name);

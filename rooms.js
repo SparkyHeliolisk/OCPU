@@ -123,7 +123,12 @@ class Room {
 	isMuted(user) {
 		if (!user) return;
 		if (this.muteQueue) {
+<<<<<<< HEAD
 			for (const entry of this.muteQueue) {
+=======
+			for (let i = 0; i < this.muteQueue.length; i++) {
+				let entry = this.muteQueue[i];
+>>>>>>> Restart all files
 				if (user.userid === entry.userid ||
 					user.guestNum === entry.guestNum ||
 					(user.autoconfirmed && user.autoconfirmed === entry.autoconfirmed)) {
@@ -135,9 +140,15 @@ class Room {
 	getMuteTime(user) {
 		let userid = this.isMuted(user);
 		if (!userid) return;
+<<<<<<< HEAD
 		for (const entry of this.muteQueue) {
 			if (userid === entry.userid) {
 				return entry.time - Date.now();
+=======
+		for (let i = 0; i < this.muteQueue.length; i++) {
+			if (userid === this.muteQueue[i].userid) {
+				return this.muteQueue[i].time - Date.now();
+>>>>>>> Restart all files
 			}
 		}
 	}
@@ -295,6 +306,7 @@ class GlobalRoom {
 		this.staffAutojoin = []; // rooms that staff autojoin upon connecting
 		for (let i = 0; i < this.chatRoomData.length; i++) {
 			if (!this.chatRoomData[i] || !this.chatRoomData[i].title) {
+<<<<<<< HEAD
 				Monitor.warn(`ERROR: Room number ${i} has no data and could not be loaded.`);
 				continue;
 			}
@@ -304,6 +316,17 @@ class GlobalRoom {
 			if (room.aliases) {
 				for (const alias of room.aliases) {
 					Rooms.aliases.set(alias, id);
+=======
+				console.log('ERROR: Room number ' + i + ' has no data.');
+				continue;
+			}
+			let id = toId(this.chatRoomData[i].title);
+			if (!Config.quietconsole) console.log("NEW CHATROOM: " + id);
+			let room = Rooms.createChatRoom(id, this.chatRoomData[i].title, this.chatRoomData[i]);
+			if (room.aliases) {
+				for (let a = 0; a < room.aliases.length; a++) {
+					Rooms.aliases.set(room.aliases[a], id);
+>>>>>>> Restart all files
 				}
 			}
 			this.chatRooms.push(room);
@@ -498,6 +521,7 @@ class GlobalRoom {
 		return roomTable;
 	}
 	getRooms(user) {
+<<<<<<< HEAD
 		let roomsData = {official:[], pspl:[], chat:[], userCount: this.userCount, battleCount: this.battleCount};
 		for (const room of this.chatRooms) {
 			if (!room) continue;
@@ -521,6 +545,18 @@ class GlobalRoom {
 					userCount: room.userCount,
 				});
 			}
+=======
+		let roomsData = {official:[], chat:[], userCount: this.userCount, battleCount: this.battleCount};
+		for (let i = 0; i < this.chatRooms.length; i++) {
+			let room = this.chatRooms[i];
+			if (!room) continue;
+			if (room.isPrivate && !(room.isPrivate === 'voice' && user.group !== ' ')) continue;
+			(room.isOfficial ? roomsData.official : roomsData.chat).push({
+				title: room.title,
+				desc: room.desc,
+				userCount: room.userCount,
+			});
+>>>>>>> Restart all files
 		}
 		return roomsData;
 	}
@@ -640,9 +676,15 @@ class GlobalRoom {
 		// we only autojoin regular rooms if the client requests it with /autojoin
 		// note that this restriction doesn't apply to staffAutojoin
 		let includesLobby = false;
+<<<<<<< HEAD
 		for (const roomName of this.autojoin) {
 			user.joinRoom(roomName, connection);
 			if (roomName === 'lobby') includesLobby = true;
+=======
+		for (let i = 0; i < this.autojoin.length; i++) {
+			user.joinRoom(this.autojoin[i], connection);
+			if (this.autojoin[i] === 'lobby') includesLobby = true;
+>>>>>>> Restart all files
 		}
 		if (!includesLobby && Config.serverid !== 'showdown') user.send(`>lobby\n|deinit`);
 	}
@@ -664,11 +706,20 @@ class GlobalRoom {
 				user.joinRoom(room.id, connection);
 			}
 		}
+<<<<<<< HEAD
 		for (const connection of user.connections) {
 			if (connection.autojoins) {
 				let autojoins = connection.autojoins.split(',');
 				for (const roomName of autojoins) {
 					user.tryJoinRoom(roomName, connection);
+=======
+		for (let i = 0; i < user.connections.length; i++) {
+			connection = user.connections[i];
+			if (connection.autojoins) {
+				let autojoins = connection.autojoins.split(',');
+				for (let j = 0; j < autojoins.length; j++) {
+					user.tryJoinRoom(autojoins[j], connection);
+>>>>>>> Restart all files
 				}
 				connection.autojoins = '';
 			}
@@ -717,7 +768,11 @@ class GlobalRoom {
 					curRoom.addRaw(`<div class="broadcast-red">You will not be able to start new battles until the server restarts.</div>`);
 					curRoom.update();
 				} else {
+<<<<<<< HEAD
 					curRoom.addRaw(`<div class="broadcast-red"><b>The server needs to restart because of a crash.</b><br />No new battles can be started until the server is done restarting.</div>`).update();
+=======
+					curRoom.addRaw(`<div class="broadcast-red"><b>The server needs restart because of a crash.</b><br />No new battles can be started until the server is done restarting.</div>`).update();
+>>>>>>> Restart all files
 				}
 			} else {
 				curRoom.addRaw(`<div class="broadcast-red"><b>The server is restarting soon.</b><br />Please finish your battles quickly. No new battles can be started until the server resets in a few minutes.</div>`).update();
@@ -1391,8 +1446,13 @@ class ChatRoom extends Room {
 		Rooms.global.delistChatRoom(this.id);
 
 		if (this.aliases) {
+<<<<<<< HEAD
 			for (const alias of this.aliases) {
 				Rooms.aliases.delete(alias);
+=======
+			for (let i = 0; i < this.aliases.length; i++) {
+				Rooms.aliases.delete(this.aliases[i]);
+>>>>>>> Restart all files
 			}
 		}
 
@@ -1448,7 +1508,11 @@ Rooms.search = function (name, fallback) {
 
 Rooms.createBattleRoom = function (roomid, format, p1, p2, options) {
 	if (Rooms.rooms.has(roomid)) throw new Error(`Room ${roomid} already exists`);
+<<<<<<< HEAD
 	Monitor.debug("NEW BATTLE ROOM: " + roomid);
+=======
+	// console.log("NEW BATTLE ROOM: " + roomid);
+>>>>>>> Restart all files
 	const room = new BattleRoom(roomid, format, p1, p2, options);
 	Rooms.rooms.set(roomid, room);
 	return room;
@@ -1507,7 +1571,11 @@ Rooms.SimulatorProcess = require('./room-battle').SimulatorProcess;
 
 // initialize
 
+<<<<<<< HEAD
 Monitor.notice("NEW GLOBAL: global");
+=======
+if (!Config.quietconsole) console.log("NEW GLOBAL: global");
+>>>>>>> Restart all files
 Rooms.global = new GlobalRoom('global');
 
 Rooms.rooms.set('global', Rooms.global);

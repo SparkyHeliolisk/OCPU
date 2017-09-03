@@ -878,7 +878,11 @@ exports.BattleFormatsData = {
 		tier: "OU",
 	},
 	scizormega: {
+<<<<<<< HEAD
 		randomBattleMoves: ["swordsdance", "roost", "bulletpunch", "bugbite", "superpower", "uturn", "pursuit", "defog", "knockoff"],
+=======
+		randomBattleMoves: ["swordsdance", "roost", "bulletpunch", "bugbite", "superpower", "uturn", "batonpass", "pursuit", "defog", "knockoff"],
+>>>>>>> Restart all files
 		randomDoubleBattleMoves: ["swordsdance", "roost", "bulletpunch", "bugbite", "superpower", "uturn", "protect", "feint", "knockoff"],
 		requiredItem: "Scizorite",
 		tier: "OU",
@@ -1003,7 +1007,11 @@ exports.BattleFormatsData = {
 	},
 	umbreon: {
 		inherit: true,
+<<<<<<< HEAD
 		randomBattleMoves: ["wish", "protect", "healbell", "toxic", "foulplay"],
+=======
+		randomBattleMoves: ["wish", "protect", "healbell", "toxic", "batonpass", "foulplay"],
+>>>>>>> Restart all files
 		randomDoubleBattleMoves: ["moonlight", "wish", "protect", "healbell", "snarl", "foulplay", "helpinghand"],
 		tier: "UU",
 	},
@@ -1245,7 +1253,11 @@ exports.BattleFormatsData = {
 		tier: "LC",
 	},
 	xatu: {
+<<<<<<< HEAD
 		randomBattleMoves: ["thunderwave", "toxic", "roost", "psychic", "uturn", "reflect", "calmmind", "nightshade", "heatwave"],
+=======
+		randomBattleMoves: ["thunderwave", "toxic", "roost", "psychic", "uturn", "reflect", "lightscreen", "nightshade", "heatwave"],
+>>>>>>> Restart all files
 		randomDoubleBattleMoves: ["thunderwave", "tailwind", "roost", "psychic", "uturn", "reflect", "lightscreen", "grassknot", "heatwave", "protect"],
 		tier: "NU",
 	},
@@ -1477,7 +1489,11 @@ exports.BattleFormatsData = {
 		tier: "LC",
 	},
 	piloswine: {
+<<<<<<< HEAD
 		randomBattleMoves: ["earthquake", "iciclecrash", "iceshard", "endeavor", "stealthrock"],
+=======
+		randomBattleMoves: ["earthquake", "iciclecrash", "iceshard", "superpower", "endeavor", "stealthrock"],
+>>>>>>> Restart all files
 		tier: "NU",
 	},
 	mamoswine: {
@@ -2032,12 +2048,20 @@ exports.BattleFormatsData = {
 	},
 	sharpedo: {
 		inherit: true,
+<<<<<<< HEAD
 		randomBattleMoves: ["protect", "icebeam", "crunch", "earthquake", "waterfall"],
+=======
+		randomBattleMoves: ["protect", "icebeam", "crunch", "earthquake", "waterfall", "destinybond"],
+>>>>>>> Restart all files
 		randomDoubleBattleMoves: ["protect", "icebeam", "crunch", "earthquake", "waterfall", "destinybond"],
 		tier: "BL2",
 	},
 	sharpedomega: {
+<<<<<<< HEAD
 		randomBattleMoves: ["protect", "icefang", "crunch", "waterfall", "zenheadbutt", "destinybond"],
+=======
+		randomBattleMoves: ["protect", "icefang", "crunch", "earthquake", "waterfall", "zenheadbutt"],
+>>>>>>> Restart all files
 		requiredItem: "Sharpedonite",
 		tier: "UU",
 	},
@@ -2435,7 +2459,11 @@ exports.BattleFormatsData = {
 		tier: "OU",
 	},
 	latiosmega: {
+<<<<<<< HEAD
 		randomBattleMoves: ["calmmind", "dracometeor", "hiddenpowerfire", "psyshock", "roost", "defog"],
+=======
+		randomBattleMoves: ["calmmind", "dracometeor", "hiddenpowerfire", "psyshock", "roost", "memento", "defog"],
+>>>>>>> Restart all files
 		randomDoubleBattleMoves: ["dracometeor", "dragonpulse", "surf", "thunderbolt", "psyshock", "substitute", "tailwind", "protect", "hiddenpowerfire"],
 		requiredItem: "Latiosite",
 		tier: "(OU)",
@@ -3495,7 +3523,11 @@ exports.BattleFormatsData = {
 		tier: "LC",
 	},
 	swanna: {
+<<<<<<< HEAD
 		randomBattleMoves: ["airslash", "roost", "hurricane", "icebeam", "raindance", "defog", "scald"],
+=======
+		randomBattleMoves: ["airslash", "roost", "hurricane", "surf", "icebeam", "raindance", "defog", "scald"],
+>>>>>>> Restart all files
 		randomDoubleBattleMoves: ["airslash", "roost", "hurricane", "surf", "icebeam", "raindance", "tailwind", "scald", "protect"],
 		tier: "PU",
 	},
@@ -4141,8 +4173,13 @@ exports.BattleFormatsData = {
 		tier: "LC",
 	},
 	aurorus: {
+<<<<<<< HEAD
 		randomBattleMoves: ["ancientpower", "blizzard", "thunderwave", "earthpower", "freezedry", "hypervoice", "stealthrock"],
 		randomDoubleBattleMoves: ["hypervoice", "ancientpower", "thunderwave", "flashcannon", "freezedry", "icywind", "protect"],
+=======
+		randomBattleMoves: ["ancientpower", "thunderbolt", "encore", "thunderwave", "earthpower", "freezedry", "hypervoice", "stealthrock"],
+		randomDoubleBattleMoves: ["hypervoice", "ancientpower", "thunderbolt", "encore", "thunderwave", "flashcannon", "freezedry", "icywind", "protect"],
+>>>>>>> Restart all files
 		tier: "NU",
 	},
 	sylveon: {

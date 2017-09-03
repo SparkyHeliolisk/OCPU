@@ -62,7 +62,10 @@ exports.BattleFormats = {
 		desc: ["The foundational rules for any and all formats based on in-game mechanics (everything but Custom Game)"],
 		onValidateTeam: function (team, format) {
 			let problems = [];
+<<<<<<< HEAD
 			if (team.length > 6) problems.push('Your team has more than six Pok\u00E9mon.');
+=======
+>>>>>>> Restart all files
 			// ----------- legality line ------------------------------------------
 			if (!format || !this.getRuleTable(format).has('-illegal')) return problems;
 			// everything after this line only happens if we're doing legality enforcement
@@ -301,12 +304,20 @@ exports.BattleFormats = {
 			this.add('clearpoke');
 			for (let i = 0; i < this.sides[0].pokemon.length; i++) {
 				let pokemon = this.sides[0].pokemon[i];
+<<<<<<< HEAD
 				let details = pokemon.details.replace(/(Arceus|Gourgeist|Genesect|Pumpkaboo|Silvally)(-[a-zA-Z?]+)?/g, '$1-*').replace(', shiny', '');
+=======
+				let details = pokemon.details.replace(/(Arceus|Gourgeist|Genesect|Pumpkaboo|Silvally)(-[a-zA-Z?]+)?/g, '$1-*');
+>>>>>>> Restart all files
 				this.add('poke', pokemon.side.id, details, pokemon.item ? 'item' : '');
 			}
 			for (let i = 0; i < this.sides[1].pokemon.length; i++) {
 				let pokemon = this.sides[1].pokemon[i];
+<<<<<<< HEAD
 				let details = pokemon.details.replace(/(Arceus|Gourgeist|Genesect|Pumpkaboo|Silvally)(-[a-zA-Z?]+)?/g, '$1-*').replace(', shiny', '');
+=======
+				let details = pokemon.details.replace(/(Arceus|Gourgeist|Genesect|Pumpkaboo|Silvally)(-[a-zA-Z?]+)?/g, '$1-*');
+>>>>>>> Restart all files
 				this.add('poke', pokemon.side.id, details, pokemon.item ? 'item' : '');
 			}
 		},

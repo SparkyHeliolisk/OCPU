@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Restart all files
 Pokémon Showdown
 ========================================================================
 
@@ -181,6 +184,9 @@ Contributors
 Special thanks
 
 - See http://pokemonshowdown.com/credits
+<<<<<<< HEAD
 =======
 # OCPU
 >>>>>>> Initial commit
+=======
+>>>>>>> Restart all files

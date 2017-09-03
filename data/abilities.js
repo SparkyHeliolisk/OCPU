@@ -69,7 +69,11 @@ exports.BattleAbilities = {
 		shortDesc: "This Pokemon's Normal-type moves become Flying type and have 1.2x power.",
 		onModifyMovePriority: -1,
 		onModifyMove: function (move, pokemon) {
+<<<<<<< HEAD
 			if (move.type === 'Normal' && !(move.id in {judgment:1, multiattack:1, naturalgift:1, revelationdance:1, technoblast:1, weatherball:1}) && !(move.isZ && move.category !== 'Status')) {
+=======
+			if (move.type === 'Normal' && !(move.id in {naturalgift:1, revelationdance:1}) && !(move.isZ && move.category !== 'Status')) {
+>>>>>>> Restart all files
 				move.type = 'Flying';
 				move.aerilateBoosted = true;
 			}
@@ -91,7 +95,11 @@ exports.BattleAbilities = {
 		suppressWeather: true,
 		id: "airlock",
 		name: "Air Lock",
+<<<<<<< HEAD
 		rating: 2.5,
+=======
+		rating: 3,
+>>>>>>> Restart all files
 		num: 76,
 	},
 	"analytic": {
@@ -354,7 +362,11 @@ exports.BattleAbilities = {
 		},
 		id: "bulletproof",
 		name: "Bulletproof",
+<<<<<<< HEAD
 		rating: 3.5,
+=======
+		rating: 3,
+>>>>>>> Restart all files
 		num: 171,
 	},
 	"cheekpouch": {
@@ -377,7 +389,11 @@ exports.BattleAbilities = {
 		},
 		id: "chlorophyll",
 		name: "Chlorophyll",
+<<<<<<< HEAD
 		rating: 3,
+=======
+		rating: 2.5,
+>>>>>>> Restart all files
 		num: 34,
 	},
 	"clearbody": {
@@ -406,7 +422,11 @@ exports.BattleAbilities = {
 		suppressWeather: true,
 		id: "cloudnine",
 		name: "Cloud Nine",
+<<<<<<< HEAD
 		rating: 2.5,
+=======
+		rating: 3,
+>>>>>>> Restart all files
 		num: 13,
 	},
 	"colorchange": {
@@ -561,8 +581,20 @@ exports.BattleAbilities = {
 		desc: "After another Pokemon uses a dance move, this Pokemon uses the same move. Moves used by this Ability cannot be copied again.",
 		shortDesc: "After another Pokemon uses a dance move, this Pokemon uses the same move.",
 		id: "dancer",
+<<<<<<< HEAD
 		name: "Dancer",
 		// implemented in runMove in scripts.js
+=======
+		onAnyAfterMove: function (source, target, move) {
+			if (!this.effectData.target.hp || source === this.effectData.target || move.isExternal) return;
+			if (move.flags['dance']) {
+				this.faintMessages();
+				this.add('-activate', this.effectData.target, 'ability: Dancer');
+				this.runMove(move.id, this.effectData.target, 0, this.getAbility('dancer'), undefined, true);
+			}
+		},
+		name: "Dancer",
+>>>>>>> Restart all files
 		rating: 2.5,
 		num: 216,
 	},
@@ -573,9 +605,14 @@ exports.BattleAbilities = {
 			this.add('-ability', pokemon, 'Dark Aura');
 		},
 		onAnyBasePower: function (basePower, source, target, move) {
+<<<<<<< HEAD
 			if (target === source || move.category === 'Status' || move.type !== 'Dark' || move.auraBoost) return;
 			move.auraBoost = move.hasAuraBreak ? 0x0C00 : 0x1547;
 			return this.chainModify([move.auraBoost, 0x1000]);
+=======
+			if (target === source || move.category === 'Status' || move.type !== 'Dark') return;
+			return this.chainModify([move.hasAuraBreak ? 0x0C00 : 0x1547, 0x1000]);
+>>>>>>> Restart all files
 		},
 		isUnbreakable: true,
 		id: "darkaura",
@@ -814,7 +851,11 @@ exports.BattleAbilities = {
 		id: "earlybird",
 		name: "Early Bird",
 		// Implemented in statuses.js
+<<<<<<< HEAD
 		rating: 2,
+=======
+		rating: 2.5,
+>>>>>>> Restart all files
 		num: 48,
 	},
 	"effectspore": {
@@ -879,9 +920,14 @@ exports.BattleAbilities = {
 			this.add('-ability', pokemon, 'Fairy Aura');
 		},
 		onAnyBasePower: function (basePower, source, target, move) {
+<<<<<<< HEAD
 			if (target === source || move.category === 'Status' || move.type !== 'Fairy' || move.auraBoost) return;
 			move.auraBoost = move.hasAuraBreak ? 0x0C00 : 0x1547;
 			return this.chainModify([move.auraBoost, 0x1000]);
+=======
+			if (target === source || move.category === 'Status' || move.type !== 'Fairy') return;
+			return this.chainModify([move.hasAuraBreak ? 0x0C00 : 0x1547, 0x1000]);
+>>>>>>> Restart all files
 		},
 		isUnbreakable: true,
 		id: "fairyaura",
@@ -1041,6 +1087,10 @@ exports.BattleAbilities = {
 	"fluffy": {
 		desc: "This Pokemon receives 1/2 damage from contact moves, but double damage from Fire moves.",
 		shortDesc: "This Pokemon takes 1/2 damage from contact moves, 2x damage from Fire moves.",
+<<<<<<< HEAD
+=======
+		// TODO: are either of these effects actually base power modifiers?
+>>>>>>> Restart all files
 		onSourceModifyDamage: function (damage, source, target, move) {
 			let mod = 1;
 			if (move.type === 'Fire') mod *= 2;
@@ -1191,7 +1241,11 @@ exports.BattleAbilities = {
 		shortDesc: "This Pokemon's Normal-type moves become Electric type and have 1.2x power.",
 		onModifyMovePriority: -1,
 		onModifyMove: function (move, pokemon) {
+<<<<<<< HEAD
 			if (move.type === 'Normal' && !(move.id in {judgment:1, multiattack:1, naturalgift:1, revelationdance:1, technoblast:1, weatherball:1}) && !(move.isZ && move.category !== 'Status')) {
+=======
+			if (move.type === 'Normal' && !(move.id in {naturalgift:1, revelationdance:1}) && !(move.isZ && move.category !== 'Status')) {
+>>>>>>> Restart all files
 				move.type = 'Electric';
 				move.galvanizeBoosted = true;
 			}
@@ -2240,7 +2294,11 @@ exports.BattleAbilities = {
 		},
 		id: "owntempo",
 		name: "Own Tempo",
+<<<<<<< HEAD
 		rating: 1.5,
+=======
+		rating: 1,
+>>>>>>> Restart all files
 		num: 20,
 	},
 	"parentalbond": {
@@ -2324,7 +2382,11 @@ exports.BattleAbilities = {
 		shortDesc: "This Pokemon's Normal-type moves become Fairy type and have 1.2x power.",
 		onModifyMovePriority: -1,
 		onModifyMove: function (move, pokemon) {
+<<<<<<< HEAD
 			if (move.type === 'Normal' && !(move.id in {judgment:1, multiattack:1, naturalgift:1, revelationdance:1, technoblast:1, weatherball:1}) && !(move.isZ && move.category !== 'Status')) {
+=======
+			if (move.type === 'Normal' && !(move.id in {naturalgift:1, revelationdance:1}) && !(move.isZ && move.category !== 'Status')) {
+>>>>>>> Restart all files
 				move.type = 'Fairy';
 				move.pixilateBoosted = true;
 			}
@@ -2475,7 +2537,11 @@ exports.BattleAbilities = {
 		},
 		id: "pressure",
 		name: "Pressure",
+<<<<<<< HEAD
 		rating: 2,
+=======
+		rating: 1.5,
+>>>>>>> Restart all files
 		num: 46,
 	},
 	"primordialsea": {
@@ -2648,7 +2714,11 @@ exports.BattleAbilities = {
 		shortDesc: "This Pokemon's Normal-type moves become Ice type and have 1.2x power.",
 		onModifyMovePriority: -1,
 		onModifyMove: function (move, pokemon) {
+<<<<<<< HEAD
 			if (move.type === 'Normal' && !(move.id in {judgment:1, multiattack:1, naturalgift:1, revelationdance:1, technoblast:1, weatherball:1}) && !(move.isZ && move.category !== 'Status')) {
+=======
+			if (move.type === 'Normal' && !(move.id in {naturalgift:1, revelationdance:1}) && !(move.isZ && move.category !== 'Status')) {
+>>>>>>> Restart all files
 				move.type = 'Ice';
 				move.refrigerateBoosted = true;
 			}
@@ -2708,7 +2778,11 @@ exports.BattleAbilities = {
 		},
 		id: "rockhead",
 		name: "Rock Head",
+<<<<<<< HEAD
 		rating: 2.5,
+=======
+		rating: 3,
+>>>>>>> Restart all files
 		num: 69,
 	},
 	"roughskin": {
@@ -2765,7 +2839,11 @@ exports.BattleAbilities = {
 		},
 		id: "sandrush",
 		name: "Sand Rush",
+<<<<<<< HEAD
 		rating: 3,
+=======
+		rating: 2.5,
+>>>>>>> Restart all files
 		num: 146,
 	},
 	"sandstream": {
@@ -2853,7 +2931,11 @@ exports.BattleAbilities = {
 		},
 		id: "schooling",
 		name: "Schooling",
+<<<<<<< HEAD
 		rating: 3,
+=======
+		rating: 2.5,
+>>>>>>> Restart all files
 		num: 208,
 	},
 	"scrappy": {
@@ -3023,7 +3105,11 @@ exports.BattleAbilities = {
 		isUnbreakable: true,
 		id: "shieldsdown",
 		name: "Shields Down",
+<<<<<<< HEAD
 		rating: 3,
+=======
+		rating: 2.5,
+>>>>>>> Restart all files
 		num: 197,
 	},
 	"simple": {
@@ -3214,6 +3300,7 @@ exports.BattleAbilities = {
 		num: 3,
 	},
 	"stakeout": {
+<<<<<<< HEAD
 		shortDesc: "This Pokemon's attacking stat is doubled against a target that switched in this turn.",
 		onModifyAtkPriority: 5,
 		onModifyAtk: function (atk, attacker, defender) {
@@ -3225,6 +3312,11 @@ exports.BattleAbilities = {
 		onModifySpAPriority: 5,
 		onModifySpA: function (atk, attacker, defender) {
 			if (!defender.activeTurns) {
+=======
+		shortDesc: "This Pokemon's attacks deal double damage if the target switched in this turn.",
+		onModifyDamage: function (damage, source, target) {
+			if (!target.activeTurns) {
+>>>>>>> Restart all files
 				this.debug('Stakeout boost');
 				return this.chainModify(2);
 			}
@@ -3298,6 +3390,7 @@ exports.BattleAbilities = {
 		num: 80,
 	},
 	"steelworker": {
+<<<<<<< HEAD
 		shortDesc: "This Pokemon's attacking stat is multiplied by 1.5 while using a Steel-type attack.",
 		onModifyAtkPriority: 5,
 		onModifyAtk: function (atk, attacker, defender, move) {
@@ -3308,6 +3401,11 @@ exports.BattleAbilities = {
 		},
 		onModifySpAPriority: 5,
 		onModifySpA: function (atk, attacker, defender, move) {
+=======
+		shortDesc: "This Pokemon's Steel-type attacks have their power multiplied by 1.5.",
+		onBasePowerPriority: 8,
+		onBasePower: function (basePower, attacker, defender, move) {
+>>>>>>> Restart all files
 			if (move.type === 'Steel') {
 				this.debug('Steelworker boost');
 				return this.chainModify(1.5);
@@ -3421,7 +3519,11 @@ exports.BattleAbilities = {
 		},
 		id: "suctioncups",
 		name: "Suction Cups",
+<<<<<<< HEAD
 		rating: 1.5,
+=======
+		rating: 2,
+>>>>>>> Restart all files
 		num: 21,
 	},
 	"superluck": {
@@ -3498,7 +3600,11 @@ exports.BattleAbilities = {
 		},
 		id: "swiftswim",
 		name: "Swift Swim",
+<<<<<<< HEAD
 		rating: 3,
+=======
+		rating: 2.5,
+>>>>>>> Restart all files
 		num: 33,
 	},
 	"symbiosis": {
@@ -3822,7 +3928,11 @@ exports.BattleAbilities = {
 		},
 		id: "victorystar",
 		name: "Victory Star",
+<<<<<<< HEAD
 		rating: 3,
+=======
+		rating: 2.5,
+>>>>>>> Restart all files
 		num: 162,
 	},
 	"vitalspirit": {
@@ -3877,6 +3987,7 @@ exports.BattleAbilities = {
 		num: 11,
 	},
 	"waterbubble": {
+<<<<<<< HEAD
 		desc: "This Pokemon's attacking stat is doubled while using a Water-type attack. If a Pokemon uses a Fire-type attack against this Pokemon, that Pokemon's attacking stat is halved when calculating the damage to this Pokemon. This Pokemon cannot be burned. Gaining this Ability while burned cures it.",
 		shortDesc: "This Pokemon's Water power is 2x; it can't be burned; Fire power against it is halved.",
 		onModifyAtkPriority: 5,
@@ -3887,16 +3998,26 @@ exports.BattleAbilities = {
 		},
 		onModifySpAPriority: 5,
 		onSourceModifySpA: function (atk, attacker, defender, move) {
+=======
+		desc: "This Pokemon's Water-type attacks have their power doubled, the power of Fire-type attacks against this Pokemon is halved, and this Pokemon cannot be burned. Gaining this Ability while burned cures it.",
+		shortDesc: "This Pokemon's Water power is 2x; it can't be burned; Fire power against it is halved.",
+		onBasePowerPriority: 7,
+		onSourceBasePower: function (basePower, attacker, defender, move) {
+>>>>>>> Restart all files
 			if (move.type === 'Fire') {
 				return this.chainModify(0.5);
 			}
 		},
+<<<<<<< HEAD
 		onModifyAtk: function (atk, attacker, defender, move) {
 			if (move.type === 'Water') {
 				return this.chainModify(2);
 			}
 		},
 		onModifySpA: function (atk, attacker, defender, move) {
+=======
+		onBasePower: function (basePower, attacker, defender, move) {
+>>>>>>> Restart all files
 			if (move.type === 'Water') {
 				return this.chainModify(2);
 			}

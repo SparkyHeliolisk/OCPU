@@ -127,7 +127,10 @@ exports.commands = {
 		"Parameters can be excluded through the use of '!', e.g., '!water type' excludes all water types.",
 		"The parameter 'mega' can be added to search for Mega Evolutions only, and the parameter 'NFE' can be added to search not-fully evolved Pok\u00e9mon only.",
 		"Parameters separated with '|' will be searched as alternatives for each other, e.g., 'trick | switcheroo' searches for all Pok\u00e9mon that learn either Trick or Switcheroo.",
+<<<<<<< HEAD
 		"You can search for info in a specific generation by appending the generation to ds, e.g. '/ds1 normal' searches for all Pok\u00e9mon that were normal type in Generation I",
+=======
+>>>>>>> Restart all files
 		"The order of the parameters does not matter.",
 	],
 
@@ -349,6 +352,7 @@ if (process.send && module === process.mainModule) {
 
 function runDexsearch(target, cmd, canAll, message) {
 	let searches = [];
+<<<<<<< HEAD
 	let allTiers = {'uber':'Uber', 'ubers':'Uber', 'ou':'OU', 'bl':'BL', 'uu':'UU', 'bl2':'BL2', 'ru':'RU', 'bl3':'BL3', 'nu':'NU', 'bl4':'BL4', 'pu':'PU', 'nfe':'NFE', 'lcuber':'LC Uber', 'lcubers':'LC Uber', 'lc':'LC', 'cap':'CAP', 'caplc':'CAP LC', 'capnfe':'CAP NFE', __proto__:null};
 	let allTypes = Object.create(null);
 	for (let i in Dex.data.TypeChart) {
@@ -357,6 +361,16 @@ function runDexsearch(target, cmd, canAll, message) {
 	let allColours = {'green':1, 'red':1, 'blue':1, 'white':1, 'brown':1, 'yellow':1, 'purple':1, 'pink':1, 'gray':1, 'black':1, __proto__:null};
 	let allEggGroups = {'amorphous':'Amorphous', 'bug':'Bug', 'ditto':'Ditto', 'dragon':'Dragon', 'fairy':'Fairy', 'field':'Field', 'flying':'Flying', 'grass':'Grass', 'humanlike':'Human-Like', 'mineral':'Mineral', 'monster':'Monster', 'undiscovered':'Undiscovered', 'water1':'Water 1', 'water2':'Water 2', 'water3':'Water 3', __proto__:null};
 	let allStats = {'hp':1, 'atk':1, 'def':1, 'spa':1, 'spd':1, 'spe':1, 'bst':1, 'weight':1, 'height':1, 'gen':1, __proto__:null};
+=======
+	let allTiers = {'uber':'Uber', 'ubers':'Uber', 'ou':'OU', 'bl':'BL', 'uu':'UU', 'bl2':'BL2', 'ru':'RU', 'bl3':'BL3', 'nu':'NU', 'bl4':'BL4', 'pu':'PU', 'nfe':'NFE', 'lcuber':'LC Uber', 'lcubers':'LC Uber', 'lc':'LC', 'cap':'CAP', 'caplc':'CAP LC', 'capnfe':'CAP NFE'};
+	let allTypes = {};
+	for (let i in Dex.data.TypeChart) {
+		allTypes[toId(i)] = i;
+	}
+	let allColours = {'green':1, 'red':1, 'blue':1, 'white':1, 'brown':1, 'yellow':1, 'purple':1, 'pink':1, 'gray':1, 'black':1};
+	let allEggGroups = {'amorphous':'Amorphous', 'bug':'Bug', 'ditto':'Ditto', 'dragon':'Dragon', 'fairy':'Fairy', 'field':'Field', 'flying':'Flying', 'grass':'Grass', 'humanlike':'Human-Like', 'mineral':'Mineral', 'monster':'Monster', 'undiscovered':'Undiscovered', 'water1':'Water 1', 'water2':'Water 2', 'water3':'Water 3'};
+	let allStats = {'hp':1, 'atk':1, 'def':1, 'spa':1, 'spd':1, 'spe':1, 'bst':1, 'weight':1, 'height':1, 'gen':1};
+>>>>>>> Restart all files
 	let showAll = false;
 	let megaSearch = null;
 	let capSearch = null;
@@ -370,7 +384,11 @@ function runDexsearch(target, cmd, canAll, message) {
 			if (group[cat][param] === undefined) {
 				if (cat in uniqueTraits) {
 					for (let currentParam in group[cat]) {
+<<<<<<< HEAD
 						if (group[cat][currentParam] !== isNotSearch) return `A Pok&eacute;mon cannot have multiple ${cat}.`;
+=======
+						if (group[cat][currentParam] !== isNotSearch) return `A pokemon cannot have multiple ${cat}.`;
+>>>>>>> Restart all files
 					}
 				}
 				continue;
@@ -448,7 +466,10 @@ function runDexsearch(target, cmd, canAll, message) {
 
 			if (target.substr(0, 6) === 'maxgen') {
 				maxGen = parseInt(target[6]);
+<<<<<<< HEAD
 				if (!maxGen || maxGen < 1 || maxGen > 7) return {reply: "The generation must be between 1 and 7"};
+=======
+>>>>>>> Restart all files
 				orGroup.skip = true;
 				continue;
 			}
@@ -611,8 +632,11 @@ function runDexsearch(target, cmd, canAll, message) {
 				case 'attack': stat = 'atk'; break;
 				case 'defense': stat = 'def'; break;
 				case 'specialattack': stat = 'spa'; break;
+<<<<<<< HEAD
 				case 'spc': stat = 'spa'; break;
 				case 'special': stat = 'spa'; break;
+=======
+>>>>>>> Restart all files
 				case 'spatk': stat = 'spa'; break;
 				case 'specialdefense': stat = 'spd'; break;
 				case 'spdef': stat = 'spd'; break;
@@ -636,13 +660,24 @@ function runDexsearch(target, cmd, canAll, message) {
 		}
 	}
 	if (showAll && searches.length === 0 && megaSearch === null) return {reply: "No search parameters other than 'all' were found. Try '/help dexsearch' for more information on this command."};
+<<<<<<< HEAD
 	if (!maxGen) maxGen = 7;
 	let mod = Dex.mod('gen' + maxGen);
+=======
+	let mod = Dex;
+	if (maxGen) {
+		mod = Dex.mod('gen' + maxGen);
+	}
+>>>>>>> Restart all files
 	let dex = {};
 	for (let pokemon in mod.data.Pokedex) {
 		let template = mod.getTemplate(pokemon);
 		let megaSearchResult = (megaSearch === null || (megaSearch === true && template.isMega) || (megaSearch === false && !template.isMega));
+<<<<<<< HEAD
 		if (template.gen <= maxGen && template.tier !== 'Unreleased' && template.tier !== 'Illegal' && (!template.tier.startsWith("CAP") || capSearch) && megaSearchResult) {
+=======
+		if (template.tier !== 'Unreleased' && template.tier !== 'Illegal' && (!template.tier.startsWith("CAP") || capSearch) && megaSearchResult) {
+>>>>>>> Restart all files
 			dex[pokemon] = template;
 		}
 	}
@@ -747,7 +782,11 @@ function runDexsearch(target, cmd, canAll, message) {
 
 			for (let move in alts.moves) {
 				if (!lsetData[mon]) lsetData[mon] = {fastCheck: true, set: {}};
+<<<<<<< HEAD
 				if (!TeamValidator(`gen${maxGen}ou`).checkLearnset(move, mon, lsetData[mon]) === alts.moves[move]) {
+=======
+				if (!TeamValidator('gen7ou').checkLearnset(move, mon, lsetData[mon]) === alts.moves[move]) {
+>>>>>>> Restart all files
 					matched = true;
 					break;
 				}

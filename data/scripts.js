@@ -88,6 +88,7 @@ exports.BattleScripts = {
 		this.useMove(baseMove, pokemon, target, sourceEffect, zMove);
 		this.singleEvent('AfterMove', move, null, pokemon, target, move);
 		this.runEvent('AfterMove', pokemon, target, move);
+<<<<<<< HEAD
 
 		// Dancer's activation order is completely different from any other event, so it's handled separately
 		if (move.flags['dance'] && !move.isExternal) {
@@ -109,6 +110,8 @@ exports.BattleScripts = {
 				this.runMove(baseMove.id, dancer, 0, this.getAbility('dancer'), undefined, true);
 			}
 		}
+=======
+>>>>>>> Restart all files
 		if (noLock && pokemon.volatiles.lockedmove) delete pokemon.volatiles.lockedmove;
 	},
 	/**
@@ -128,7 +131,11 @@ exports.BattleScripts = {
 			this.singleEvent('ModifyMove', move, null, pokemon, target, move, move);
 			move = this.getZMoveCopy(move, pokemon);
 			if (move.type !== 'Normal') sourceEffect = baseMove;
+<<<<<<< HEAD
 		} else if (zMove || (sourceEffect && sourceEffect.isZ && sourceEffect.id !== 'instruct')) {
+=======
+		} else if (zMove || (sourceEffect && sourceEffect.isZ)) {
+>>>>>>> Restart all files
 			move = this.getZMoveCopy(move, pokemon);
 		} else {
 			move = this.getMoveCopy(move);
@@ -334,7 +341,11 @@ exports.BattleScripts = {
 			move.ignoreImmunity = (move.category === 'Status');
 		}
 
+<<<<<<< HEAD
 		if (this.gen < 7 && move.ignoreImmunity !== true && !move.ignoreImmunity[move.type] && !target.runImmunity(move.type, true)) {
+=======
+		if (move.ignoreImmunity !== true && !move.ignoreImmunity[move.type] && !target.runImmunity(move.type, true)) {
+>>>>>>> Restart all files
 			return false;
 		}
 
@@ -344,9 +355,12 @@ exports.BattleScripts = {
 			return false;
 		}
 
+<<<<<<< HEAD
 		if (this.gen >= 7 && move.ignoreImmunity !== true && !move.ignoreImmunity[move.type] && !target.runImmunity(move.type, true)) {
 			return false;
 		}
+=======
+>>>>>>> Restart all files
 		if (move.flags['powder'] && target !== pokemon && !this.getImmunity('powder', target)) {
 			this.debug('natural powder immunity');
 			this.add('-immune', target, '[msg]');
@@ -726,7 +740,11 @@ exports.BattleScripts = {
 
 			if (!hitResult && !didSomething && !moveData.self && !moveData.selfdestruct) {
 				if (!isSelf && !isSecondary) {
+<<<<<<< HEAD
 					if (hitResult === false || didSomething === false) this.add('-fail', pokemon);
+=======
+					if (hitResult === false || didSomething === false) this.add('-fail', target);
+>>>>>>> Restart all files
 				}
 				this.debug('move failed because it did nothing');
 				return false;

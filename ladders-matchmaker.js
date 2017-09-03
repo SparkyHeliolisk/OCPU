@@ -41,10 +41,14 @@ class Search {
  */
 class Matchmaker {
 	constructor() {
+<<<<<<< HEAD
 		/**
 		 * formatid:userid:Search
 		 * @type {Map<string, Map<string, Search>>}
 		 */
+=======
+		/** @type {Map<string, Set<Search>>} */
+>>>>>>> Restart all files
 		this.searches = new Map();
 		/** @type {?NodeJS.Timer} */
 		this.periodicMatchInterval = setInterval(
@@ -54,6 +58,7 @@ class Matchmaker {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * @param {User} user
 	 * @param {string} formatid
 	 * @return {boolean}
@@ -124,6 +129,32 @@ class Matchmaker {
 		const formatTable = this.searches.get(formatid);
 		if (!formatTable) return false;
 		return formatTable.has(user.userid);
+=======
+	 * Cancels a user's search for a battle under a given format.
+	 * @param {User} user
+	 * @param {string} format
+	 * @return {boolean}
+	 */
+	cancelSearch(user, format) {
+		if (format && !user.searching[format]) return false;
+		let searchedFormats = Object.keys(user.searching);
+		if (!searchedFormats.length) return false;
+
+		for (let searchedFormat of searchedFormats) {
+			if (format && searchedFormat !== format) continue;
+			let formatSearches = this.searches.get(searchedFormat);
+			if (!formatSearches) continue;
+			for (let search of formatSearches) {
+				if (search.userid !== user.userid) continue;
+				formatSearches.delete(search);
+				delete user.searching[searchedFormat];
+				break;
+			}
+		}
+
+		user.updateSearch();
+		return true;
+>>>>>>> Restart all files
 	}
 
 	/**
@@ -164,12 +195,21 @@ class Matchmaker {
 	 * Verifies whether or not a match made between two users is valid.
 	 * @param {Search} search1
 	 * @param {Search} search2
+<<<<<<< HEAD
 	 * @param {User=} user1
 	 * @param {User=} user2
 	 * @param {string} formatid
 	 * @return {number | false | void}
 	 */
 	matchmakingOK(search1, search2, user1, user2, formatid) {
+=======
+	 * @param {?User} [user1 = null]
+	 * @param {?User} [user2 = null]
+	 * @param {string} format
+	 * @return {number | false | void}
+	 */
+	matchmakingOK(search1, search2, user1 = null, user2 = null, format) {
+>>>>>>> Restart all files
 		if (!user1 || !user2) {
 			// This should never happen.
 			return void require('./crashlogger')(new Error(`Matched user ${user1 ? search2.userid : search1.userid} not found`), "The main process");
@@ -187,8 +227,13 @@ class Matchmaker {
 		// search must be within range
 		let searchRange = 100;
 		let elapsed = Date.now() - Math.min(search1.time, search2.time);
+<<<<<<< HEAD
 		if (formatid === 'gen7ou' || formatid === 'gen7oucurrent' ||
 				formatid === 'gen7oususpecttest' || formatid === 'gen7randombattle') {
+=======
+		if (format === 'gen7ou' || format === 'gen7oucurrent' ||
+				format === 'gen7oususpecttest' || format === 'gen7randombattle') {
+>>>>>>> Restart all files
 			searchRange = 50;
 		}
 
@@ -206,6 +251,7 @@ class Matchmaker {
 	 * Atarts a search for a battle for a user under the given format.
 	 * @param {Search} newSearch
 	 * @param {User} user
+<<<<<<< HEAD
 	 * @param {string} formatid
 	 */
 	addSearch(newSearch, user, formatid) {
@@ -228,6 +274,31 @@ class Matchmaker {
 				formatTable.delete(search.userid);
 				Rooms.createBattle(formatid, {
 					p1: searcher,
+=======
+	 * @param {string} format
+	 */
+	addSearch(newSearch, user, format) {
+		// Filter racing conditions
+		if (!user.connected || user !== Users.getExact(user.userid)) return;
+		if (user.searching[format]) return;
+
+		// Prioritize players who have been searching for a match the longest.
+		let formatSearches = this.searches.get(format);
+		if (!formatSearches) {
+			formatSearches = new Set();
+			this.searches.set(format, formatSearches);
+		}
+
+		for (let search of formatSearches) {
+			let searchUser = Users.getExact(search.userid);
+			let minRating = this.matchmakingOK(search, newSearch, searchUser, user, format);
+			if (minRating) {
+				delete user.searching[format];
+				delete searchUser.searching[format];
+				formatSearches.delete(search);
+				Rooms.createBattle(format, {
+					p1: searchUser,
+>>>>>>> Restart all files
 					p1team: search.team,
 					p2: user,
 					p2team: newSearch.team,
@@ -237,7 +308,12 @@ class Matchmaker {
 			}
 		}
 
+<<<<<<< HEAD
 		formatTable.set(newSearch.userid, newSearch);
+=======
+		user.searching[format] = 1;
+		formatSearches.add(newSearch);
+>>>>>>> Restart all files
 		user.updateSearch();
 	}
 
@@ -247,6 +323,7 @@ class Matchmaker {
 	 * PERIODIC_MATCH_INTERVAL.
 	 */
 	periodicMatch() {
+<<<<<<< HEAD
 		// In order from longest waiting to shortest waiting
 		for (const [formatid, formatTable] of this.searches) {
 			let longestSearch, longestSearcher;
@@ -266,6 +343,24 @@ class Matchmaker {
 					formatTable.delete(longestSearch.userid);
 					Rooms.createBattle(formatid, {
 						p1: searcher,
+=======
+		this.searches.forEach((formatSearches, format) => {
+			if (formatSearches.size < 2) return;
+
+			// Prioritize players who have been searching for a match the longest.
+			let [longestSearch, ...searches] = formatSearches;
+			let longestSearcher = Users.getExact(longestSearch.userid);
+			for (let search of searches) {
+				let searchUser = Users.getExact(search.userid);
+				let minRating = this.matchmakingOK(search, longestSearch, searchUser, longestSearcher, format);
+				if (minRating) {
+					delete longestSearcher.searching[format];
+					delete searchUser.searching[format];
+					formatSearches.delete(search);
+					formatSearches.delete(longestSearch);
+					Rooms.createBattle(format, {
+						p1: searchUser,
+>>>>>>> Restart all files
 						p1team: search.team,
 						p2: longestSearcher,
 						p2team: longestSearch.team,
@@ -274,7 +369,11 @@ class Matchmaker {
 					return;
 				}
 			}
+<<<<<<< HEAD
 		}
+=======
+		});
+>>>>>>> Restart all files
 	}
 }
 

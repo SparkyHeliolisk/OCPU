@@ -14,7 +14,11 @@
 'use strict';
 
 const cluster = require('cluster');
+<<<<<<< HEAD
 const fs = require('fs');
+=======
+global.Config = require('./config/config');
+>>>>>>> Restart all files
 
 if (cluster.isMaster) {
 	cluster.setupMaster({
@@ -63,6 +67,7 @@ if (cluster.isMaster) {
 	};
 
 	cluster.on('exit', (worker, code, signal) => {
+<<<<<<< HEAD
 		if (code === null && signal !== null) {
 			// Worker was killed by Sockets.killWorker or Sockets.killPid, probably.
 			console.log(`Worker ${worker.id} was forcibly killed with status ${signal}.`);
@@ -93,6 +98,32 @@ if (cluster.isMaster) {
 		console.log(`${count} connections were lost.`);
 
 		// Attempt to recover.
+=======
+		if (code === null && signal === 'SIGTERM') {
+			// worker was killed by Sockets.killWorker or Sockets.killPid
+		} else {
+			// worker crashed, try our best to clean up
+			require('./crashlogger')(new Error(`Worker ${worker.id} abruptly died`), "The main process");
+
+			// this could get called during cleanup; prevent it from crashing
+			// note: overwriting Worker#send is unnecessary in Node.js v7.0.0 and above
+			// see https://github.com/nodejs/node/commit/8c53d2fe9f102944cc1889c4efcac7a86224cf0a
+			worker.send = () => {};
+
+			let count = 0;
+			Users.connections.forEach(connection => {
+				if (connection.worker === worker) {
+					Users.socketDisconnect(worker, worker.id, connection.socketid);
+					count++;
+				}
+			});
+			console.error(`${count} connections were lost.`);
+		}
+
+		// don't delete the worker, so we can investigate it if necessary.
+
+		// attempt to recover
+>>>>>>> Restart all files
 		spawnWorker();
 	});
 
@@ -134,13 +165,23 @@ if (cluster.isMaster) {
 		try {
 			worker.kill('SIGTERM');
 		} catch (e) {}
+<<<<<<< HEAD
+=======
+		workers.delete(worker.id);
+>>>>>>> Restart all files
 
 		return count;
 	};
 
 	exports.killPid = function (pid) {
+<<<<<<< HEAD
 		for (let [workerid, worker] of workers) { // eslint-disable-line no-unused-vars
 			if (pid === worker.process.pid) {
+=======
+		pid = '' + pid;
+		for (let [workerid, worker] of workers) { // eslint-disable-line no-unused-vars
+			if (pid === '' + worker.process.pid) {
+>>>>>>> Restart all files
 				return this.killWorker(worker);
 			}
 		}
@@ -179,7 +220,10 @@ if (cluster.isMaster) {
 	};
 } else {
 	// is worker
+<<<<<<< HEAD
 	global.Config = require('./config/config');
+=======
+>>>>>>> Restart all files
 
 	if (process.env.PSPORT) Config.port = +process.env.PSPORT;
 	if (process.env.PSBINDADDR) Config.bindaddress = process.env.PSBINDADDR;
@@ -217,6 +261,7 @@ if (cluster.isMaster) {
 	}
 
 	let app = require('http').createServer();
+<<<<<<< HEAD
 	let appssl = null;
 	if (Config.ssl) {
 		let key;
@@ -256,6 +301,9 @@ if (cluster.isMaster) {
 			}
 		}
 	}
+=======
+	let appssl = Config.ssl ? require('https').createServer(Config.ssl.options) : null;
+>>>>>>> Restart all files
 
 	// Static server
 	const StaticServer = require('node-static').Server;
@@ -312,7 +360,11 @@ if (cluster.isMaster) {
 	const subchannels = new Map();
 
 	// Deal with phantom connections.
+<<<<<<< HEAD
 	const sweepSocketInterval = setInterval(() => {
+=======
+	const sweepClosedSockets = () => {
+>>>>>>> Restart all files
 		sockets.forEach(socket => {
 			if (socket.protocol === 'xhr-streaming' &&
 				socket._session &&
@@ -332,7 +384,12 @@ if (cluster.isMaster) {
 				socket._session.timeout_cb();
 			}
 		});
+<<<<<<< HEAD
 	}, 1000 * 60 * 10);
+=======
+	};
+	const interval = setInterval(sweepClosedSockets, 1000 * 60 * 10); // eslint-disable-line no-unused-vars
+>>>>>>> Restart all files
 
 	process.on('message', data => {
 		// console.log('worker received: ' + data);
@@ -477,8 +534,11 @@ if (cluster.isMaster) {
 	// the process will not exit until any remaining connections have been destroyed.
 	// Afterwards, the worker process will die on its own.
 	process.once('disconnect', () => {
+<<<<<<< HEAD
 		clearInterval(sweepSocketInterval);
 
+=======
+>>>>>>> Restart all files
 		sockets.forEach(socket => {
 			try {
 				socket.destroy();
@@ -487,18 +547,24 @@ if (cluster.isMaster) {
 		sockets.clear();
 		channels.clear();
 		subchannels.clear();
+<<<<<<< HEAD
 
 		app.close();
 		if (appssl) appssl.close();
 
 		// Let the server(s) finish closing.
 		setImmediate(() => process.exit(0));
+=======
+		app.close();
+		if (appssl) appssl.close();
+>>>>>>> Restart all files
 	});
 
 	// this is global so it can be hotpatched if necessary
 	let isTrustedProxyIp = Dnsbl.checker(Config.proxyip);
 	let socketCounter = 0;
 	server.on('connection', socket => {
+<<<<<<< HEAD
 		// For reasons that are not entirely clear, SockJS sometimes triggers
 		// this event with a null `socket` argument.
 		if (!socket) return;
@@ -506,12 +572,21 @@ if (cluster.isMaster) {
 		if (!socket.remoteAddress) {
 			// SockJS sometimes fails to be able to cache the IP, port, and
 			// address from connection request headers.
+=======
+		if (!socket) {
+			// For reasons that are not entirely clear, SockJS sometimes triggers
+			// this event with a null `socket` argument.
+			return;
+		} else if (!socket.remoteAddress) {
+			// This condition occurs several times per day. It may be a SockJS bug.
+>>>>>>> Restart all files
 			try {
 				socket.destroy();
 			} catch (e) {}
 			return;
 		}
 
+<<<<<<< HEAD
 		let socketid = '' + (++socketCounter);
 		sockets.set(socketid, socket);
 
@@ -524,18 +599,38 @@ if (cluster.isMaster) {
 				let proxy = ip.trim();
 				if (!isTrustedProxyIp(proxy)) {
 					socketip = proxy;
+=======
+		let socketid = socket.id = '' + (++socketCounter);
+		sockets.set(socketid, socket);
+
+		if (isTrustedProxyIp(socket.remoteAddress)) {
+			let ips = (socket.headers['x-forwarded-for'] || '').split(',');
+			let ip;
+			while ((ip = ips.pop())) {
+				ip = ip.trim();
+				if (!isTrustedProxyIp(ip)) {
+					socket.remoteAddress = ip;
+>>>>>>> Restart all files
 					break;
 				}
 			}
 		}
 
+<<<<<<< HEAD
 		process.send(`*${socketid}\n${socketip}\n${socket.protocol}`);
+=======
+		process.send(`*${socketid}\n${socket.remoteAddress}\n${socket.protocol}`);
+>>>>>>> Restart all files
 
 		socket.on('data', message => {
 			// drop empty messages (DDoS?)
 			if (!message) return;
 			// drop messages over 100KB
+<<<<<<< HEAD
 			if (message.length > (100 * 1024)) {
+=======
+			if (message.length > 100000) {
+>>>>>>> Restart all files
 				console.log(`Dropping client message ${message.length / 1024} KB...`);
 				console.log(message.slice(0, 160));
 				return;
@@ -549,7 +644,11 @@ if (cluster.isMaster) {
 			process.send(`<${socketid}\n${message}`);
 		});
 
+<<<<<<< HEAD
 		socket.once('close', () => {
+=======
+		socket.on('close', () => {
+>>>>>>> Restart all files
 			process.send(`!${socketid}`);
 			sockets.delete(socketid);
 			channels.forEach(channel => channel.delete(socketid));

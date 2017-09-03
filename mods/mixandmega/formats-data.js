@@ -33,6 +33,13 @@ exports.BattleFormatsData = {
 		inherit: true,
 		tier: "OU",
 	},
+<<<<<<< HEAD
+=======
+	marshadow: {
+		inherit: true,
+		tier: "OU",
+	},
+>>>>>>> Restart all files
 	regigigas: {
 		inherit: true,
 		tier: "Uber",

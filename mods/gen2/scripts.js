@@ -30,7 +30,11 @@ exports.BattleScripts = {
 
 				// On Gen 2 we check modifications here from moves and items
 				let statTable = {atk:'Atk', def:'Def', spa:'SpA', spd:'SpD', spe:'Spe'};
+<<<<<<< HEAD
 				stat = this.battle.runEvent('Modify' + statTable[statName], this, null, this.activeMove, stat);
+=======
+				stat = this.battle.runEvent('Modify' + statTable[statName], this, null, null, stat);
+>>>>>>> Restart all files
 			}
 
 			if (!unmodified) {
@@ -500,6 +504,14 @@ exports.BattleScripts = {
 				this.debug('damage event failed');
 				return damage;
 			}
+<<<<<<< HEAD
+=======
+			if (target.illusion && effect && effect.effectType === 'Move') {
+				this.debug('illusion cleared');
+				target.illusion = null;
+				this.add('replace', target, target.getDetails);
+			}
+>>>>>>> Restart all files
 		}
 		if (damage !== 0) damage = this.clampIntRange(damage, 1);
 		damage = target.damage(damage, source, effect);

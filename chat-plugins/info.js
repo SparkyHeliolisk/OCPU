@@ -148,8 +148,12 @@ exports.commands = {
 		if ((user === targetUser || user.can('alts', targetUser)) && hiddenrooms) {
 			buf += `<br />Hidden rooms: ${hiddenrooms}`;
 		}
+<<<<<<< HEAD
 		const staffViewingLocked = user.can('alts', targetUser) && targetUser.locked;
 		if ((user === targetUser || user.can('makeroom') || staffViewingLocked) && privaterooms) {
+=======
+		if ((user === targetUser || user.can('makeroom')) && privaterooms) {
+>>>>>>> Restart all files
 			buf += `<br />Private rooms: ${privaterooms}`;
 		}
 
@@ -381,8 +385,11 @@ exports.commands = {
 			mod = Dex.mod(toId(sep[1]));
 		} else if (sep[1] && Dex.getFormat(sep[1]).mod) {
 			mod = Dex.mod(Dex.getFormat(sep[1]).mod);
+<<<<<<< HEAD
 		} else if (room && room.battle) {
 			mod = Dex.forFormat(room.battle.format);
+=======
+>>>>>>> Restart all files
 		}
 		let newTargets = mod.dataSearch(target);
 		let showDetails = (cmd === 'dt' || cmd === 'details');
@@ -1384,7 +1391,11 @@ exports.commands = {
 		if (totalMatches === 1) {
 			let rules = [];
 			let rulesetHtml = '';
+<<<<<<< HEAD
 			let format = Dex.getFormat(Object.values(sections)[0].formats[0]);
+=======
+			let format = Dex.getFormat(targetId);
+>>>>>>> Restart all files
 			if (format.effectType === 'ValidatorRule' || format.effectType === 'Rule' || format.effectType === 'Format') {
 				if (format.ruleset && format.ruleset.length) rules.push("<b>Ruleset</b> - " + Chat.escapeHTML(format.ruleset.join(", ")));
 				if (format.removedRules && format.removedRules.length) rules.push("<b>Removed rules</b> - " + Chat.escapeHTML(format.removedRules.join(", ")));
@@ -1396,6 +1407,10 @@ exports.commands = {
 					rulesetHtml = "No ruleset found for " + format.name;
 				}
 			}
+<<<<<<< HEAD
+=======
+			format = Dex.getFormat(Object.values(sections)[0].formats[0]);
+>>>>>>> Restart all files
 			let formatType = (format.gameType || "singles");
 			formatType = formatType.charAt(0).toUpperCase() + formatType.slice(1).toLowerCase();
 			if (!format.desc) {
@@ -1530,14 +1545,21 @@ exports.commands = {
 			return this.errorReply("Error: Room rules link is too long (must be under 100 characters). You can use a URL shortener to shorten the link.");
 		}
 
+<<<<<<< HEAD
 		target = target.trim();
 
+=======
+>>>>>>> Restart all files
 		if (target === 'delete' || target === 'remove') {
 			if (!room.rulesLink) return this.errorReply("This room does not have rules set to remove.");
 			delete room.rulesLink;
 			this.privateModCommand(`(${user.name} has removed the room rules link.)`);
 		} else {
+<<<<<<< HEAD
 			room.rulesLink = target;
+=======
+			room.rulesLink = target.trim();
+>>>>>>> Restart all files
 			this.privateModCommand(`(${user.name} changed the room rules link to: ${target})`);
 		}
 

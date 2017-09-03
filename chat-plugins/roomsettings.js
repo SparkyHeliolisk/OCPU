@@ -247,7 +247,11 @@ exports.commands = {
 			Rooms.global.writeChatRoomData();
 		}
 	},
+<<<<<<< HEAD
 	modchathelp: ["/modchat [off/autoconfirmed/+/%/@/*/player/#/&/~] - Set the level of moderated chat. Requires: * @ \u2606 for off/autoconfirmed/+ options, # & ~ for all the options"],
+=======
+	modchathelp: ["/modchat [off/autoconfirmed/+/%/@/*/#/&/~] - Set the level of moderated chat. Requires: *, @ for off/autoconfirmed/+ options, # & ~ for all the options"],
+>>>>>>> Restart all files
 
 	ioo: function (target, room, user) {
 		return this.parse('/modjoin +');
@@ -275,7 +279,10 @@ exports.commands = {
 			if (!this.can('makeroom')) return;
 		}
 		if (room.tour && !room.tour.modjoin) return this.errorReply(`You can't do this in tournaments where modjoin is prohibited.`);
+<<<<<<< HEAD
 		if (target === 'player') target = '\u2606';
+=======
+>>>>>>> Restart all files
 		if (target === 'off' || target === 'false') {
 			if (!room.modjoin) return this.errorReply(`Modjoin is already turned off in this room.`);
 			delete room.modjoin;
@@ -314,8 +321,13 @@ exports.commands = {
 		if (target === 'sync' && !room.modchat) this.parse(`/modchat ${Config.groupsranking[1]}`);
 		if (!room.isPrivate) this.parse('/hiddenroom');
 	},
+<<<<<<< HEAD
 	modjoinhelp: ["/modjoin [+|%|@|*|player|&|~|#|off] - Sets modjoin. Users lower than the specified rank can't join this room. Requires: \u2606 # & ~",
 		"/modjoin [sync|off] - Sets modjoin. Only users who can speak in modchat can join this room. Requires: \u2606 # & ~"],
+=======
+	modjoinhelp: ["/modjoin [+|%|@|*|&|~|#|off] - Sets modjoin. Users lower than the specified rank can't join this room. Requires: # & ~",
+		"/modjoin [sync|off] - Sets modjoin. Only users who can speak in modchat can join this room. Requires: # & ~"],
+>>>>>>> Restart all files
 
 	slowchat: function (target, room, user) {
 		if (!target) {
@@ -452,6 +464,7 @@ exports.commands = {
 
 			words = words.map(word => word.replace(/\n/g, '').trim());
 
+<<<<<<< HEAD
 			let banwordRegexLen = (room.banwordRegex instanceof RegExp) ? room.banwordRegex.source.length : 30;
 			for (let word of words) {
 				if (/[\\^$*+?()|{}[\]]/.test(word)) {
@@ -471,6 +484,21 @@ exports.commands = {
 				// the server on compile. In this case, that would happen each
 				// time a chat message gets tested for any banned phrases.
 				if (banwordRegexLen >= (1 << 16 - 1)) return this.errorReply("This room has too many banned phrases to add the ones given.");
+=======
+			for (let i = 0; i < words.length; i++) {
+				if (/[\\^$*+?()|{}[\]]/.test(words[i])) {
+					if (!user.can('makeroom')) return this.errorReply("Regex banwords are only allowed for leaders or above.");
+
+					try {
+						let test = new RegExp(words[i]); // eslint-disable-line no-unused-vars
+					} catch (e) {
+						return this.errorReply(e.message.substr(0, 28) === 'Invalid regular expression: ' ? e.message : `Invalid regular expression: /${words[i]}/: ${e.message}`);
+					}
+				}
+				if (room.banwords.indexOf(words[i]) > -1) {
+					return this.errorReply(`${words[i]} is already a banned phrase.`);
+				}
+>>>>>>> Restart all files
 			}
 
 			room.banwords = room.banwords.concat(words);
@@ -500,8 +528,15 @@ exports.commands = {
 
 			words = words.map(word => word.replace(/\n/g, '').trim());
 
+<<<<<<< HEAD
 			for (let word of words) {
 				if (!room.banwords.includes(word)) return this.errorReply(`${word} is not a banned phrase in this room.`);
+=======
+			for (let i = 0; i < words.length; i++) {
+				let index = room.banwords.indexOf(words[i]);
+
+				if (index < 0) return this.errorReply(`${words[i]} is not a banned phrase in this room.`);
+>>>>>>> Restart all files
 			}
 
 			room.banwords = room.banwords.filter(w => !words.includes(w));

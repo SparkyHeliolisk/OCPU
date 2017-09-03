@@ -4,7 +4,10 @@
 /node_modules
 /eslint-cache
 /chat-plugins/private.js
+<<<<<<< HEAD
 /chat-plugins/*-private.js
+=======
+>>>>>>> Restart all files
 npm-debug.log
 .eslintcache
 

@@ -78,7 +78,11 @@ class Ladder {
 			format: formatid,
 		}, (data, statusCode, error) => {
 			if (!room.battle) {
+<<<<<<< HEAD
 				Monitor.warn(`room expired before ladder update was received`);
+=======
+				console.log(`room expired before ladder update was received`);
+>>>>>>> Restart all files
 				return;
 			}
 			if (!data) {

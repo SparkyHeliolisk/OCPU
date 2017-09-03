@@ -2,12 +2,23 @@
 
 exports.BattleAliases = {
 	// formats
+<<<<<<< HEAD
 	"randbats": "[Gen 7] Random Battle",
 	"uber": "[Gen 7] Ubers",
 	"ag": "[Gen 7] Anything Goes",
 	"randdubs": "[Gen 7] Random Doubles Battle",
 	"doubles": "[Gen 7] Doubles OU",
 	"dou": "[Gen 7] Doubles OU",
+=======
+	"randombattle": "[Gen 7] Random Battle",
+	"randbats": "[Gen 7] Random Battle",
+	"ag": "[Gen 7] Anything Goes",
+	"randomdoublesbattle": "[Gen 7] Random Doubles Battle",
+	"randdubs": "[Gen 7] Random Doubles Battle",
+	"doubles": "[Gen 7] Doubles OU",
+	"dou": "[Gen 7] Doubles OU",
+	"vgc2017": "[Gen 7] VGC 2017",
+>>>>>>> Restart all files
 	"vgc17": "[Gen 7] VGC 2017",
 	"vgc": "[Gen 7] VGC 2017",
 	"bss": "[Gen 7] Battle Spot Singles",
@@ -15,6 +26,7 @@ exports.BattleAliases = {
 	"bsdoubles": "[Gen 7] Battle Spot Doubles",
 	"bstriples": "[Gen 6] Battle Spot Triples",
 	"bssf": "[Gen 7] BSS Factory",
+<<<<<<< HEAD
 	"bh": "[Gen 7] Balanced Hackmons",
 	"mnm": "[Gen 7] Mix and Mega",
 	"aaa": "[Gen 7] Almost Any Ability",
@@ -25,6 +37,30 @@ exports.BattleAliases = {
 	"monorandom": "[Gen 7] Monotype Random Battle",
 	"bf": "[Gen 6] Battle Factory",
 	"gen6inverse": "[Gen 6] Inverse Battle",
+=======
+	"balancedhackmons": "[Gen 7] Balanced Hackmons",
+	"bh": "[Gen 7] Balanced Hackmons",
+	"1v1": "[Gen 7] 1v1",
+	"monotype": "[Gen 7] Monotype",
+	"mixandmega": "[Gen 7] Mix and Mega",
+	"mnm": "[Gen 7] Mix and Mega",
+	"aaa": "[Gen 7] Almost Any Ability",
+	"almostanyability": "[Gen 7] Almost Any Ability",
+	"sketchmons": "[Gen 7] Sketchmons",
+	"hiddentype": "[Gen 7] Hidden Type",
+	"ht": "[Gen 7] Hidden Type",
+	"2v2": "[Gen 7] 2v2 Doubles",
+	"theorymon": "[Gen 6] OU Theorymon",
+	"challengecup1v1": "[Gen 7] Challenge Cup 1v1",
+	"cc1v1": "[Gen 7] Challenge Cup 1v1",
+	"hackmonscup": "[Gen 7] Hackmons Cup",
+	"hc": "[Gen 7] Hackmons Cup",
+	"monotyperandombattle": "[Gen 7] Monotype Random Battle",
+	"monorandom": "[Gen 7] Monotype Random Battle",
+	"bf": "[Gen 6] Battle Factory",
+	"gen6inverse": "[Gen 6] Inverse Battle",
+	"uber": "[Gen 7] Ubers",
+>>>>>>> Restart all files
 
 	// mega evos
 	"fabio": "Ampharos-Mega",
@@ -239,7 +275,10 @@ exports.BattleAliases = {
 	"floetteeternalflower": "Floette-Eternal",
 	"ashgreninja": "Greninja-Ash",
 	"zydog": "Zygarde-10%",
+<<<<<<< HEAD
 	"zydoge": "Zygarde-10%",
+=======
+>>>>>>> Restart all files
 	"zygardedog": "Zygarde-10%",
 	"zygarde50": "Zygarde",
 	"zyc": "Zygarde-Complete",
@@ -478,11 +517,17 @@ exports.BattleAliases = {
 
 	// pokemon
 	"aboma": "Abomasnow",
+<<<<<<< HEAD
+=======
+	"arc": "Arceus",
+	"arceusnormal": "Arceus",
+>>>>>>> Restart all files
 	"aegi": "Aegislash",
 	"aegiblade": "Aegislash-Blade",
 	"aegis": "Aegislash",
 	"aero": "Aerodactyl",
 	"amph": "Ampharos",
+<<<<<<< HEAD
 	"arc": "Arceus",
 	"arceusnormal": "Arceus",
 	"ashgren": "Greninja-Ash",
@@ -495,6 +540,16 @@ exports.BattleAliases = {
 	"camel": "Camerupt",
 	"cathy": "Trevenant",
 	"chandy": "Chandelure",
+=======
+	"ashgren": "Greninja-Ash",
+	"azu": "Azumarill",
+	"bliss": "Blissey",
+	"birdjesus": "Pidgeot",
+	"bee": "Beedrill",
+	"bdrill": "Beedrill",
+	"bulu": "Tapu Bulu",
+	"cathy": "Trevenant",
+>>>>>>> Restart all files
 	"chomp": "Garchomp",
 	"clef": "Clefable",
 	"coba": "Cobalion",
@@ -503,10 +558,16 @@ exports.BattleAliases = {
 	"cress": "Cresselia",
 	"cube": "Kyurem-Black",
 	"cune": "Suicune",
+<<<<<<< HEAD
 	"darm": "Darmanitan",
 	"dnite": "Dragonite",
 	"dogars": "Koffing",
 	"don": "Groudon",
+=======
+	"dnite": "Dragonite",
+	"don": "Groudon",
+	"dogars": "Koffing",
+>>>>>>> Restart all files
 	"drill": "Excadrill",
 	"driller": "Excadrill",
 	"dug": "Dugtrio",
@@ -520,7 +581,10 @@ exports.BattleAliases = {
 	"gar": "Gengar",
 	"garde": "Gardevoir",
 	"gatr": "Feraligatr",
+<<<<<<< HEAD
 	"gene": "Genesect",
+=======
+>>>>>>> Restart all files
 	"gira": "Giratina",
 	"gren": "Greninja",
 	"gross": "Metagross",
@@ -544,17 +608,26 @@ exports.BattleAliases = {
 	"linda": "Fletchinder",
 	"luke":  "Lucario",
 	"lurk": "Golurk",
+<<<<<<< HEAD
 	"mage": "Magearna",
 	"mamo": "Mamoswine",
 	"mandi": "Mandibuzz",
 	"mence": "Salamence",
 	"milo": "Milotic",
 	"morfentshusbando": "Gengar",
+=======
+	"mamo": "Mamoswine",
+	"mage": "Magearna",
+	"mandi": "Mandibuzz",
+	"mence": "Salamence",
+	"milo": "Milotic",
+>>>>>>> Restart all files
 	"nape": "Infernape",
 	"nebby": "Cosmog",
 	"obama": "Abomasnow",
 	"ogre": "Kyogre",
 	"ohmagod": "Plasmanta",
+<<<<<<< HEAD
 	"p2": "Porygon2",
 	"pert": "Swampert",
 	"pex": "Toxapex",
@@ -569,6 +642,20 @@ exports.BattleAliases = {
 	"rank": "Reuniclus",
 	"ray": "Rayquaza",
 	"reuni": "Reuniclus",
+=======
+	"pert": "Swampert",
+	"p2": "Porygon2",
+	"phero": "Pheromosa",
+	"pika": "Pikachu",
+	"pory2": "Porygon2",
+	"pz": "Porygon-Z",
+	"poryz": "Porygon-Z",
+	"pyuku": "Pyukumuku",
+	"queen": "Nidoqueen",
+	"rank": "Reuniclus",
+	"rachi": "Jirachi",
+	"ray": "Rayquaza",
+>>>>>>> Restart all files
 	"sab": "Sableye",
 	"sable": "Sableye",
 	"scept": "Sceptile",
@@ -583,11 +670,18 @@ exports.BattleAliases = {
 	"tang": "Tangrowth",
 	"terra": "Terrakion",
 	"tflame": "Talonflame",
+<<<<<<< HEAD
 	"thundy": "Thundurus",
 	"toed": "Politoed",
 	"torn": "Tornadus",
 	"tran": "Heatran",
 	"ttar": "Tyranitar",
+=======
+	"torn": "Tornadus",
+	"tran": "Heatran",
+	"ttar": "Tyranitar",
+	"thundy": "Thundurus",
+>>>>>>> Restart all files
 	"venu": "Venusaur",
 	"viriz": "Virizion",
 	"whimsi": "Whimsicott",

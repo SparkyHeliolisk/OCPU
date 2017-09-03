@@ -127,9 +127,15 @@ class ProcessManager {
 	 */
 	acquire() {
 		let process = this.processes[0];
+<<<<<<< HEAD
 		for (const curProcess of this.processes) {
 			if (curProcess.load < process.load) {
 				process = curProcess;
+=======
+		for (let i = 1; i < this.processes.length; i++) {
+			if (this.processes[i].load < process.load) {
+				process = this.processes[i];
+>>>>>>> Restart all files
 			}
 		}
 		return process;

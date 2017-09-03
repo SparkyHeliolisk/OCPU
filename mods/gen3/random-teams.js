@@ -385,6 +385,7 @@ class RandomGen3Teams extends RandomGen4Teams {
 			item = 'Stick';
 		} else if (template.species === 'Marowak') {
 			item = 'Thick Club';
+<<<<<<< HEAD
 		} else if (template.species === 'Shedinja') {
 			item = 'Lum Berry';
 		} else if (template.species === 'Slaking') {
@@ -395,10 +396,27 @@ class RandomGen3Teams extends RandomGen4Teams {
 			item = 'Choice Band';
 		} else if (hasMove['bellydrum']) {
 			item = 'Salac Berry';
+=======
+		} else if (template.species === 'Pikachu') {
+			item = 'Light Ball';
+		} else if (template.species === 'Shedinja') {
+			item = 'Lum Berry';
+		} else if (template.species === 'Unown') {
+			item = 'Twisted Spoon';
+		} else if (template.species === 'Wobbuffet') {
+			item = ['Leftovers', 'Sitrus Berry'][this.random(2)];
+		} else if (template.species === 'Slaking') {
+			item = 'Choice Band';
+		} else if (hasMove['trick']) {
+			item = 'Choice Band';
+		} else if (hasMove['bellydrum']) {
+			item = 'Sitrus Berry';
+>>>>>>> Restart all files
 		} else if (hasMove['rest'] && !hasMove['sleeptalk'] && ability !== 'Natural Cure' && ability !== 'Shed Skin') {
 			item = 'Chesto Berry';
 
 		// Medium priority
+<<<<<<< HEAD
 		} else if (hasMove['leechseed']) {
 			item = 'Leftovers';
 		} else if (hasMove['endeavor'] || hasMove['flail'] || hasMove['reversal'] || hasMove['endure'] ||
@@ -406,12 +424,27 @@ class RandomGen3Teams extends RandomGen4Teams {
 			if (template.baseStats.spe <= 90 && !counter['speedsetup']) {
 				item = 'Salac Berry';
 			} else if (counter.Physical >= counter.Special) {
+=======
+		} else if (hasMove['endeavor'] || hasMove['flail'] || hasMove['reversal'] || hasMove['endure']) {
+			if (template.baseStats.spe < 108) {
+				item = 'Salac Berry';
+			} else if (counter.Physical > counter.Special) {
+>>>>>>> Restart all files
 				item = 'Liechi Berry';
 			} else {
 				item = 'Petaya Berry';
 			}
+<<<<<<< HEAD
 		} else if ((counter.Physical >= 4 || counter.Physical >= 3 && counter.Special === 1 && this.random(2)) && !hasMove['bodyslam'] && !hasMove['fakeout'] && !hasMove['rapidspin']) {
 			item = 'Choice Band';
+=======
+		} else if (counter.Physical >= 4 && !hasMove['bodyslam'] && !hasMove['fakeout'] && !hasMove['rapidspin']) {
+			item = 'Choice Band';
+		} else if (counter.Special >= 4 || (counter.Special >= 3 && hasMove['batonpass'])) {
+			item = template.baseStats.spe >= 60 && template.baseStats.spe <= 108 && ability !== 'Speed Boost' && !counter['priority'] && this.random(3) ? 'Salac Berry' : 'Petaya Berry';
+		} else if (hasMove['outrage'] && counter.setupType) {
+			item = 'Lum Berry';
+>>>>>>> Restart all files
 		} else if (hasMove['curse'] || hasMove['protect'] || hasMove['sleeptalk'] || hasMove['substitute']) {
 			item = 'Leftovers';
 		// This is the "REALLY can't think of a good item" cutoff
@@ -434,15 +467,38 @@ class RandomGen3Teams extends RandomGen4Teams {
 
 		// Prepare optimal HP
 		let hp = Math.floor(Math.floor(2 * template.baseStats.hp + ivs.hp + Math.floor(evs.hp / 4) + 100) * level / 100 + 10);
+<<<<<<< HEAD
 		if (hasMove['substitute'] && (hasMove['endeavor'] || hasMove['flail'] || hasMove['reversal'])) {
 			// Endeavor/Flail/Reversal users should be able to use four Substitutes
 			if (hp % 4 === 0) evs.hp -= 4;
 		} else if (hasMove['substitute'] && (item === 'Salac Berry' || item === 'Petaya Berry' || item === 'Liechi Berry')) {
 			// Other pinch berry holders should have berries activate after three Substitutes
+=======
+		if (hasMove['substitute'] && item === 'Sitrus Berry') {
+			// Two Substitutes should activate Sitrus Berry
+>>>>>>> Restart all files
 			while (hp % 4 > 0) {
 				evs.hp -= 4;
 				hp = Math.floor(Math.floor(2 * template.baseStats.hp + ivs.hp + Math.floor(evs.hp / 4) + 100) * level / 100 + 10);
 			}
+<<<<<<< HEAD
+=======
+		} else if (hasMove['bellydrum'] && item === 'Sitrus Berry') {
+			// Belly Drum should activate Sitrus Berry
+			if (hp % 2 > 0) evs.hp -= 4;
+		} else if (hasMove['substitute'] && hasMove['reversal']) {
+			// Reversal users should be able to use four Substitutes
+			if (hp % 4 === 0) evs.hp -= 4;
+		} else if (item === 'Salac Berry' || item === 'Petaya Berry' || item === 'Liechi Berry') {
+			if (hasMove['flail'] || hasMove['reversal']) {
+				while (hp % 4 !== 1) {
+					evs.hp -= 4;
+					hp = Math.floor(Math.floor(2 * template.baseStats.hp + ivs.hp + Math.floor(evs.hp / 4) + 100) * level / 100 + 10);
+				}
+			} else {
+				if (hp % 4 === 0) evs.hp -= 4;
+			}
+>>>>>>> Restart all files
 		}
 
 		// Minimize confusion damage

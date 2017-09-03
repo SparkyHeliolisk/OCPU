@@ -65,12 +65,19 @@ exports.BattleMovedex = {
 	beatup: {
 		inherit: true,
 		basePower: 10,
+<<<<<<< HEAD
 		basePowerCallback: function (pokemon, target, move) {
 			if (!move.allies.length) return null;
+=======
+		basePowerCallback: function (pokemon, target) {
+			pokemon.addVolatile('beatup');
+			if (!pokemon.side.pokemon[pokemon.volatiles.beatup.index]) return null;
+>>>>>>> Restart all files
 			return 10;
 		},
 		desc: "Deals typeless damage. Hits one time for the user and one time for each unfainted Pokemon without a major status condition in the user's party. For each hit, the damage formula uses the participating Pokemon's base Attack as the Attack stat, the target's base Defense as the Defense stat, and ignores stat stages and other effects that modify Attack or Defense; each hit is considered to come from the user.",
 		onModifyMove: function (move, pokemon) {
+<<<<<<< HEAD
 			pokemon.addVolatile('beatup');
 			move.type = '???';
 			move.category = 'Physical';
@@ -84,6 +91,36 @@ exports.BattleMovedex = {
 				this.add('-activate', pokemon, 'move: Beat Up', '[of] ' + move.allies[0].name);
 				this.event.modifier = 1;
 				return move.allies.shift().template.baseStats.atk;
+=======
+			move.type = '???';
+			move.category = 'Physical';
+		},
+		effect: {
+			duration: 1,
+			onStart: function (pokemon) {
+				let index = 0;
+				let team = pokemon.side.pokemon;
+				while (!team[index] || team[index].fainted || team[index].status) {
+					index++;
+					if (index >= team.length) break;
+				}
+				this.effectData.index = index;
+			},
+			onRestart: function (pokemon) {
+				let index = this.effectData.index;
+				let team = pokemon.side.pokemon;
+				do {
+					index++;
+					if (index >= team.length) break;
+				} while (!team[index] || team[index].fainted || team[index].status);
+				this.effectData.index = index;
+			},
+			onModifyAtkPriority: -101,
+			onModifyAtk: function (atk, pokemon) {
+				this.add('-activate', pokemon, 'move: Beat Up', '[of] ' + pokemon.side.pokemon[this.effectData.index].name);
+				this.event.modifier = 1;
+				return pokemon.side.pokemon[this.effectData.index].template.baseStats.atk;
+>>>>>>> Restart all files
 			},
 			onFoeModifyDefPriority: -101,
 			onFoeModifyDef: function (def, pokemon) {
