@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Pokémon Showdown
 ========================================================================
 
@@ -180,3 +181,6 @@ Contributors
 Special thanks
 
 - See http://pokemonshowdown.com/credits
+=======
+# OCPU
+>>>>>>> Initial commit
