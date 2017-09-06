@@ -1,6 +1,6 @@
 'use strict'
 
-/*Custom format script originally made for ocpu.psim.us*/
+/*Custom format script made for ocpu.psim.us*/
 
 exports.BattlePokedex = {
 	moltres: {
@@ -46,14 +46,17 @@ exports.BattlePokedex = {
 	lugia: {
 		inherit: true,
 		types: ['Poison', 'Ice'],
+		baseStats: {hp: 112, atk: 109, def: 117, spa: 73, spd: 119, spe: 99}, //Best: ...
 	},
 	hooh: {
 		inherit: true,
 		types: ['Fighting', 'Psychic'],
+		baseStats: {hp: 36, atk: 82, def: 52, spa: 46, spd: 17, spe: 66}, //Best: ...
 	},
 	celebi: {
 		inherit: true,
 		types: ['Bug', 'Electric'],
+		baseStats: {hp: 23, atk: 94, def: 1, spa: 54, spd: 89, spe: 12}, //Best: ...
 	},
 	regirock: {
 		inherit: true,
