@@ -4,7 +4,7 @@ exports.commands = {
 	'bas': 'battlealertstaff',
 	battlealertstaff: function (target, room, user) {
 		if (!room.battle) return this.errorReply("This command MUST be used in a battle.");
-		if(!this.can('nooverride')) return this.errorReply("You cannot use this command!");
+		if(!this.can('nooverride', null, room)) return this.errorReply("You cannot use this command!");
 		if (!target) return this.errorReply("This command requires a target.");
 		if (!target === 'Ruling'|| !target === 'Hacker' || !target === 'Time-staller') {
 			return this.errorReply("That is not a correct reason. Vaild reasons are: Ruling, Hacker, or Time-stalling.");
@@ -29,7 +29,7 @@ exports.commands = {
 		if (this.targetUsername === user.name) return this.errorReply("You cannot report yourself!");
 		if (!targetUser) return this.errorReply("User '" + this.targetUsername + "' not found.");
 		
-		this.sendReply("If this report is false, you will be locked.");
+		this.popupReply("If this report is false, you will be locked by a staff member.");
 		
 		OCPU.pmStaff(user.name + " needs help with the user " + this.targetUsername + " for " + target + ". All actions taken against either of these users must first be authorized with a global & or ~.");
 		OCPU.pmUpperStaff(user.name + " has sent in a report. Please check the other automated message to check who it is.");
