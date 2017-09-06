@@ -690,7 +690,7 @@ exports.commands = {
 	pmall: function (target, room, user) {
 		if (!target) return this.parse('/pmall [message] - Sends a PM to every user in a room.');
 		if (!this.can('pban')) return false;
-		pmAll(target);
+		OCPU.pmAll(target);
 		Rooms('staff').add("(" + Chat.escapeHTML(user.name) + " has PMed all: " + Chat.escapeHTML(target).replace("&apos;", "'") + ")").update();
 	},
 	credit: 'credits',
