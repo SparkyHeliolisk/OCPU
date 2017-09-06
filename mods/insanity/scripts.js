@@ -1,6 +1,6 @@
 'use strict';
 
-/*Original Custom Script originally made for ocpu.psim.us*/
+/*Original Custom Script made for ocpu.psim.us*/
 
 exports.BattleScripts = {
 	inherit: 'gen6',
