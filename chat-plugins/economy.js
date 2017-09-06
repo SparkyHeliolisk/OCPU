@@ -34,10 +34,10 @@ exports.commands = {
 				shopTable("Custom", "Buys a custom avatar to be applied to your name (you supply)", prices['custom']) +
 				shopTable("Animated", "Buys an animated avatar to be applied to your name (you supply)", prices['animated']) +
 				shopTable("Room", "Buys a public unofficial chat room - will be deleted if inactive. Must have a valid purpose; staff can reject making these.", prices['room']) +
-				shopTable("Trainer", "Gives you a custom command - you provide the HTML and command name.", prices['trainer']) +
+				//shopTable("Trainer", "Gives you a custom command - you provide the HTML and command name.", prices['trainer']) +
 				// shopTable("Mystery Box", "Gives you a special surprise gift when you open it! (Could be good or bad!)", prices['pack']) +
-				shopTable("Emote", "A custom chat emoticon such as \"Kappa\" - must be 30x30", prices['emote']) +
-				shopTable("Color", "This gives your username a custom color on the userlist and in all rooms (existing at time of purchase)", prices['color']) +
+				//shopTable("Emote", "A custom chat emoticon such as \"Kappa\" - must be 30x30", prices['emote']) +
+				//shopTable("Color", "This gives your username a custom color on the userlist and in all rooms (existing at time of purchase)", prices['color']) +
 				shopTable("Icon", "This gives your username a custom userlist icon on our regular client - MUST be a Pokemon and has to be 32x32.", prices['icon']) +
 				shopTable("VIP Status", "Gives you the ability to change your custom symbol, avatar, custom color, and userlist icon as much as you wish, and it is also displayed in your profile.", prices['vip']) +
 				bottom
@@ -502,14 +502,14 @@ function updatePrices() {
 		'symbol': 10, //Math.round(avg * 0.035),
 		// 'declare': Math.round(avg * 0.19),
 		'fix': 5, //Math.round(avg * 0.2),
-		'custom': Math.round(avg * 0.55),
-		'animated': Math.round(avg * 0.65),
+		'custom': 15, //Math.round(avg * 0.55),
+		'animated': 30, //Math.round(avg * 0.65),
 		'room': 100, //Math.round(avg * 0.53),
-		'trainer': Math.round(avg * 0.4),
-		'emote': Math.round(avg * 2.5),
-		'color': Math.round(avg * 4.5),
-		'icon': Math.round(avg * 4.5),
-		'pack': Math.round(avg * 1),
+		//'trainer': Math.round(avg * 0.4),
+		//'emote': Math.round(avg * 2.5),
+		//'color': Math.round(avg * 4.5),
+		'icon': 40, //Math.round(avg * 4.5),
+		//'pack': Math.round(avg * 1),
 		'vip': 750 //Math.round(avg * 25),
 	};
 }
