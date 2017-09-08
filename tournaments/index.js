@@ -911,9 +911,6 @@ class Tournament {
 		for (let i in this.players) {
 			this.players[i].destroy();
 		}
-		if (Config.ratedtours) {
-			Config.ratedtours = false;
-		}
 	}
 }
 
@@ -1114,7 +1111,6 @@ let commands = {
 			if (deleteTournament(tournament.room.id, this)) {
 				this.privateModCommand("(" + user.name + " forcibly ended a tournament.)");
 			}
-			Config.ratedtours = false;
 		},
 		ruleset: 'customrules',
 		banlist: 'customrules',
@@ -1458,12 +1454,6 @@ Chat.commands.tournament = function (paramString, room, user, connection) {
 				let tourRoom = Rooms.search(Config.tourroom || 'tournaments');
 				if (tourRoom && tourRoom !== room) tourRoom.addRaw('<div class="infobox"><a href="/' + room.id + '" class="ilink"><strong>' + Chat.escapeHTML(Dex.getFormat(tour.format).name) + '</strong> tournament created in <strong>' + Chat.escapeHTML(room.title) + '</strong>.</a></div>').update();
 			}
-		}
-		
-		if(room.id == 'tournaments') {
-			if(!this.can('tournamentsmoderation', null, room)) return;
-			//OCPU.pmAll("This tournament is official and will have a bucks award for the winner and runner-up depending on how much users there are.");
-			Config.ratedtours = true;
 		}
 	} else {
 		let tournament = getTournament(room.id);
