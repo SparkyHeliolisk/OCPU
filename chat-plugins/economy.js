@@ -97,7 +97,7 @@ exports.commands = {
 			if (!~filepaths.indexOf(parts[1].substr(-4))) return this.errorReply("Your image for a regular custom avatar must be either a PNG or JPG. (If it is a valid file type, it will end in one of these)");
 			processPurchase(price, parts[0], 'Image: ' + parts[1]);
 			if (Config.customavatars[user.userid]) output = ' | <button name="send" value="/sca delete, ' + user.userid + '" target="_blank" title="Click this to remove current avatar.">Click2Remove</button>';
-			alertStaff(OCPU.nameColor(user.name, true) + ' has purchased a custom avatar. Image: ' + link(parts[1].replace(' ', ''), 'desired avatar'), true);
+			alertStaff(nameColor(user.name, true) + ' has purchased a custom avatar. Image: ' + link(parts[1].replace(' ', ''), 'desired avatar'), true);
 			alertStaff('<center><img src="' + parts[1] + '" width="80" height="80"><br /><button name="send" value="/sca set, ' + toId(user.name) + ', ' + parts[1] + '" target="_blank" title="Click this to set the above custom avatar.">Click2Set</button> ' + output + '</center>', false);
 			this.sendReply("You have bought a custom avatar from the shop.  The staff have been notified and will set it ASAP.");
 			break;
@@ -110,7 +110,7 @@ exports.commands = {
 			if (!parts[1]) return this.errorReply("Usage: /buy color, [hex code OR name of an alt you want the color of]");
 			if (parts[1].length > 20) return this.errorReply("This is not a valid color, try again.");
 			processPurchase(price, parts[0], parts[1]);
-			alertStaff(OCPU.nameColor(user.name, true) + ' has purchased a custom color. Color: ' + parts[1], true);
+			alertStaff(nameColor(user.name, true) + ' has purchased a custom color. Color: ' + parts[1], true);
 			this.sendReply("You have purchased a custom color: " + parts[1] + " from the shop.  Please screen capture this in case the staff do not get this message.");
 			break;
 
@@ -123,7 +123,7 @@ exports.commands = {
 			if (!~emoteFilepaths.indexOf(parts[2].substr(-4))) return this.errorReply("Emoticons must be in one of the following formats: PNG, JPG, or GIF.");
 			if (OCPU.emoticons.chatEmotes[parts[1].replace(' ', '')]) return this.errorReply("An emoticon with this trigger word already exists on this server.");
 			processPurchase(price, parts[0], 'Emote: ' + parts[1] + ' Link: ' + parts[2]);
-			alertStaff(OCPU.nameColor(user.name, true) + " has purchased a custom emote. Emote \"" + parts[1].trim() + "\": " + link(parts[2].replace(' ', ''), 'desired emote'), true);
+			alertStaff(nameColor(user.name, true) + " has purchased a custom emote. Emote \"" + parts[1].trim() + "\": " + link(parts[2].replace(' ', ''), 'desired emote'), true);
 			alertStaff('<center><img title=' + parts[1] + ' src=' + parts[2] + '><br /><button name="send" value="/emote add, ' + parts[1] + ', ' + parts[2] + '" target="_blank" title="Click to add the emoticon above.">Click2Add</button></center>', false);
 			this.sendReply("You have bought a custom emoticon from the shop.  The staff have been notified and will add it ASAP.");
 			break;
@@ -136,7 +136,7 @@ exports.commands = {
 			if (parts[1].split('.').pop() !== 'gif') return this.errorReply("Your animated avatar must be a GIF. (If it's a GIF, the link will end in .gif)");
 			processPurchase(price, parts[0], 'Image: ' + parts[1]);
 			if (Config.customavatars[user.userid]) output = ' | <button name="send" value="/sca delete, ' + user.userid + '" target="_blank" title="Click this to remove current avatar.">Click2Remove</button>';
-			alertStaff(OCPU.nameColor(user.name, true) + ' has purchased a custom animated avatar. Image: ' + link(parts[1].replace(' ', ''), 'desired avatar'), true);
+			alertStaff(nameColor(user.name, true) + ' has purchased a custom animated avatar. Image: ' + link(parts[1].replace(' ', ''), 'desired avatar'), true);
 			alertStaff('<center><img src="' + parts[1] + '" width="80" height="80"><br /><button name="send" value="/sca set, ' + toId(user.name) + ', ' + parts[1] + '" target="_blank" title="Click this to set the above custom avatar.">Click2Set</button> ' + output + '</center>', false);
 			this.sendReply("You have purchased a custom animated avatar.  The staff have been notified and will add it ASAP.");
 			break;
@@ -149,7 +149,7 @@ exports.commands = {
 			let bannedRoomNames = [',', '|', '[', '-'];
 			if (~bannedRoomNames.indexOf(parts[1])) return this.errorReply("This room name is not valid, try again.");
 			processPurchase(price, parts[0], 'Room name: ' + parts[1]);
-			alertStaff(OCPU.nameColor(user.name, true) + ' has purchased a chat room.  Room name: ' + parts[1], true);
+			alertStaff(nameColor(user.name, true) + ' has purchased a chat room.  Room name: ' + parts[1], true);
 			this.sendReply("You have purchased a room.  The staff have been notified and it will be created shortly as long as it meets our basic rules.");
 			break;
 
@@ -158,7 +158,7 @@ exports.commands = {
 			price = prices['trainer'];
 			if (!moneyCheck(price)) return this.errorReply("You do not have enough bucks for this item at this time, sorry.");
 			processPurchase(price, parts[0]);
-			alertStaff(OCPU.nameColor(user.name, true) + ' has purchased a trainer card.', true);
+			alertStaff(nameColor(user.name, true) + ' has purchased a trainer card.', true);
 			this.sendReply("|html|You have purchased a trainer card.  Please use <a href=http://OCPUservers.info/site/trainercard.html>this</a> to make your trainer card and then PM a leader or administrator the HTML with the command name you want it to have.");
 			break;
 
@@ -168,7 +168,7 @@ exports.commands = {
 			if (!moneyCheck(price)) return this.errorReply("You do not have enough bucks for this item at this time, sorry.");
 			if (!OCPU.createMusicBox(user)) return this.errorReply("You already have a music box! There's no need to buy another.");
 			processPurchase(price, parts[0]);
-			alertStaff(OCPU.nameColor(user.name, true) + ' has purchased a music box.', true);
+			alertStaff(nameColor(user.name, true) + ' has purchased a music box.', true);
 			OCPU.createMusicBox(user); // give the user a music box
 			this.parse('/' + toId(parts[0]) + ' help');
 			this.sendReply("You have purchased a music box. You may have a maximum of 8 songs in it.");
@@ -179,7 +179,7 @@ exports.commands = {
 			if (OCPU.hasVip(user.userid)) price = 0;
 			if (!moneyCheck(price)) return this.errorReply("You do not have enough bucks for this item at this time, sorry.");
 			processPurchase(price, parts[0]);
-			alertStaff(OCPU.nameColor(user.name, true) + ' has purchased a fix from the shop.', true);
+			alertStaff(nameColor(user.name, true) + ' has purchased a fix from the shop.', true);
 			user.canFixItem = true;
 			this.sendReply("You have purchased a fix from the shop.  You can use this to alter your trainer card, music box, or custom chat emoticon.  PM a leader or administrator to proceed.");
 			break;
@@ -377,7 +377,7 @@ exports.commands = {
 		OCPU.updateMoney(targetUser, Number(amount));
 
 		//log the transaction
-		let amountLbl = amount + " OCPU buck" + OCPU.pluralFormat(amount, 's');
+		let amountLbl = amount + " OCPU buck" + pluralFormat(amount, 's');
 		logTransaction(user.name + " has transfered " + amountLbl + " to " + targetUser);
 
 		//send return messages
@@ -402,7 +402,7 @@ exports.commands = {
 		if (!this.runBroadcast()) return;
 		if (!target) target = user.name;
 		let output = "<u>OCPU Wallet:</u><br />", bucks = OCPU.readMoney(target);
-		output += /*OCPU.nameColor(target, true) + */' ' + (bucks === 0 ? "does not have any OCPU bucks." : user.name + " has " + bucks + " OCPU bucks");
+		output += nameColor(target, true) + ' ' + (bucks === 0 ? "does not have any OCPU bucks." : /*nameColor(target, true) + */" has " + bucks + " OCPU bucks");
 		return this.sendReplyBox(output);
 	},
 
