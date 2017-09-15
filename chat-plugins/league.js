@@ -10,7 +10,7 @@
 
 'use strict';
 
-const fs = require('fs');
+const FS = require('fs');
 const Autolinker = require('autolinker');
 const url = require('url');
 const http = require('http');
@@ -23,20 +23,20 @@ let database = new sqlite3.Database('config/leagues.db', function () {
 
 let leagues = {};
 try {
-	leagues = JSON.parse(fs.readFileSync('config/leagues.json', 'utf8'));
+	leagues = JSON.parse(FS.readFileSync('config/leagues.json', 'utf8'));
 } catch (e) {
 	if (e.code !== 'ENOENT') throw e;
 }
 
 function save() {
-	if (Object.keys(leagues).length < 1) return fs.writeFileSync('config/leagues.json', JSON.stringify(leagues));
+	if (Object.keys(leagues).length < 1) return FS.writeFileSync('config/leagues.json', JSON.stringify(leagues));
 	let data = "{\n";
 	for (let u in leagues) {
 		data += '\t"' + u + '": ' + JSON.stringify(leagues[u]) + ",\n";
 	}
 	data = data.substr(0, data.length - 2); // remove the last comma
 	data += "\n}";
-	fs.writeFileSync('config/leagues.json', data);
+	FS.writeFileSync('config/leagues.json', data);
 }
 
 function logPoints(userid, amount, reason) {
@@ -62,7 +62,7 @@ function logPointsUser(user, league, amount, reason) {
 
 function log(message) {
 	if (!message) return false;
-	fs.appendFile('logs/leagues.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
+	FS.appendFile('logs/leagues.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
 }
 
 function leaguePM(message, league) {
@@ -76,15 +76,15 @@ function leaguePM(message, league) {
 
 function leagueLog(message, league) {
 	let leagueid = toId(league);
-	/*fs.access('logs/leagues/' + leagueid + '.log', function(err) { //erred
+	/*FS.access('logs/leagues/' + leagueid + '.log', function(err) { //erred
 		if (err & err.code === 'ENOENT') {
-			fs.open('logs/leagues/' + leagueid + '.log', 'r+', (err, fd) => {
+			FS.open('logs/leagues/' + leagueid + '.log', 'r+', (err, fd) => {
 				if (err) console.error(err);
 			});
 		}
-		fs.appendFile('logs/leagues/' + leagueid + '.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
+		FS.appendFile('logs/leagues/' + leagueid + '.log', '[' + new Date().toUTCString() + '] ' + message + '\n');
 	});*/
-	fs.writeFile(path.resolve(__dirname, '../logs/leagues/' + leagueid + '.txt'), message);
+	FS.writeFile(path.resolve(__dirname, '../logs/leagues/' + leagueid + '.txt'), message);
 }
 
 function getBadges(user) {
@@ -696,7 +696,11 @@ exports.commands = {
 						title: 'Frontier Brain',
 						users: [],
 						permissions: {
+							invite: true,
+							kick: true,
 							manageranks: true,
+							masspm: true,
+							givebadges: true,
 						},
 						sortBy: 50,
 					},
