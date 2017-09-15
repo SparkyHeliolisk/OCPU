@@ -117,6 +117,8 @@ global.OCPU = {};
 
 global.Tournaments = require('./tournaments');
 
+global.github = require('./github');
+
 global.Dnsbl = require('./dnsbl');
 Dnsbl.loadDatacenters();
 
