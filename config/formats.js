@@ -23,8 +23,7 @@ exports.Formats = [
 		name: "Insanity (beta)",
 		desc: ["Currently in development."],
 		
-		team: 'random',
-		ruleset: ['PoTD', 'HP Percentage Mod', 'Cancel Mod', 'Sleep Clause Mod'],
+		ruleset: ['HP Percentage Mod', 'Cancel Mod', 'Sleep Clause Mod'],
 		mod: 'insanity',
 	},
 
