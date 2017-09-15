@@ -1324,6 +1324,17 @@ exports.commands = {
 			"- <a href=\"https://replay.pokemonshowdown.com/gennextou-130756055\">NickMP vs Khalogie</a>"
 		);
 	},
+	
+	'!insanity': true,
+	insanity: finction (target, room, user) {
+		if (!this.runBroadcast()) return;
+		this.sendReplyBox(
+			"Insanity is a mod and format that changes the typing and base stats of each legendary/mythical pokémon.<br />" +
+			"-Link to what is changed exactly (after it is created)"
+		);
+	},
+	insanityhelp: ["/insanity - Provides information on the mod \"Insanity\"",
+		       "!insanity - Show everyone that informatin. Requires + % @ * # & ~"],
 
 	'!formathelp': true,
 	banlists: 'formathelp',
