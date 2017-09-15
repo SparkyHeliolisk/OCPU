@@ -3,6 +3,7 @@
 // The server port - the port to run Pokemon Showdown under
 exports.port = 8000;
 
+<<<<<<< HEAD
 // The server address - the address at which Pokemon Showdown should be hosting
 //   This should be kept set to 0.0.0.0 unless you know what you're doing.
 exports.bindaddress = '0.0.0.0';
@@ -25,6 +26,8 @@ exports.workers = 1;
 // TODO: allow SSL to actually be possible to use for third-party servers at
 // some point.
 
+=======
+>>>>>>> Add config-example.js
 // proxyip - proxy IPs with trusted X-Forwarded-For headers
 //   This can be either false (meaning not to trust any proxies) or an array
 //   of strings. Each string should be either an IP address or a subnet given
@@ -256,6 +259,15 @@ exports.replsocketmode = 0o600;
 // Main is huge), and to do pinpoint hotpatching (like /nohotpatch).
 exports.disablehotpatchall = false;
 
+<<<<<<< HEAD
+=======
+exports.github = {
+	secret: "",  //The secret you use
+	port: ,		//The port for your webhook
+	rooms: [''],		//The rooms for the announcements to be put in
+};
+
+>>>>>>> Add config-example.js
 // permissions and groups:
 //   Each entry in `grouplist' is a seperate group. Some of the members are "special"
 //     while the rest is just a normal permission.
