@@ -61,42 +61,52 @@ exports.BattlePokedex = {
 	regirock: {
 		inherit: true,
 		types: ['Poison', 'Ghost'],
+		baseStats: {hp: 127, atk: 140, def: 211, spa: 255, spd: 194, spe: 81}, //Best: ...
 	},
 	regice: {
 		inherit: true,
 		types: ['Dragon', 'Steel'],
+		baseStats: {hp: 171, atk: 250, def: 177, spa: 185, spd: 129, spe: 33}, //Best: ...
 	},
 	registeel: {
 		inherit: true,
 		types: ['Electric', 'Water'],
+		baseStats: {hp: 184, atk: 243, def: 218, spa: 149, spd: 71, spe: 63}, //Best: ...
 	},
 	latias: {
 		inherit: true,
 		types: ['Fairy', 'Rock'],
+		baseStats: {hp: 34, atk: 255, def: 13, spa: 40, spd: 231, spe: 133}, //Best: ...
 	},
 	latios: {
 		inherit: true,
 		types: ['Normal', 'Dragon'],
+		baseStats: {hp: 110, atk: 241, def: 251, spa: 149, spd: 171, spe: 188}, //Best: ...
 	},
 	kyogre: {
 		inhert: true,
 		types: ['Dragon', 'Steel'],
+		baseStats: {hp: 200, atk: 6, def: 121, spa: 1, spd: 250, spe: 11}, //Best: ...
 	},
 	groundon: {
 		inherit: true,
 		types: ['Steel', 'Grass'],
+		baseStats: {hp: 49, atk: 222, def: 226, spa: 85, spd: 216, spe: 17}, //Best: ...
 	},
 	rayquaza: {
 		inherit: true,
 		types: ['Poison', 'Fire'],
+		baseStats: {hp: 245, atk: 174, def: 177, spa: 81, spd: 91, spe: 223}, //Best: ...
 	},
 	jirachi: {
 		inherit: true,
 		types: ['Dark', 'Flying'],
+		baseStats: {hp: 76, atk: 192, def: 141, spa: 164, spd: 88, spe: 231}, //Best: ...
 	},
 	deoxys: {
 		inherit: true,
 		types: ['Ground', 'Grass'],
+		baseStats: {hp: 108, atk: 216, def: 215, spa: 163, spd: 24, spe: 137}, //Best: ...
 	},
 	uxie: {
 		inherit: true,
