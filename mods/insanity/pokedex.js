@@ -181,54 +181,67 @@ exports.BattlePokedex = {
 	victini: {
 		inherit: true,
 		types: ['Normal', 'Fairy'],
+		baseStats: {hp: 166, atk: 149, def: 207, spa: 223, spd: 102, spe: 142}, //Best: ...
 	},
 	cobalion: {
 		inherit: true,
 		types: ['Rock', 'Bug'],
+		baseStats: {hp: 80, atk: 205, def: 53, spa: 172, spd: 3, spe: 152}, //Best: ...
 	},
 	terrakion: {
 		inherit: true,
 		types: ['Fighting', 'Psychic'],
+		baseStats: {hp: 31, atk: 148, def: 166, spa: 123, spd: 136, spe: 1}, //Best: ...
 	},
 	virizion: {
 		inherit: true,
 		types: ['Water'],
+		baseStats: {hp: 176, atk: 123, def: 119, spa: 188, spd: 165, spw: 68}, //Best: ...
 	},
 	tornadus: {
 		inherit: true,
 		types: ['Bug', 'Ground'],
+		baseStats: {hp: 49, atk: 239, def: 143, spa: 140, spd: 123, spe: 139}, //Best: ...
 	},
 	thundurus: {
 		inherit: true,
 		types: ['Fighting', 'Dark'],
+		baseStats: {hp: 89, atk: 17, def: 52, spa: 2, spd: 72, spe: 175}, //Best: ...
 	},
 	reshiram: {
 		inherit: true,
 		types: ['Psychic', 'Water'],
+		baseStats: {hp: 148, atk: 110, def: 12, spa: 90, spd: 165, spe: 87}, //Best: ...
 	},
 	zekrom: {
 		inherit: true,
 		types: ['Flying', 'Steel'],
+		baseStats: {hp: 116, atk: 143, def: 235, spa: 224, spd: 241, spe: 246}, //Best: ...
 	},
 	landorus: {
 		inherit: true,
 		types: ['Dragon', 'Fighting'],
+		baseStats: {hp: 211, atk: 203, def: 196, spa: 182, spd: 70, spe: 75}, //Best: ...
 	},
 	kyurem: {
 		inherit: true,
 		types: ['Dragon', 'Bug'],
+		baseStats: {hp: 14, atk: 18, def: 95, spa: 252, dps: 214, spe: 168}, //Best: ...
 	},
 	keldeo: {
 		inherit: true,
 		types: ['Fairy', 'Fire'],
+		baseStats: {hp: 178, atk: 34, def: 176, spa: 148, spd: 92, spe: 196}, //Best: ...
 	},
 	meloetta: {
 		inherit: true,
 		types: ['Dragon', 'Grass'],
+		baseStats: {hp: 248, atk: 164, def: 232, spa: 156, spd: 231, spe: 143}, //Best: ...
 	},
 	genesect: {
 		inherit: true,
 		types: ['Fire', 'Ice'],
+		baseStats: {hp: 190, atk: 126, def: 168, spa: 224, spd: 238, spe: 203}, //Best: ...
 	},
 	xerneas: {
 		inherit: true,
