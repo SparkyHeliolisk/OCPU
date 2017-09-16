@@ -20,8 +20,8 @@ exports.Formats = [
 		ruleset: ['HP Percentage Mod', 'Team Preview', 'Cancel Mod'],
 	},*/
 	{
-		name: "Insanity (beta)",
-		desc: ["Currently in development."],
+		name: "Insanity",
+		desc: ["A format where almost every legendary/mythical in the game has their type changed and base stats changed. \"/Insanity [pokemon-name]\" will let you check what has been changed."],
 		
 		ruleset: ['HP Percentage Mod', 'Cancel Mod', 'Sleep Clause Mod'],
 		mod: 'insanity',
