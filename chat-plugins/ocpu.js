@@ -709,8 +709,13 @@ exports.commands = {
 					"- Current staff team<br />" +
 					"- Our regular users<br />" +
 					"- Exiled for the news plugin<br />" +
+<<<<<<< HEAD
 					"- Origin for the base CSS file" +
  					"<br />"
+=======
+		    			"- Origin for the base CSS file" +
+					"<br />"
+>>>>>>> Update /credits
 		user.popup(popup);
 	},
 	/*regdate: function (target, room, user, connection) {
