@@ -111,58 +111,72 @@ exports.BattlePokedex = {
 	uxie: {
 		inherit: true,
 		types: ['Flying', 'Steel'],
+		baseStats: {hp: 169, atk: 22, def: 4, spa: 69, spd: 196, spe: 111}, //Best: ...
 	},
 	mespirit: {
 		inherit: true,
 		types: ['Poison', 'Water'],
+		baseStats: {hp: 252, atk: 191, def: 33, spa: 17, spd: 241, spe: 212} //Best: ...
 	},
 	azelf: {
 		inherit: true,
 		types: ['Ghost', 'Bug'],
+		baseStats: {hp: 208, atk: 42, def: 250, spa: 36, spd: 19, spe: 58}, //Best: ...
 	},
 	dialga: {
 		inherit: true,
 		types: ['Fairy', 'Steel'],
+		baseStats: {hp: 152, atk: 92, def: 70, spa: 160, spd: 177, spd: 194}, //Best: ...
 	},
 	palkia: {
 		inherit: true,
 		types: ['Steel', 'Ghost'],
+		baseStats: {hp: 200, atk: 172, def: 253, spa: 9, spd: 75, spe: 122}, //Best: ...
 	},
 	heatran: {
 		inherit: true,
 		types: ['Dark', 'Bug'],
+		baseStats: {hp: 197, atk: 100, def: 133, spa: 172, spd: 237, spe: 188}, //Best: ...
 	},
 	regigigas: {
 		inherit: true,
 		types: ['Ground', 'Poison'],
+		baseStats: {hp: 247, atk: 30, def: 255, spa: 188, spd: 159, spe: 255}, //Best: ..
 	},
 	giratina: {
 		inherit: true,
 		types: ['Dragon', 'Ghost'],
+		baseStats: {hp: 209, atk: 139, def: 154, spa: 198, spd: 60, spe: 26}, //Best: ...
 	},
 	cresselia: {
 		inherit: true,
 		types: ['Psychic', 'Fighting'],
+		baseStats: {hp: 247, atk: 168, def: 43, spa: 233, spd: 223, spe: 142}, //Best: ...
 	},
 	phione: {
 		inherit: true,
 		types: ['Psychic', 'Ghost'],
+		baseStats: {hp: 128, atk: 187, def: 23, spa: 81, spd: 206, spe: 66}, //Best: ...
 	},
 	manaphy: {
 		inherit: true,
 		types: ['Normal', 'Psychic'],
+		baseStats: {hp: 94, atk: 121, def: 203, spa: 155, spd: 202, spe: 124}, //Best: ...
 	},
 	darkrai: {
 		inherit: true,
 		types: ['Bug', 'Rock'],
+		baseStats: {hp: 141, atk: 179, def: 253, spa: 204, spd: 223, spe: 148}, //Best: ...
 	},
 	shaymin: {
 		inherit: true,
 		types: ['Poison', 'Dark'],
+		baseStats: {hp: 159, atk: 87, def: 79, spa: 145, spd: 146, spe: 93}, //Best: ...
 	},
 	arceus: {
 		inherit: true,
 		types: ['Steel', 'Ice'],
+		baseStats: {hp: 175, atk: 200, def: 177, spa: 121, spd: 176, spe: 114}, //Best: ...
 	},
 	victini: {
 		inherit: true,
