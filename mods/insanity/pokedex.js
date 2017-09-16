@@ -246,25 +246,31 @@ exports.BattlePokedex = {
 	xerneas: {
 		inherit: true,
 		types: ['Flying', 'Fire'],
+		baseStats: {hp: 74, atk: 223, def: 186, spa: 293, spd: 126, spe: 180}, //Best: ...
 	},
 	yveltal: {
 		inherit: true,
 		types: ['Grass', 'Dragon'],
+		baseStats: {hp: 203, atk: 27, def: 198, spa: 87, spd: 128, spe: 4}, //Best: ...
 	},
 	zygarde: {
 		inherit: true,
 		types: ['Fighting', 'Ground'],
+		baseStats: {hp: 248, atk: 86, def: 130, spa: 116, spd: 127, spe: 210}, //Best: ...
 	},
 	diancie: {
 		inherit: true,
 		types: ['Ice', 'Fighting'],
+		baseStats: {hp: 166, atk: 11, def: 228, spa: 159, spd: 71, spe: 203}, //Best: ...
 	},
 	hoopa: {
 		inherit: true,
 		types: ['Ice', 'Electric'],
+		baseStats: {hp: 141, atk: 112, def: 87, spa: 165, spd: 49, spe: 25}, //Best: ...
 	},
 	volcanion: {
 		inherit: true,
 		types: ['Fighting', 'Ice'],
+		baseStats: {hp: 250, atk: 75, def: 142, spa: 86, spd: 53, spe: 37}, //Best: ...
 	},
 }
