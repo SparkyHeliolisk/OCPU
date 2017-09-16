@@ -116,7 +116,7 @@ exports.monitorminpunishments = 3;
 //   Note that this requires punishmentmonitor to be enabled, and therefore requires the `monitorminpunishments`
 //   option to be set to a number greater than zero. If `monitorminpunishments` is set to a value greater than 3,
 //   the autolock will only apply to people who pass this threshold.
-exports.punishmentautolock = false;
+exports.punishmentautolock = true;
 
 // whitelist - prevent users below a certain group from doing things
 //   For the modchat settings, false will allow any user to participate, while a string
