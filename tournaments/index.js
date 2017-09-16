@@ -943,6 +943,10 @@ function createTournament(room, format, generator, playerCap, isRated, args, out
 		output.errorReply("Valid formats: " + Object.values(Dex.formats).filter(f => f.tournamentShow).map(format => format.name).join(", "));
 		return;
 	}
+	if (format === "Insanity" && ! user.group != &) {
+	    	output.errorReply(format + " will give some users way more of an advantage if they know more types. You must get approval from a Leader or higher to create a tournament in this format.");
+		output.errorReply("The leader or higher must create the tournament.");
+	}
 	if (!TournamentGenerators[toId(generator)]) {
 		output.errorReply(generator + " is not a valid type.");
 		output.errorReply("Valid types: " + Object.keys(TournamentGenerators).join(", "));
