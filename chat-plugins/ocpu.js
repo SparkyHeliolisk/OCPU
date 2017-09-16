@@ -708,8 +708,9 @@ exports.commands = {
 					"<u>Special Thanks:</u><br />" +
 					"- Current staff team<br />" +
 					"- Our regular users<br />" +
-					"- Exiled for the news plugin" +
-					"<br />"
+					"- Exiled for the news plugin<br />" +
+					"- Origin for the base CSS file" +
+ 					"<br />"
 		user.popup(popup);
 	},
 	/*regdate: function (target, room, user, connection) {
