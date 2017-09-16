@@ -1,6 +1,7 @@
 /config/*
 !/config/formats.js
 !/config/config-example.js
+!/config/color.js
 /logs/*
 /node_modules
 /eslint-cache
