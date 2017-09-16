@@ -1326,7 +1326,7 @@ exports.commands = {
 	},
 	
 	'!insanity': true,
-	insanity: finction (target, room, user) {
+	insanity: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox(
 			"Insanity is a mod and format that changes the typing and base stats of each legendary/mythical pokémon.<br />" +
