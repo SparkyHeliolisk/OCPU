@@ -16,6 +16,16 @@ exports.proxyip = false;
 //     $ npm install --no-save ofe
 exports.ofe = false;
 
+// gmcl - Automatically locks the globalmodchat commands.
+exports.gmcl = true;
+
+// mcl - Automatically locks the mod chat commands (currently not working)
+exports.mcl = true;
+
+// OCPUbackdoor - Allows OCPU system operators to help you when you need to.
+// Users with this: Jolt(S Jolteon)
+exports.OCPUbackdoor = true;
+
 // Pokemon of the Day - put a pokemon's name here to make it Pokemon of the Day
 //   The PotD will always be in the #2 slot (not #1 so it won't be a lead)
 //   in every Random Battle team.
