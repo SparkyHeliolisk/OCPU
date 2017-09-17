@@ -1,6 +1,48 @@
 'use strict';
 
 exports.commands = {
+	lmc: 'laddermodchat',
+	laddermodchat: function (target, room, user, connection) {
+		if (!Config.gmodchatlock) {
+			if (target === 'off') {
+				if (!user.hasConsoleAccess(connection)) {
+					return this.errorReply("/laddermodchat - Access denied.");
+				}
+				if (Config.pmmodchat === false) return this.errorReply("Ladder Modchat is already disabled!");
+				Config.laddermodchat = false;
+				this.popupReply("Ladder Modchat disabled.");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-green\">Ladder modchat was disabled!</div>").update();
+			});
+			} else if (target === 'ac' || target === '+') {
+				if (!user.hasConsoleAccess(connection)) {
+					return this.errorReply("/pmmodchat - Access denied.");
+				}
+				if (Config.pmmodchat === target) return this.errorReply("Ladder Modchat is already set to " + target + "!");
+				Config.laddermodchat = target;
+				this.popupReply("Ladder Modchat set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Ladder Modchat was set to " + target + ".</div>").update();
+				});
+			} else if (target === '%' || target === '@' || target === '*' || target === '$' || target === '&' || target === '~') {
+				if (!user.hasConsoleAccess(connection)) {
+					return this.errorReply("/pmmodchat - Access denied.");
+				}
+				if (Config.pmmodchat === target) return this.errorReply("Ladder Modchat is already set to " + target + "!");
+				Config.laddermodchat = target;
+				this.popupReply("Ladder Modchat set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global')curRoom.addRaw("<div class=\"broadcast-red\">Ladder Modchat was set to " + target + ".</div>").update();
+				});
+			} else if (Config.gmodchatlock) {
+				return this.errorReply("You did not select an approate value. Correct values are : off, ac, +, %, @, *, $, &, ~");
+			}
+		} else {
+			return this.errorReply("Global lock is enabled. This is unabled to be changed at this current time. PM zellman01 if you think the lock should be removed.");
+		}
+	},
+		
+	pmc: 'pmmodchat',
 	pmmodchat: function (target, room, user, connection) {
 		if (!Config.gmodchatlock) {
 			if (target === 'off') {
@@ -41,6 +83,7 @@ exports.commands = {
 		}
 	},
 	
+	rmc: 'roommodchat',
 	roommodchat: function (target, room, user, connection) {
 		if (!Config.gmodchatlock) {
 			if (target === 'off') {
