@@ -24,6 +24,21 @@ exports.Formats = [
 		ruleset: ['HP Percentage Mod', 'Cancel Mod', 'Sleep Clause Mod'],
 		mod: 'insanity',
 	},
+	
+	// Draft League
+	///////////////////////////////////////////////////////////////////
+	{
+		section: "Draft League",
+	},
+	{
+		name: "[Gen 7] Draft League",
+		desc: ["A format specifically made for the Draft League."],
+		
+		mod: 'gen7',
+		rated: false,
+		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Mega Rayquaza Clause'],
+		banlist: ['Baton Pass'],
+	},
 
 	// SM Singles
 	///////////////////////////////////////////////////////////////////
