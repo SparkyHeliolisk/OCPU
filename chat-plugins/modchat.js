@@ -8,7 +8,7 @@ exports.commands = {
 				if (!user.hasConsoleAccess(connection)) {
 					return this.errorReply("/laddermodchat - Access denied.");
 				}
-				if (Config.pmmodchat === false) return this.errorReply("Ladder Modchat is already disabled!");
+				if (Config.laddermodchat === false) return this.errorReply("Ladder Modchat is already disabled!");
 				Config.laddermodchat = false;
 				this.popupReply("Ladder Modchat disabled.");
 				Rooms.rooms.forEach((curRoom, id) => {
@@ -18,7 +18,7 @@ exports.commands = {
 				if (!user.hasConsoleAccess(connection)) {
 					return this.errorReply("/pmmodchat - Access denied.");
 				}
-				if (Config.pmmodchat === target) return this.errorReply("Ladder Modchat is already set to " + target + "!");
+				if (Config.laddermodchat === target) return this.errorReply("Ladder Modchat is already set to " + target + "!");
 				Config.laddermodchat = target;
 				this.popupReply("Ladder Modchat set to " + target + ".");
 				Rooms.rooms.forEach((curRoom, id) => {
@@ -28,7 +28,7 @@ exports.commands = {
 				if (!user.hasConsoleAccess(connection)) {
 					return this.errorReply("/pmmodchat - Access denied.");
 				}
-				if (Config.pmmodchat === target) return this.errorReply("Ladder Modchat is already set to " + target + "!");
+				if (Config.laddermodchat === target) return this.errorReply("Ladder Modchat is already set to " + target + "!");
 				Config.laddermodchat = target;
 				this.popupReply("Ladder Modchat set to " + target + ".");
 				Rooms.rooms.forEach((curRoom, id) => {
