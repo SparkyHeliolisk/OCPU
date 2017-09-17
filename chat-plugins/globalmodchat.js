@@ -145,7 +145,7 @@ exports.commands = {
 	
 	gmcl: 'globalmodchatlock',
 	globalmodchatlock: function (target, room, user, connection, cmd) {
-		let allowed = ['zellman01']
+		let allowed = ['joltsjolteon']
 		if (allowed.includes(user.userid)) {
 			if (!Config.gmodchatlock) {
 				this.send("Enabling global modchat lock...");
@@ -164,14 +164,14 @@ exports.commands = {
 	},
 	
 	gmclc: function (target, room, user, connection) {
-		if (!user.hasConsoleAccess) {
+		if (!user.hasConsoleAccess(connection)) {
 			return this.errorReply("/gmclc - Access denied.");
 		}
 		this.sendReply(Config.gmodchatlock);
 	},
 	
 	mclc: function (target, room, user, connection) {
-		if (!user.hasConsoleAccess) {
+		if (!user.hasConsoleAccess(connection)) {
 			return this.errorReply("/mclc - Access denied.");
 		}
 		this.sendReply(Config.modchatlock)
