@@ -108,7 +108,7 @@ global.Rooms = require('./rooms');
 
 global.Tells = require('./tells.js');
 
-global.Db = require('origindb')('config/db');
+global.Db = require('nef')(require('nef-fs')('config/db'));
 
 global.Verifier = require('./verifier');
 Verifier.PM.spawn();
