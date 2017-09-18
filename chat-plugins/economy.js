@@ -324,7 +324,7 @@ exports.commands = {
 		OCPU.updateMoney(toId(targetUser), amount);
 
 		//send replies
-		let amountLbl = amount + " OCPU bucks";
+		let amountLbl = amount + " SBucks";
 		logTransaction(user.name + " has given " + amountLbl + " to " + targetUser + ".");
 		this.sendReply("You have given " + amountLbl + " to " + targetUser + ".");
 		if (Users(targetUser)) Users(targetUser).popup("|modal|" + user.name + " has given " + amountLbl + " to you.");
@@ -350,7 +350,7 @@ exports.commands = {
 		OCPU.updateMoney(toId(targetUser), -amount);
 
 		//send replies
-		let amountLbl = amount + " OCPU buck" + OCPU.pluralFormat(amount, 's');
+		let amountLbl = amount + " SBuck" + OCPU.pluralFormat(amount, 's');
 		logTransaction(user.name + " has removed " + amountLbl + " from " + targetUser + ".");
 		this.sendReply("You have removed " + amountLbl + " from " + targetUser + ".");
 		if (Users(targetUser)) Users(targetUser).popup("|modal|" + user.name + " has removed " + amountLbl + " from you.");
@@ -377,7 +377,7 @@ exports.commands = {
 		OCPU.updateMoney(targetUser, Number(amount));
 
 		//log the transaction
-		let amountLbl = amount + " OCPU buck" + pluralFormat(amount, 's');
+		let amountLbl = amount + " SBuck" + pluralFormat(amount, 's');
 		logTransaction(user.name + " has transfered " + amountLbl + " to " + targetUser);
 
 		//send return messages
@@ -386,7 +386,7 @@ exports.commands = {
 		let targetUserConnected = Users(parts[0]);
 		if (targetUserConnected) {
 			targetUserConnected.popup("|modal|" + user.name + " has transferred " + amountLbl + " to you.");
-			targetUserConnected.sendTo(room, "|raw|<b>" + OCPU.nameColor(user.name, false) + " has transferred " + amountLbl + " to you.</b>");
+			targetUserConnected.sendTo(room, "|raw|<b>" + nameColor(user.name, false) + " has transferred " + amountLbl + " to you.</b>");
 		}
 	},
 
@@ -402,7 +402,7 @@ exports.commands = {
 		if (!this.runBroadcast()) return;
 		if (!target) target = user.name;
 		let output = "<u>OCPU Wallet:</u><br />", bucks = OCPU.readMoney(target);
-		output += nameColor(target, true) + ' ' + (bucks === 0 ? "does not have any OCPU bucks." : /*nameColor(target, true) + */" has " + bucks + " OCPU bucks");
+		output += nameColor(target, true) + ' ' + (bucks === 0 ? "does not have any SBucks." : /*nameColor(target, true) + */" has " + bucks + " OCPU bucks");
 		return this.sendReplyBox(output);
 	},
 
@@ -499,18 +499,18 @@ function logTransaction(message) {
 function updatePrices() {
 	let avg = OCPU.moneyCirculating()[1];
 	prices = { // 'FREE' is now supported
-		'symbol': 10, //Math.round(avg * 0.035),
+		'symbol': Math.round(avg * 0.035),
 		// 'declare': Math.round(avg * 0.19),
-		'fix': 5, //Math.round(avg * 0.2),
-		'custom': 15, //Math.round(avg * 0.55),
-		'animated': 30, //Math.round(avg * 0.65),
-		'room': 100, //Math.round(avg * 0.53),
+		'fix': Math.round(avg * 0.05),
+		'custom': Math.round(avg * 0.55),
+		'animated': Math.round(avg * 0.65),
+		'room': Math.round(avg * 0.53),
 		//'trainer': Math.round(avg * 0.4),
 		//'emote': Math.round(avg * 2.5),
 		//'color': Math.round(avg * 4.5),
-		'icon': 40, //Math.round(avg * 4.5),
+		'icon': Math.round(avg * 4.5),
 		//'pack': Math.round(avg * 1),
-		'vip': 750 //Math.round(avg * 25),
+		'vip': Math.round(avg * 10),
 	};
 }
 
