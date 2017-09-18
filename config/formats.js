@@ -35,7 +35,6 @@ exports.Formats = [
 		desc: ["A format specifically made for the Draft League."],
 		
 		mod: 'gen7',
-		rated: false,
 		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Mega Rayquaza Clause'],
 		banlist: ['Baton Pass'],
 	},
