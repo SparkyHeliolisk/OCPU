@@ -717,7 +717,7 @@ exports.commands = {
 					"<u>Special Thanks:</u><br />" +
 					"- Current staff team<br />" +
 					"- Our regular users<br />" +
-					"- Exiled for the news plugin<br />" +
+					"- SpecialGaze for the news plugin and the profile plugin<br />" +
 					"- Origin for the base CSS file" +
  					"<br />"
 <<<<<<< HEAD
