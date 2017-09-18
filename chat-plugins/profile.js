@@ -49,7 +49,7 @@ function vipCheck(user) {
 
 function showBadges(user) {
 	if (Db.userBadges.has(toId(user))) {
-		let badges = Db.userBadges.get(toId(user) || "No badges";
+		let badges = Db.userBadges.get(toId(user));
 		let css = 'border:none;background:none;padding:0;';
 		if (typeof badges !== 'undefined' && badges !== null) {
 			let output = '<td><div style="float: right; background: rgba(69, 76, 80, 0.4); text-align: center; border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset; margin: 0px 3px;">';
