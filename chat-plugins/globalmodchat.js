@@ -118,7 +118,7 @@ exports.commands = {
 				if (Config.chatmodchat === target) return this.errorReply("Global room modchat is currently set to " + target + "!");
 				
 				Config.chatmodchat = target;
-				this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + "."");
+				this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
 				Rooms.rooms.forEach((curRoom, id) => {
 					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-red\">Room modchat was set to " + target + ".</div>").update();
 					curRoom.modchat = target;
@@ -131,7 +131,7 @@ exports.commands = {
 				if (Config.chatmodchat === target) return this.errorReply("Global room modchat is currently set to " + target + "!");
 				
 				Config.chatmodchat = target;
-				this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + "."");
+				this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
 				Rooms.rooms.forEach((curRoom, id) => {
 					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-red\">Room modchat was set to " + target + " because of a sysop thinking something is wrong. ONLY listen to any ~ online. All PMs will also be made to only allow ~ to use.</div>");
 					curRoom.modchat = target;
