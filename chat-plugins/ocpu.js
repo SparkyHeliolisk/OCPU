@@ -255,6 +255,41 @@ exports.commands = {
 			);
 		});
 	},
+	ts: 'tournamentstaff',
+	tournamentstaff: function (target, room, user) {
+		let ignoreUsers = [];
+		fs.readFile('config/usergroups.csv', 'utf8', (err, data) => {
+			let staff = {
+				"admins": [],
+				"leaders": [],
+				"bots": [],
+				"mods": [],
+				"drivers": [],
+			};
+			let row = ('' + data).split('\n');
+			for (let i = row.length; i > -1; i--) {
+				if (!row[i]) continue;
+				let rank = row[i].split(',')[1].replace("\r", '');
+				let person = row[i].split(',')[0];
+				let personId = toId(person);
+				switch (rank) {
+				case '[':
+					if (~ignoreUsers.indexOf(personId)) break;
+					staff['tournamentstaffs'].push(formatName(person));
+					break;
+				default:
+					continue;
+				}
+			}
+			connection.popup('|html|' +
+				'<h3> Server Global Voices</h3>' +
+				'<br /><b><u>(' + staff['tournamentstaffs'].length + ')</u></b><br />' + staff['tournamentstaffs'].join(', ') +
+				'<br /><br />(<b>Bold</b> / <i>italic</i> = currently online)' +
+				'<br />Users who are administrators working for the tournament:' +
+				nameColor('joltsjolteon', true) + '.'
+			);
+		});
+	},
 	protectroom: function (target, room, user) {
 		if (!this.can('pban')) return false;
 		if (room.type !== 'chat' || room.isOfficial) return this.errorReply("This room does not need to be protected.");
