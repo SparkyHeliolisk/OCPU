@@ -38,7 +38,34 @@ exports.Formats = [
 		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Mega Rayquaza Clause'],
 		banlist: ['Baton Pass'],
 	},
-
+	
+	// Server-Wide tournament formats
+	///////////////////////////////////////////////////////////////////
+	{
+		section: "Age Modified AG Tournament",
+	},
+	{
+		name: "[Gen 7] AG Juinor Division,
+		mod: 'gen7',
+		rated: false,
+		ruleset: ['Pokemon', 'Endless Battle Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod'],
+		banlist: ['Illegal', 'Unreleased'],
+	},
+	{
+		name: "[Gen 7] AG Seinor Division,
+		mod: 'gen7',
+		rated: false,
+		ruleset: ['Pokemon', 'Endless Battle Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod'],
+		banlist: ['Illegal', 'Unreleased'],
+	},
+	{
+		name: "[Gen 7] AG Master Division,
+		mod: 'gen7',
+		rated: false,
+		ruleset: ['Pokemon', 'Endless Battle Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod'],
+		banlist: ['Illegal', 'Unreleased'],
+	},
+		
 	// SM Singles
 	///////////////////////////////////////////////////////////////////
 	{
