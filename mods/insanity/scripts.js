@@ -3,7 +3,7 @@
 /*Original Custom Script made for ocpu.psim.us*/
 
 exports.BattleScripts = {
-	inherit: 'gen6',
+	inherit: 'gen7',
 	init: function () {
 		this.modData('Pokedex', 'moltres').types = ['Ice', 'Grass'];
 		this.modData('Pokedex', 'articuno').types = ['Normal', 'Dark'];
