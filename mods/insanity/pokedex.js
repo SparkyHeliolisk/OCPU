@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 /*Custom format script made for ocpu.psim.us*/
 
@@ -116,7 +116,7 @@ exports.BattlePokedex = {
 	mespirit: {
 		inherit: true,
 		types: ['Poison', 'Water'],
-		baseStats: {hp: 252, atk: 191, def: 33, spa: 17, spd: 241, spe: 212} //Best: ...
+		baseStats: {hp: 252, atk: 191, def: 33, spa: 17, spd: 241, spe: 212}, //Best: ...
 	},
 	azelf: {
 		inherit: true,
@@ -126,7 +126,7 @@ exports.BattlePokedex = {
 	dialga: {
 		inherit: true,
 		types: ['Fairy', 'Steel'],
-		baseStats: {hp: 152, atk: 92, def: 70, spa: 160, spd: 177, spd: 194}, //Best: ...
+		baseStats: {hp: 152, atk: 92, def: 70, spa: 160, spd: 177, spe: 194}, //Best: ...
 	},
 	palkia: {
 		inherit: true,
@@ -273,4 +273,4 @@ exports.BattlePokedex = {
 		types: ['Fighting', 'Ice'],
 		baseStats: {hp: 250, atk: 75, def: 142, spa: 86, spd: 53, spe: 37}, //Best: ...
 	},
-}
+};
