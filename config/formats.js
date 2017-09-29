@@ -20,11 +20,9 @@ exports.Formats = [
 	{
 		name: "Insanity",
 		desc: ["A format where almost every legendary/mythical in the game has their type changed and base stats changed. \"/Insanity [pokemon-name]\" will let you check what has been changed."],
-		
-		ruleset: ['HP Percentage Mod', 'Cancel Mod', 'Sleep Clause Mod'],
++		ruleset: ['HP Percentage Mod', 'Cancel Mod', 'Sleep Clause Mod'],
 		mod: 'insanity',
 	},
-	
 	// Draft League
 	///////////////////////////////////////////////////////////////////
 	{
@@ -33,7 +31,6 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Draft League",
 		desc: ["A format specifically made for the Draft League."],
-		
 		mod: 'gen7',
 		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Mega Rayquaza Clause'],
 		banlist: ['Baton Pass'],
