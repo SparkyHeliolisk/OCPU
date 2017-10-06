@@ -229,6 +229,9 @@ exports.commands = {
 			room.modchat = target;
 			break;
 		}
+		if (room.battle && target === '#') {
+			return this.errorReply("You cannot set modchat to #, as it is a battle room and does not accept room owners.");
+		}
 		}
 		if (currentModchat === room.modchat) {
 			return this.errorReply(`Modchat is already set to ${currentModchat}.`);
