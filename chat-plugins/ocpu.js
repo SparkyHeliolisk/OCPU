@@ -222,8 +222,8 @@ exports.commands = {
 			);
 		});
 	},
-	gv: 'globalvoice',
-	globalvoice: function (target, room, user) {
+	gvl: 'globalvoicelist',
+	globalvoicelist: function (target, room, user) {
 		let ignoreUsers = [];
 		fs.readFile('config/usergroups.csv', 'utf8', (err, data) => {
 			let staff = {
