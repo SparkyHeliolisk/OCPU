@@ -23,7 +23,7 @@ exports.commands = {
 		} else {
 			updatePrices();
 			let topStyle = 'background: linear-gradient(10deg, #FFF8B5, #eadf7c, #FFF8B5); color: black; border: 1px solid #635b00; padding: 2px; border-radius: 5px;';
-			let top = '<center><h3><b><u>OCPU Bucks Shop</u></b></h3><table style="' + topStyle + '" border="1" cellspacing ="2" cellpadding="3"><tr><th>Item</th><th>Description</th><th>Cost</th></tr>';
+			let top = '<center><h3><b><u>OCPU Shop</u></b></h3><table style="' + topStyle + '" border="1" cellspacing ="2" cellpadding="3"><tr><th>Item</th><th>Description</th><th>Cost</th></tr>';
 			let bottom = '</table><br /><b>Prices in the shop go up and down automatically depending on the amount of bucks the average user has at that given time.</b><br />To buy an item from the shop, click the respective button for said item.<br>Do /getbucks to learn more about how to obtain bucks. </center>';
 
 			return this.sendReply('|raw|' +
@@ -402,7 +402,7 @@ exports.commands = {
 		if (!this.runBroadcast()) return;
 		if (!target) target = user.name;
 		let output = "<u>OCPU Wallet:</u><br />", bucks = OCPU.readMoney(target);
-		output += nameColor(target, true) + ' ' + (bucks === 0 ? "does not have any SBucks." : /*nameColor(target, true) + */" has " + bucks + " OCPU bucks");
+		output += nameColor(target, true) + ' ' + (bucks === 0 ? "does not have any SBucks." : /*nameColor(target, true) + */" has " + bucks + " SBucks");
 		return this.sendReplyBox(output);
 	},
 
