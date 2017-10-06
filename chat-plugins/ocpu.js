@@ -223,15 +223,11 @@ exports.commands = {
 		});
 	},
 	gvl: 'globalvoicelist',
-	globalvoicelist: function (target, room, user) {
+	globalvoicelist: function (target, room, user, connection) {
 		let ignoreUsers = [];
 		fs.readFile('config/usergroups.csv', 'utf8', (err, data) => {
 			let staff = {
-				"admins": [],
-				"leaders": [],
-				"bots": [],
-				"mods": [],
-				"drivers": [],
+				"voices": [],
 			};
 			let row = ('' + data).split('\n');
 			for (let i = row.length; i > -1; i--) {
@@ -250,7 +246,7 @@ exports.commands = {
 			}
 			connection.popup('|html|' +
 				'<h3> Server Global Voices</h3>' +
-				'<br /><b><u>(' + staff['voices'].length + ')</u></b>:<br />' + staff['voices'].join(', ') +
+				'<br />' + staff['voices'].join(', ') +
 				'<br /><br />(<b>Bold</b> / <i>italic</i> = currently online)'
 			);
 		});

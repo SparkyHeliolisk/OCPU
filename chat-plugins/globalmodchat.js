@@ -118,12 +118,18 @@ exports.commands = {
 				if (Config.chatmodchat === target) return this.errorReply("Global room modchat is currently set to " + target + "!");
 				
 				Config.chatmodchat = target;
-				this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
+				if (target != "#") {
+					this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
+				} else {
+					this.popupReply("Room modchat was set to " + target + ". Battle modchat could not be set to " + target + ".");
+				}
 				Rooms.rooms.forEach((curRoom, id) => {
 					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-red\">Room modchat was set to " + target + ".</div>").update();
 					curRoom.modchat = target;
 				});
-				Config.battlemodchat = target;
+				if (target != "#") {
+					Config.battlemodchat = target;
+				}
 			} else if (target === '~') {
 				if (!user.hasConsoleAccess(connection)) {
 					return this.errorReply("/roommodchat - Access denied.");
