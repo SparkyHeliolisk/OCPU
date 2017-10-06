@@ -20,11 +20,9 @@ exports.Formats = [
 	{
 		name: "Insanity",
 		desc: ["A format where almost every legendary/mythical in the game has their type changed and base stats changed. \"/Insanity [pokemon-name]\" will let you check what has been changed."],
-		
-		ruleset: ['HP Percentage Mod', 'Cancel Mod', 'Sleep Clause Mod'],
++		ruleset: ['HP Percentage Mod', 'Cancel Mod', 'Sleep Clause Mod'],
 		mod: 'insanity',
 	},
-	
 	// Draft League
 	///////////////////////////////////////////////////////////////////
 	{
@@ -33,12 +31,38 @@ exports.Formats = [
 	{
 		name: "[Gen 7] Draft League",
 		desc: ["A format specifically made for the Draft League."],
-		
 		mod: 'gen7',
 		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Mega Rayquaza Clause'],
 		banlist: ['Baton Pass'],
 	},
-
+	
+	// Server-Wide tournament formats
+	///////////////////////////////////////////////////////////////////
+	{
+		section: "Age Modified AG Tournament",
+	},
+	{
+		name: "[Gen 7] AG Juinor Division",
+		mod: 'gen7',
+		rated: false,
+		ruleset: ['Pokemon', 'Endless Battle Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod'],
+		banlist: ['Illegal', 'Unreleased'],
+	},
+	{
+		name: "[Gen 7] AG Seinor Division",
+		mod: 'gen7',
+		rated: false,
+		ruleset: ['Pokemon', 'Endless Battle Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod'],
+		banlist: ['Illegal', 'Unreleased'],
+	},
+	{
+		name: "[Gen 7] AG Master Division",
+		mod: 'gen7',
+		rated: false,
+		ruleset: ['Pokemon', 'Endless Battle Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod'],
+		banlist: ['Illegal', 'Unreleased'],
+	},
+		
 	// SM Singles
 	///////////////////////////////////////////////////////////////////
 	{
