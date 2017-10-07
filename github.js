@@ -82,4 +82,22 @@ github.on('pull_request', function pullRequest(repo, ref, result) {
 	sendMessages(message);
 });
 
+github.on('issues', function issues(repo, ref, result) {
+	let requestNumber = result.issue.number;
+	let url = result.issue.html_url;
+	let action = result.action;
+	if (action === 'labled') {
+		action = 'labled';
+		return;
+	}
+	let now = Date.now();
+	
+	let message = "";
+	message += "[<font color='FF00FF'>" + repo + "</font>]";
+	message += nameColor(result.sender.login, true) + " ";
+	message += action + " issue <a href=\"" + url + "\">#" + requestNumber + "</a>: ";
+	message += result.issue.title;
+	sendMessages(message);
+});
+
 github.listen();
