@@ -55,7 +55,7 @@ exports.Formats = [
 		banlist: ['Illegal', 'Unreleased'],
 	},
 	{
-		name: "[Gen 7] AG Seinor Division",
+		name: "[Gen 7] AG Senior Division",
 		mod: 'gen7',
 		rated: false,
 		ruleset: ['Pokemon', 'Endless Battle Clause', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod'],
