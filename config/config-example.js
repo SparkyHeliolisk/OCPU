@@ -273,7 +273,7 @@ exports.disablehotpatchall = false;
 =======
 exports.github = {
 	secret: "",  //The secret you use
-	port: ,		//The port for your webhook
+	port: "",		//The port for your webhook
 	rooms: [''],		//The rooms for the announcements to be put in
 };
 
