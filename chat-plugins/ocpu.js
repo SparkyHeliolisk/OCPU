@@ -771,8 +771,8 @@ exports.commands = {
 		let popup = "|html|" + "<font size=5> Server Credits</font><br />" +
 					"<u>Owners:</u><br />" +
 					"- " + nameColor('zellman01', true) + " (Founder, Sysop, Development, Owner of GitHub repository)<br />" +
-					"- " + nameColour('SparkyHeliolisk', true) + " (Creative Admin, Sysop)"
-					"- " + nameColour('AlfaStorm', true) + " (Coding Admin, Sysop)"
+					"- " + nameColor('SparkyHeliolisk', true) + " (Creative Admin, Sysop)<br />" +
+					"- " + nameColor('AlfaStorm', true) + " (Coding Admin, Sysop)<br />" +
 		    			//"- " + nameColor('Inactive', true) + " (Sysop)<br />" +
 					"<br />" +
 					"<u>Development:</u><br />" +
