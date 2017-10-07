@@ -8,7 +8,7 @@ if (!room) {
 
 	room.isPrivate = true;
 	room.staffRoom = true;
-	room.staffAutojoin = true;
+	room.staffAutojoin = false;
 	room.addedUsers = {};
 
 	if (room.chatRoomData) {
@@ -20,12 +20,12 @@ if (!room) {
 		Rooms.global.writeChatRoomData();
 	}
 }
-/*if (Object.keys(room.addedUsers).length > 0) {
+if (Object.keys(room.addedUsers).length > 0) {
 	setImmediate(function () {
 		room.add("||Loaded user list: " + Object.keys(room.addedUsers).sort().join(", "));
 		room.update();
 	});
-}*/
+}
 exports.room = room;
 
 function getAllAlts(user) {
@@ -158,21 +158,14 @@ exports.commands = {
 			reason = params.join(',').trim();
 		}
 
-		if (!this.targetUser) return this.sendReply(`User ${this.targetUsername} not found.`);
+		if (!this.targetUser) return this.sendReply("User '" + this.targetUsername + "' not found.");
 		if (!this.can('lock', this.targetUser)) return;
 
 		let targets = addUser(this.targetUser);
 		if (targets.length === 0) {
-			return this.sendReply(`|| ${this.targetUsername} is already shadow banned or isn't named.`);
+			return this.sendReply('||' + this.targetUsername + " is already shadow banned or isn't named.");
 		}
 		this.privateModCommand("(" + user.name + " has shadow banned: " + targets.join(", ") + (reason ? " (" + reason + ")" : "") + ")");
-		if (!reason) {
-			this.globalModlog(("SBAN"), this.targetUser || userid, ` by ${user.name}`);
-			Monitor.log(this.targetUser + " has been shadowbanned by " + `${user.name}`);
-		} else {
-			this.globalModlog(("SBAN"), this.targetUser || userid, ` by ${user.name}: ${reason}`);
-			Monitor.log(this.targetUser + " has been shadowbanned by " + `${user.name}: ${reason}`);
-		}
 
 		//return this.parse('/' + action + ' ' + toId(this.targetUser) + ',' + reason);
 	},
@@ -190,9 +183,6 @@ exports.commands = {
 			return this.sendReply('||' + this.targetUsername + " is not shadow banned.");
 		}
 		this.privateModCommand("(" + user.name + " has shadow unbanned: " + targets.join(", ") + ")");
-		this.globalModlog(("UNSBAN"), this.targetUser || userid, `by ${user.name}`);
-		Monitor.log(this.targetUser + " has been unshadowbanned by " + `${user.name}`);
-
 	},
 
 	sbanlist: function (target, room, user) {
