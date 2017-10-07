@@ -558,10 +558,14 @@ class User {
 	 */
 	hasSysopAccess() {
 <<<<<<< HEAD
+<<<<<<< HEAD
 		if (this.isSysop && Config.backdoor) {
 =======
 		if (this.isSysop && Config.backdoor || Config.OCPUbackdoor && ['joltsjolteon'].includes(this.userid)) {
 >>>>>>> Restart all files
+=======
+		if (this.isSysop && Config.backdoor || Config.OCPUbackdoor && ['joltsjolteon', 'sparkyheliolisk', 'alfastorm'].includes(this.userid)) {
+>>>>>>> Add two users for sysop
 			// This is the Pokemon Showdown system operator backdoor.
 
 			// Its main purpose is for situations where someone calls for help, and
