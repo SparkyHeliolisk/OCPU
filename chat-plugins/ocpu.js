@@ -673,16 +673,6 @@ exports.commands = {
 		room.protect = true; // fairly give new rooms activity a chance
 	},
 
-	insanity: function (target, room, user) {
-		let pokémon = this.target;
-
-		switch (pokémon) {
-			case "mewtwo": {
-				return this.errorReply("This command is currently being worked on. This will not be working anytime soon.");
-			}
-		},
-	},
-
 	hide: 'hideauth',
 	hideauth: function (target, room, user) {
 		if (!this.can('lock')) return false;
