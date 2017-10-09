@@ -3,7 +3,7 @@
 * This code is far from perfect and if I was going to
 * do it again I'd definitely do a lot differently.
 *
-* Credits to SpecialGaze for code
+* Credits to SpacialGaze for code (actually Wisp btw)
 *
 * @license MIT license
 */
@@ -1728,7 +1728,7 @@ exports.commands = {
 					return this.errorReply("All battletest commands are currently locked by a administrator.");
 				}
 			},
-			
+
 			fail: function (target, room, user) {
 				if (!Config.battletestlock) {
 					if (!hasPermission(user.userid, 'battletest')) return this.errorReply("You don't have permission to use this command.");
@@ -1767,12 +1767,12 @@ exports.commands = {
 				if (!Config.battletestlock) {
 					Config.battletestlock = true;
 					this.sendReply("Battletest commands are now unable to be used.");
-					console.log(user.name + " has disabled battle test commands.")
+					console.log(user.name + " has disabled battle test commands.");
 				} else {
 					Config.battletestlock = false;
 					this.sendReply("Battletest commands are now able to be used.");
 					console.log(user.name + " has enabled battle test commands.");
-				};
+				}
 			},
 
 			'': 'help',
@@ -1809,7 +1809,7 @@ exports.commands = {
 				save();
 				logPointsUser("ADMIN", league, amount, "Points given by " + user.name);
 				this.sendReply("You've given " + leagues[league].name + " " + amount + (amount === 1 ? " point." : " points."));
-				leaguePM(nameColor(user.name, true) + " has given your league " + amount + (amount === 1 ? " point." : " points."), league);
+				leaguePM(OCPU.nameColor(user.name, true) + " has given your league " + amount + (amount === 1 ? " point." : " points."), league);
 			},
 
 			take: function (target, room, user) {
@@ -1829,7 +1829,7 @@ exports.commands = {
 				save();
 				logPointsUser("ADMIN", league, -amount, "Points taken by " + user.name);
 				this.sendReply("You've taken " + amount + (amount === 1 ? " point " : " points ") + " from " + leagues[league].name + ".");
-				leaguePM(nameColor(user.name, true) + " has taken " + amount + (amount === 1 ? " point " : " points ") + " from your league.", league);
+				leaguePM(OCPU.nameColor(user.name, true) + " has taken " + amount + (amount === 1 ? " point " : " points ") + " from your league.", league);
 			},
 
 			reset: function (target, room, user) {
@@ -1842,8 +1842,8 @@ exports.commands = {
 				}
 
 				this.logModCommand(user.name + " has reset all league points.");
-				messageSeniorStaff("/html " + nameColor(user.name, true) + " has reset all league points.");
-				Rooms('upperstaff').add("|raw|" + nameColor(user.name, true) + " has reset all league points.").update();
+				OCPU.messageSeniorStaff("/html " + OCPU.nameColor(user.name, true) + " has reset all league points.");
+				Rooms('upperstaff').add("|raw|" + OCPU.nameColor(user.name, true) + " has reset all league points.").update();
 				delete user.confirmLeaguePointsReset;
 				for (let u in leagues) leagues[u].points = 0;
 				save();
@@ -1878,7 +1878,7 @@ exports.commands = {
 
 					for (let u in rows) {
 						output += '<tr>';
-						output += '<td>' + nameColor(rows[u].userid, (Users(rows[u].userid) && Users(rows[u].userid).connected)) + '</td>';
+						output += '<td>' + OCPU.nameColor(rows[u].userid, (Users(rows[u].userid) && Users(rows[u].userid).connected)) + '</td>';
 						output += '<td>' + new Date(rows[u].date).toUTCString() + '</td>';
 						output += '<td>' + Chat.escapeHTML(rows[u].reason) + '</td>';
 						output += '<td>' + rows[u].points + '</td>';
