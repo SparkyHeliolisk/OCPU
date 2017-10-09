@@ -45,9 +45,10 @@ function logPoints(userid, amount, reason) {
 	userid = toId(userid);
 	database.run("INSERT INTO points(date, userid, league, points, reason) VALUES ($date, $userid, $league, $points, $reason)",
 		{$date: date, $userid: userid, $league: leagueid, $points: amount, $reason: reason},
-	function (err) {
-		if (err) return console.log("league logPoints: " + err);
-	});
+		function (err) {
+			if (err) return console.log("league logPoints: " + err);
+		}
+	);
 }
 
 function logPointsUser(user, league, amount, reason) {
@@ -55,9 +56,10 @@ function logPointsUser(user, league, amount, reason) {
 	let date = Date.now();
 	database.run("INSERT INTO points(date, userid, league, points, reason) VALUES ($date, $userid, $league, $points, $reason)",
 		{$date: date, $userid: "[" + user + "]", $league: leagueid, $points: amount, $reason: reason},
-	function (err) {
-		if (err) return console.log("league logPointsUser: " + err);
-	});
+		function (err) {
+			if (err) return console.log("league logPointsUser: " + err);
+		}
+	);
 }
 
 function log(message) {
@@ -174,11 +176,11 @@ function importTeam(text) {
 			let parenIndex = line.lastIndexOf(' (');
 			if (line.substr(line.length - 1) === ')' && parenIndex !== -1) {
 				line = line.substr(0, line.length - 1);
-				curSet.species = Tools.getTemplate(line.substr(parenIndex + 2)).species;
+				curSet.species = Dex.getTemplate(line.substr(parenIndex + 2)).species;
 				line = line.substr(0, parenIndex);
 				curSet.name = line;
 			} else {
-				curSet.species = Tools.getTemplate(line).species;
+				curSet.species = Dex.getTemplate(line).species;
 				curSet.name = '';
 			}
 		} else if (line.substr(0, 7) === 'Trait: ') {
@@ -273,7 +275,7 @@ function packTeam(team) {
 		buf += '|' + toId(set.item);
 
 		// ability
-		let template = Tools.getTemplate(set.species || set.name);
+		let template = Dex.getTemplate(set.species || set.name);
 		let abilities = template.abilities;
 		id = toId(set.ability);
 		if (abilities) {
@@ -434,13 +436,13 @@ function leagueTourPoints(winner, runnerup, tourSize, room) {
 		leagues[winnerLeague].points += winnerPoints;
 		save();
 		logPoints(winner, winnerPoints, "First place in a tournament in " + room.id);
-		room.addRaw("<b>" + nameColor(winner, true) + " has won " + winnerPoints + (winnerPoints === 1 ? " point " : " points ") + " for " + Chat.escapeHTML(leagues[winnerLeague].name) + "</b>");
+		room.addRaw("<b>" + OCPU.nameColor(winner, true) + " has won " + winnerPoints + (winnerPoints === 1 ? " point " : " points ") + " for " + Chat.escapeHTML(leagues[winnerLeague].name) + "</b>");
 	}
 	if (secondLeague && secondPoints > 0) {
 		leagues[secondLeague].points += secondPoints;
 		save();
 		logPoints(runnerup, secondPoints, "Second place in a tournament in " + room.id);
-		room.addRaw("<b>" + nameColor(runnerup, true) + " has won " + secondPoints + (secondPoints === 1 ? " point " : " points ") + " for " + Chat.escapeHTML(leagues[secondLeague].name) + "</b>");
+		room.addRaw("<b>" + OCPU.nameColor(runnerup, true) + " has won " + secondPoints + (secondPoints === 1 ? " point " : " points ") + " for " + Chat.escapeHTML(leagues[secondLeague].name) + "</b>");
 	}
 }
 OCPU.leagueTourPoints = leagueTourPoints;
@@ -471,8 +473,8 @@ function isLvLBattle(p1, p2, id, status, types, score) {
 				room.lvl.status[statusNumber] = id;
 			}
 			lvlDisplay(room);
-			room.add('|raw|<a href="/' + id + '">The League vs League battle between ' + nameColor(p1, true) + ' (' + Chat.escapeHTML(leagues[leagueId].name) + ') and ' +
-				nameColor(p2, true) + ' (' + Chat.escapeHTML(leagues[targetLeagueid].name) + ') has begun.</a>');
+			room.add('|raw|<a href="/' + id + '">The League vs League battle between ' + OCPU.nameColor(p1, true) + ' (' + Chat.escapeHTML(leagues[leagueId].name) + ') and ' +
+				OCPU.nameColor(p2, true) + ' (' + Chat.escapeHTML(leagues[targetLeagueid].name) + ') has begun.</a>');
 		} else if (status === 'types') {
 			if (room.lvl.mode === "normal") {
 				room.lvl.types[room.lvl.statusNumber] = types;
@@ -560,7 +562,7 @@ function isLvLBattle(p1, p2, id, status, types, score) {
 				room.lvl.status[statusNumber] = 2;
 			}
 			lvlDisplay(room);
-			room.add("|raw|The League vs League battle between " + nameColor(p1, true) + " and " + nameColor(p2, true) + " ended with a tie. They have to have a rematch.");
+			room.add("|raw|The League vs League battle between " + OCPU.nameColor(p1, true) + " and " + OCPU.nameColor(p2, true) + " ended with a tie. They have to have a rematch.");
 			room.update();
 		}
 	}
@@ -603,8 +605,8 @@ function lvlDisplay(room) {
 			room.add("The following players have been removed from the League vs League due to not being online: " + notOnline.join(', '));
 		} else {
 			room.lvl.started = true;
-			Tools.shuffle(room.lvl.leagues[0].players);
-			Tools.shuffle(room.lvl.leagues[1].players);
+			Dex.shuffle(room.lvl.leagues[0].players);
+			Dex.shuffle(room.lvl.leagues[1].players);
 			room.add("The League vs League has started!");
 			room.lvl.status[0] = 2;
 		}
@@ -778,7 +780,7 @@ exports.commands = {
 			leagues[leagueid].pendingInvites.push(targetUser.userid);
 			save();
 			leagueLog(user.name + " has invited " + targetUser.name + " to join the league.", leagueid);
-			leaguePM(nameColor(user.name, true) + " has invited " + nameColor(targetUser.name, true) + " to join the league.", leagueid);
+			leaguePM(OCPU.nameColor(user.name, true) + " has invited " + OCPU.nameColor(targetUser.name, true) + " to join the league.", leagueid);
 			let message = "/html has invited you to join the league " + Chat.escapeHTML(leagues[leagueid].name) + ". <br />" +
 				"<button name=\"send\" value=\"/league accept " + leagueid + "\">Click to accept</button> | <button name=\"send\" value=\"/league decline " + leagueid +
 				"\">Click to decline</button>";
@@ -794,14 +796,14 @@ exports.commands = {
 
 			if (getLeague(user.userid)) return this.errorReply("You've already joined a league.");
 
-			let sortedRanks = Object.keys(leagues[leagueid].ranks).sort(function (a, b) {return leagues[leagueid].ranks[b].rank - leagues[leagueid].ranks[a].rank;});
+			let sortedRanks = Object.keys(leagues[leagueid].ranks).sort(function (a, b) { return leagues[leagueid].ranks[b].rank - leagues[leagueid].ranks[a].rank; });
 			let rank = sortedRanks.pop();
 			leagues[leagueid].users.push(user.userid);
 			leagues[leagueid].ranks[rank].users.push(user.userid);
 			leagues[leagueid].pendingInvites.splice(leagues[leagueid].pendingInvites.indexOf(user.userid), 1);
 			save();
 			leagueLog(user.name + " has accepted their invitation to join the league.", leagueid);
-			leaguePM(nameColor(user.name, true) + " has accepted their invitation to join the league.", leagueid);
+			leaguePM(OCPU.nameColor(user.name, true) + " has accepted their invitation to join the league.", leagueid);
 
 			user.popup("You've accepted the invitation to join " + leagues[leagueid].name + ".");
 		},
@@ -815,7 +817,7 @@ exports.commands = {
 			leagues[leagueid].pendingInvites.splice(leagues[leagueid].pendingInvites.indexOf(user.userid), 1);
 			save();
 			leagueLog(user.name + " has declined their invitation to join the league.", leagueid);
-			leaguePM(nameColor(user.name, true) + " has declined their invitation to join the league.", leagueid);
+			leaguePM(OCPU.nameColor(user.name, true) + " has declined their invitation to join the league.", leagueid);
 			user.popup("You've declined the invitation to join " + leagues[leagueid].name + ".");
 		},
 
@@ -838,9 +840,9 @@ exports.commands = {
 			leagues[leagueid].users.splice(leagues[leagueid].users.indexOf(targetid), 1);
 			save();
 			leagueLog(user.name + " has kicked " + target + " from the league.", leagueid);
-			leaguePM(nameColor(user.name, true) + " has kicked " + nameColor(target, true) + " from the league.", leagueid);
+			leaguePM(OCPU.nameColor(user.name, true) + " has kicked " + OCPU.nameColor(target, true) + " from the league.", leagueid);
 
-			if (Users(target) && Users(target).connected) Users(target).send("|popup||html|" + nameColor(user.name, true) + " has kicked you from the league " + Chat.escapeHTML(leagues[leagueid].name) + ".");
+			if (Users(target) && Users(target).connected) Users(target).send("|popup||html|" + OCPU.nameColor(user.name, true) + " has kicked you from the league " + Chat.escapeHTML(leagues[leagueid].name) + ".");
 			this.sendReply("You've kicked " + target + " from " + leagues[leagueid].name + ".");
 		},
 
@@ -856,7 +858,7 @@ exports.commands = {
 			leagues[leagueid].users.splice(leagues[leagueid].users.indexOf(user.userid), 1);
 			save();
 			leagueLog(user.name + " has left the league.", leagueid);
-			leaguePM(nameColor(user.name, true) + " has left the league.", leagueid);
+			leaguePM(OCPU.nameColor(user.name, true) + " has left the league.", leagueid);
 			this.sendReply("You have left " + leagues[leagueid].name + ".");
 		},
 
@@ -874,7 +876,7 @@ exports.commands = {
 			leagues[leagueid].desc = target;
 			save();
 			leagueLog(user.name + " has set the league description to '" + target + "'.", leagueid);
-			leaguePM(nameColor(user.name, true) + " has set the league description to '" + Chat.escapeHTML(target) + "'.", leagueid);
+			leaguePM(OCPU.nameColor(user.name, true) + " has set the league description to '" + Chat.escapeHTML(target) + "'.", leagueid);
 			this.sendReply("You've changed the league description.");
 		},
 
@@ -890,7 +892,7 @@ exports.commands = {
 			if (!hasPermission(user.userid, 'masspm')) return this.errorReply("You don't have permission to send a league pm.");
 
 			leagueLog(user.name + " has sent out a league pm: " + target, leagueid);
-			leaguePM("League announcement from " + nameColor(user.name, true) + ":<br />" + Chat.escapeHTML(target), leagueid);
+			leaguePM("League announcement from " + OCPU.nameColor(user.name, true) + ":<br />" + Chat.escapeHTML(target), leagueid);
 		},
 
 		members: function (target, room, user) {
@@ -906,7 +908,7 @@ exports.commands = {
 				output += Chat.escapeHTML(leagues[target].ranks[curRank].title) + " (" + leagues[target].ranks[curRank].users.length + "):\n";
 				for (let u in leagues[target].ranks[curRank].users) {
 					let curUser = leagues[target].ranks[curRank].users[u];
-					users.push(nameColor(curUser, (Users(curUser) && Users(curUser).connected)));
+					users.push(OCPU.nameColor(curUser, (Users(curUser) && Users(curUser).connected)));
 				}
 				output += users.join(',');
 				output += "\n\n";
@@ -973,8 +975,8 @@ exports.commands = {
 				save();
 				rank = leagues[leagueid].ranks[toId(rank)].title;
 				leagueLog(user.name + " has set " + targetUser.name + "'s rank to " + rank, leagueid);
-				leaguePM(nameColor(user.name, true) + " has set " + nameColor(targetUser.name, true) + "'s rank to " + Chat.escapeHTML(rank), leagueid);
-				targetUser.send("|popup||html|" + nameColor(user.name, true) + " has set your league rank in " + Chat.escapeHTML(leagues[leagueid].name) + " to " +
+				leaguePM(OCPU.nameColor(user.name, true) + " has set " + OCPU.nameColor(targetUser.name, true) + "'s rank to " + Chat.escapeHTML(rank), leagueid);
+				targetUser.send("|popup||html|" + OCPU.nameColor(user.name, true) + " has set your league rank in " + Chat.escapeHTML(leagues[leagueid].name) + " to " +
 				Chat.escapeHTML(rank) + ".");
 				this.sendReply("You've set " + targetUser.name + "'s league rank to " + rank + ".");
 			},
@@ -1011,9 +1013,9 @@ exports.commands = {
 				leagues[leagueid].ranks[toId(rank)].users.splice(leagues[leagueid].ranks[toId(rank)].users.indexOf(toId(targetUser)), 1);
 				save();
 				leagueLog(user.name + " has removed the rank " + rank + " from " + targetUser, leagueid);
-				leaguePM(nameColor(user.name, true) + " has removed the rank " + Chat.escapeHTML(rank) + " from " + nameColor(targetUser, true), leagueid);
+				leaguePM(OCPU.nameColor(user.name, true) + " has removed the rank " + Chat.escapeHTML(rank) + " from " + OCPU.nameColor(targetUser, true), leagueid);
 				if (Users(targetUser) && Users(targetUser).connected) {
-					Users(targetUser).send("|popup||html|" + nameColor(user.name, true) + " has removed you from the league rank " + Chat.escapeHTML(rank) + " in " +
+					Users(targetUser).send("|popup||html|" + OCPU.nameColor(user.name, true) + " has removed you from the league rank " + Chat.escapeHTML(rank) + " in " +
 					Chat.escapeHTML(leagues[leagueid].name) + ".");
 				}
 				this.sendReply("You've removed " + targetUser + " from the league rank " + rank + ".");
@@ -1057,7 +1059,7 @@ exports.commands = {
 				};
 				save();
 				leagueLog(user.name + " has added the rank '" + rank + "'.", leagueid);
-				leaguePM(nameColor(user.name, true) + " has added the rank '" + Chat.escapeHTML(rank) + "'.", leagueid);
+				leaguePM(OCPU.nameColor(user.name, true) + " has added the rank '" + Chat.escapeHTML(rank) + "'.", leagueid);
 				this.sendReply("You've added the rank '" + rank + "'.");
 			},
 
@@ -1097,7 +1099,7 @@ exports.commands = {
 				delete leagues[leagueid].ranks[toId(rank)];
 				save();
 				leagueLog(user.name + " has deleted the rank '" + rank + "'.", leagueid);
-				leagueLog(nameColor(user.name, true) + " has deleted the rank '" + Chat.escapeHTML(rank) + "'.", leagueid);
+				leagueLog(OCPU.nameColor(user.name, true) + " has deleted the rank '" + Chat.escapeHTML(rank) + "'.", leagueid);
 				this.sendReply("You've deleted the rank '" + rank + "'.");
 			},
 
@@ -1153,7 +1155,7 @@ exports.commands = {
 			getTeam(pastebin, (err, team) => {
 				if (err) return this.errorReply(err);
 				leagues[toId(league)].challengers[user.userid] = team;
-				leaguePM(nameColor(user.name, true) + " has registered their team to become a challenger.", toId(league));
+				leaguePM(OCPU.nameColor(user.name, true) + " has registered their team to become a challenger.", toId(league));
 				this.sendReply("Your team has been registered. You may now challenge league members with the '/league challenge' command.");
 				save();
 			});
@@ -1207,12 +1209,12 @@ exports.commands = {
 				return this.popupReply("You're already challenging '" + user.challengeTo.to + "'. Cancel that challenge before challenging someone else.");
 			}
 			user.team = leagues[toId(league)].challengers[user.userid];
-			user.prepBattle(Tools.getFormat('ubers').id, 'challenge', connection).then(result => {
+			user.prepBattle(Dex.getFormat('ubers').id, 'challenge', connection).then(result => {
 				if (result) {
 					user.makeChallenge(targetUser, 'monotype');
-					targetUser.send('|pm|' + user.getIdentity() + '|~|/raw <div class="infobox">' + nameColor(user.name, true) + ' is challenging your league.</div>');
-					user.send('|pm|' + targetUser.getIdentity() + '|~|/raw <div class="infobox">You are challenging ' + nameColor(targetUser.userid, true) + '\'s league.');
-					leaguePM(nameColor(user.name, true) + " has challenged " + nameColor(targetUser.name, true) + ".");
+					targetUser.send('|pm|' + user.getIdentity() + '|~|/raw <div class="infobox">' + OCPU.nameColor(user.name, true) + ' is challenging your league.</div>');
+					user.send('|pm|' + targetUser.getIdentity() + '|~|/raw <div class="infobox">You are challenging ' + OCPU.nameColor(targetUser.userid, true) + '\'s league.');
+					leaguePM(OCPU.nameColor(user.name, true) + " has challenged " + OCPU.nameColor(targetUser.name, true) + ".");
 				}
 			});
 		},
@@ -1252,7 +1254,7 @@ exports.commands = {
 				};
 				save();
 				leagueLog(user.name + " has added the badge '" + badgeName + "'.", leagueid);
-				leaguePM(nameColor(user.name, true) + " has added the badge '" + Chat.escapeHTML(badgeName) + "'.", leagueid);
+				leaguePM(OCPU.nameColor(user.name, true) + " has added the badge '" + Chat.escapeHTML(badgeName) + "'.", leagueid);
 				this.sendReply("Your badge has been added.");
 			},
 
@@ -1286,7 +1288,7 @@ exports.commands = {
 				leagues[leagueid].badges[toId(badgeName)].desc = badgeDesc;
 				save();
 				leagueLog(user.name + " has edited the badge '" + badgeName + "'.", leagueid);
-				leaguePM(nameColor(user.name, true) + " has edited the badge '" + Chat.escapeHTML(badgeName) + "'.", leagueid);
+				leaguePM(OCPU.nameColor(user.name, true) + " has edited the badge '" + Chat.escapeHTML(badgeName) + "'.", leagueid);
 				this.sendReply("That badge has been edited.");
 			},
 
@@ -1305,7 +1307,7 @@ exports.commands = {
 				delete leagues[leagueid].badges[toId(badgeName)];
 				save();
 				leagueLog(user.name + " has deleted the badge '" + badgeName + "'.", leagueid);
-				leaguePM(nameColor(user.name, true) + " has deleted the badge '" + Chat.escapeHTML(badgeName) + "'.", leagueid);
+				leaguePM(OCPU.nameColor(user.name, true) + " has deleted the badge '" + Chat.escapeHTML(badgeName) + "'.", leagueid);
 				this.sendReply("Your badge has been deleted.");
 			},
 
@@ -1330,9 +1332,9 @@ exports.commands = {
 				leagues[leagueid].badges[toId(badgeName)].users.push(toId(targetUser));
 				save();
 				leagueLog(user.name + " has given the badge '" + badgeName + "' to " + targetUser + ".", leagueid);
-				leaguePM(nameColor(user.name, true) + " has given the badge '" + Chat.escapeHTML(badgeName) + "' to " + nameColor(targetUser, true) + ".", leagueid);
+				leaguePM(OCPU.nameColor(user.name, true) + " has given the badge '" + Chat.escapeHTML(badgeName) + "' to " + OCPU.nameColor(targetUser, true) + ".", leagueid);
 				if (Users(targetUser) && Users(targetUser).connected) {
-					Users(targetUser).send("|popup||html|" + nameColor(user.name, true) + " has given you the league badge " + Chat.escapeHTML(badgeName) + " in " + Chat.escapeHTML(leagues[leagueid].name) + ".");
+					Users(targetUser).send("|popup||html|" + OCPU.nameColor(user.name, true) + " has given you the league badge " + Chat.escapeHTML(badgeName) + " in " + Chat.escapeHTML(leagues[leagueid].name) + ".");
 				}
 				this.sendReply("You've given " + targetUser + " the badge " + badgeName + ".");
 			},
@@ -1358,9 +1360,9 @@ exports.commands = {
 				leagues[leagueid].badges[toId(badgeName)].users.splice(leagues[leagueid].badges[toId(badgeName)].users.indexOf(toId(targetUser)), 1);
 				save();
 				leagueLog(user.name + " has taken the badge '" + badgeName + "' from " + targetUser + ".", leagueid);
-				leaguePM(nameColor(user.name, true) + " has taken the badge '" + Chat.escapeHTML(badgeName) + "' from " + nameColor(targetUser, true) + ".", leagueid);
+				leaguePM(OCPU.nameColor(user.name, true) + " has taken the badge '" + Chat.escapeHTML(badgeName) + "' from " + OCPU.nameColor(targetUser, true) + ".", leagueid);
 				if (Users(targetUser) && Users(targetUser).connected) {
-					Users(targetUser).send("|popup||html|" + nameColor(user.name, true) + " has taken the league badge " + Chat.escapeHTML(badgeName) + " from you in " + Chat.escapeHTML(leagues[leagueid].name) + ".");
+					Users(targetUser).send("|popup||html|" + OCPU.nameColor(user.name, true) + " has taken the league badge " + Chat.escapeHTML(badgeName) + " from you in " + Chat.escapeHTML(leagues[leagueid].name) + ".");
 				}
 				this.sendReply("You've taken the badge " + badgeName + " from " + targetUser + ".");
 			},
@@ -1388,8 +1390,8 @@ exports.commands = {
 				if (toId(target).length > 19) return this.errorReply("That name is too long.");
 				if (!this.runBroadcast()) return;
 				let badges = getBadges(target);
-				if (badges.length < 1) return this.sendReplyBox(nameColor(target, true) + " has no league badges.");
-				let output = nameColor(target, true) + "'s league badges:<br /><br />";
+				if (badges.length < 1) return this.sendReplyBox(OCPU.nameColor(target, true) + " has no league badges.");
+				let output = OCPU.nameColor(target, true) + "'s league badges:<br /><br />";
 				for (let u in badges) {
 					output += Chat.escapeHTML(u) + ":<br />";
 					for (let i in badges[u]) {
@@ -1432,8 +1434,8 @@ exports.commands = {
 				targetRoom.lvl.accepted = true;
 				lvlDisplay(targetRoom);
 
-				leaguePM(nameColor(user.name, true) + ' has accepted the League vs League challenge against ' + Chat.escapeHTML(leagues[targetLeagueid].name), leagueId);
-				leaguePM(nameColor(user.name, true) + ' (' + leagues[leagueId].name + ') has accepted the League vs League challenge against your league.', targetLeagueid);
+				leaguePM(OCPU.nameColor(user.name, true) + ' has accepted the League vs League challenge against ' + Chat.escapeHTML(leagues[targetLeagueid].name), leagueId);
+				leaguePM(OCPU.nameColor(user.name, true) + ' (' + leagues[leagueId].name + ') has accepted the League vs League challenge against your league.', targetLeagueid);
 
 				this.sendReply("You've accepted the League vs League against " + leagues[targetLeagueid].name + ".");
 			},
@@ -1455,8 +1457,8 @@ exports.commands = {
 					'<div class="infobox">(' + Chat.escapeHTML(leagues[leagueId].name) + ' has declined the League vs League challenge.)</div>'
 				);
 
-				leaguePM(nameColor(user.name, true) + ' has declined the League vs League challenge against ' + Chat.escapeHTML(leagues[targetLeagueid].name), leagueId);
-				leaguePM(nameColor(user.name, true) + ' (' + leagues[leagueId].name + ') has declined the League vs League challenge against your league.', targetLeagueid);
+				leaguePM(OCPU.nameColor(user.name, true) + ' has declined the League vs League challenge against ' + Chat.escapeHTML(leagues[targetLeagueid].name), leagueId);
+				leaguePM(OCPU.nameColor(user.name, true) + ' (' + leagues[leagueId].name + ') has declined the League vs League challenge against your league.', targetLeagueid);
 
 				delete Rooms.global.LvL[targetLeagueid];
 				delete Rooms.global.LvL[leagueId];
@@ -1483,7 +1485,7 @@ exports.commands = {
 				targetRoom.add('|uhtmlchange|lvl-' + targetRoom.lvl.lvlId + '|');
 				targetRoom.add('|uhtml|lvl-' + targetRoom.lvl.lvlId + '|(The League vs League has been forcibly ended by ' + Chat.escapeHTML(user.name) + ' (' + Chat.escapeHTML(leagues[leagueId].name) + '))');
 
-				leaguePM(nameColor(user.name, true) + ' has forcibly ended the League vs League with ' + Chat.escapeHTML(leagues[targetLeagueid].name) + '.', leagueId);
+				leaguePM(OCPU.nameColor(user.name, true) + ' has forcibly ended the League vs League with ' + Chat.escapeHTML(leagues[targetLeagueid].name) + '.', leagueId);
 
 				delete Rooms.global.LvL[targetLeagueid];
 				delete Rooms.global.LvL[leagueId];
@@ -1513,8 +1515,8 @@ exports.commands = {
 				if (league.invites.includes(targetUser.userid)) return this.errorReply("That user has already been invited to join the League vs League.");
 
 				league.invites.push(targetUser.userid);
-				leaguePM(nameColor(user.name, true) + " has invited " + nameColor(targetUser.name, true) + " to join the League vs League against " + Chat.escapeHTML(leagues[targetLeague.id].name), leagueId);
-				targetUser.send("|popup||modal||html|" + nameColor(user.name, true) + " has invited you to join the League vs League against " + Chat.escapeHTML(leagues[targetLeague.id].name) +
+				leaguePM(OCPU.nameColor(user.name, true) + " has invited " + OCPU.nameColor(targetUser.name, true) + " to join the League vs League against " + Chat.escapeHTML(leagues[targetLeague.id].name), leagueId);
+				targetUser.send("|popup||modal||html|" + OCPU.nameColor(user.name, true) + " has invited you to join the League vs League against " + Chat.escapeHTML(leagues[targetLeague.id].name) +
 					" in the room <button name=\"joinRoom\" value=\"" + targetRoom.id + "\">" + Chat.escapeHTML(targetRoom.title) + "</button>");
 				this.sendReply("You've invited " + targetUser.name + " to join the League vs League.");
 			},
@@ -1584,7 +1586,7 @@ exports.commands = {
 				if (!hasPermission(user.userid, 'lvl')) return this.errorReply("You don't have permission to start a league vs league.");
 				if (!user.can('broadcast', null, room)) return this.errorReply("You don't have permission to start a league vs league in that room.");
 
-				let lvlId = randomString(10);
+				let lvlId = OCPU.randomString(10);
 
 				Rooms.global.LvL[leagueId] = {
 					challenging: targetLeagueid,
@@ -1626,17 +1628,17 @@ exports.commands = {
 				for (let i = 0; i < size; i++) room.lvl.status.push((mode === "normal" ? 3 : 2));
 
 				leaguePM(
-					nameColor(user.name, true) + ' (' + Chat.escapeHTML(getLeague(user.userid)) + ') has challenged your league to a League vs League (' +
+					OCPU.nameColor(user.name, true) + ' (' + Chat.escapeHTML(getLeague(user.userid)) + ') has challenged your league to a League vs League (' +
 					size + 'v' + size + ') in' +
 					' <button name="joinRoom" value="' + room.id + '">' + Chat.escapeHTML(room.title) + '</button>.<br />' +
 					'<button name="send" value="/league lvl accept">Accept</button> | <button name="send" value="/league lvl deny">Decline</button>', targetLeagueid
 				);
 				leaguePM(
-					nameColor(user.name, true) + ' has challenged ' + Chat.escapeHTML(leagues[targetLeagueid].name) + ' to a League vs League (' +
+					OCPU.nameColor(user.name, true) + ' has challenged ' + Chat.escapeHTML(leagues[targetLeagueid].name) + ' to a League vs League (' +
 					size + 'v' + size + ') in <button name="joinRoom" value="' + room.id + '">' + Chat.escapeHTML(room.title) + '</button>'
 				);
 				room.add('|uhtml|lvl-' + lvlId + '|' +
-					'<div class="infobox"><center>' + nameColor(user.name, true) + ' has challenged ' + Chat.escapeHTML(leagues[targetLeagueid].name) +
+					'<div class="infobox"><center>' + OCPU.nameColor(user.name, true) + ' has challenged ' + Chat.escapeHTML(leagues[targetLeagueid].name) +
 					' to a League vs League. (' + size + 'v' + size + ')<br />Waiting for a response...</center></div>'
 				);
 			},
@@ -1658,17 +1660,17 @@ exports.commands = {
 				);
 			},
 		},
-		
+
 		'b': 'battle',
-		battle: {	
+		battle: {
 			test: function (target, room, user) {
 				if (!Config.battletestlock) {
 					if (!hasPermission(user.userid, 'battletest')) return this.errorReply("You don't have permission to use this command.");
 					target = this.splitTarget(target);
 					let targetUser = this.targetUser;
-		
+
 					if (!targetUser) return this.errorReply("This command requires a user. (username not found in room.)");
-		
+
 					if (!target) {
 						this.add("|raw|<div class='broadcast-blue'>" + user.name + " has started a battle test on " + targetUser + ".</div>");
 						targetUser.popup(user.name + " has started a battle test on you for the room of " + room.id + ".");
@@ -1676,56 +1678,55 @@ exports.commands = {
 					} else {
 						if (target === "Gym Trainer" || target === "Gym Leader" || target === "Elite 4" || target === "Champion" || target === "Frontier Brain") {
 							this.add("|raw|<div class='broadcast-blue'>" + user.name + " has started a battle test on " + targetUser + " for the position of " + target + ".</div>");
-							targetUser.popup(user.name + " has started a battle test on you for the room of " + room.id + " \n\Position being tested for: " + target + ".");
+							targetUser.popup(user.name + " has started a battle test on you for the room of " + room.id + " Position being tested for: " + target + ".");
 							this.logModCommand(user.name + " has started a battle test on " + target + " for position of " + target + ".");
 						} else {
 							return this.errorReply("Incorrect position was seleted. Possible positions that are able to be selected are: 'Gym Trainer', 'Gym Leader', 'Elite 4', 'Champion' or 'Frontier Brain'.");
-						};
-					};
+						}
+					}
 				} else {
 					return this.errorReply("All battletest commands are currently locked by a administrator.");
-				};
+				}
 			},
-			
+
 			b1: 'battleone',
 			battleone: function (target, room, user) {
 				if (!Config.battletestlock) {
 					if (!hasPermission(user.userid, 'battletest')) return this.errorReply("You don't have permission to use this command.");
 					target = this.splitTarget(target);
 					let targetUser = this.targetUser;
-					
+
 					if (!targetUser) {
 						return this.errorReply("This command requires a user. (username not found in room.)");
 					}
-					
+
 					if (!target) {
 						return this.errorReply("This command requires a battle link target.");
 					}
-					
-					
+
 					Rooms.get(room).addRaw("<div class='broadcast-blue'>" + targetUser + "'s first battle in his/her battle test: <b>" + target + "</b>.");
-					this.logModCommand(Chat.escapeHTML(user.name) + " has started the first battle test battle on " + chat.escapeHTML(targetUser) + ".");
+					this.logModCommand(Chat.escapeHTML(user.name) + " has started the first battle test battle on " + Chat.escapeHTML(targetUser) + ".");
 				} else {
 					return this.errorReply("All battletest commands are currently locked by a administrator.");
-				};
+				}
 			},
-	
+
 			cgl: 'completegymleader',
 			completegymleader: function (target, room, user) {
 				if (!Config.battletestlock) {
 					if (!hasPermission(user.userid, 'battletest')) return this.errorReply("You don't have permission to use this command.");
 					target = this.splitTarget(target);
 					let targetUser = this.targetUser;
-			
+
 					if (!targetUser) {
 						return this.errorReply("This command requires a user. (username not found in room.)");
 					}
-				
+
 					Rooms.get(room).addRaw("<div class='broadcast-green'><b>" + targetUser + " has successfully become a Gym Leader!</b><hr />This user needs to be promoted in the league system.</div>");
 					this.logModCommand(Chat.escapeHTML(targetUser) + " has become a Gym Leader.");
 				} else {
 					return this.errorReply("All battletest commands are currently locked by a administrator.");
-				};
+				}
 			},
 			
 			fail: function (target, room, user) {
@@ -1733,34 +1734,33 @@ exports.commands = {
 					if (!hasPermission(user.userid, 'battletest')) return this.errorReply("You don't have permission to use this command.");
 					target = this.splitTarget(target);
 					let targetUser = this.targetUser;
-			
+
 					if (!target) return this.errorReply("This command requires a reason.");
 					if (!targetUser) return this.errorReply("This command requires a user. (username not found in room.)");
-		
+
 					this.add("|raw|<div class='broadcast-red'>" + targetUser + " has failed the battle test for the reason of: " + target + ".");
 					this.logModCommand(Chat.escapeHTML(targetUser) + " has failed the battle test");
 				} else {
 					return this.errorReply("All battletest commands are currently locked by a administrator.");
 				}
 			},
-			
+
 			e4: 'completeelitefour',
 			completeelitefour: function (target, room, user) {
 				if (!Config.battletestlock) {
 					if (!hasPermission(user.userid, 'battletest')) return this.errorReply("You don't have permission to use this command.");
 					target = this.splitTarget(target);
 					let targetUser = this.targetUser;
-				
+
 					if (!targetUser) return this.errorReply("This command requires a user. (username not found in room.)");
-				
+
 					Rooms.get(room).addRaw("<div class='broadcast-green'><b>" + targetUser + " has successfully become an Elite Four member!</b><hr />This user needs to be promoted in the league system.</div>");
 					this.logModCommand(Chat.escapeHTML(targetUser) + " has become an Elite Four member.");
-				
 				} else {
 					return this.errorReply("All battletest commands are currently locked by a administrator.");
-				};
+				}
 			},
-	
+
 			l: 'lock',
 			lock: function (target, room, user) {
 				if (!this.can('hotpatch')) return false;
@@ -1774,7 +1774,7 @@ exports.commands = {
 					console.log(user.name + " has enabled battle test commands.");
 				};
 			},
-			
+
 			'': 'help',
 			help: function (target, room, user) {
 				if (!this.runBroadcast()) return;
