@@ -30,6 +30,7 @@ const serverIp = '50.25.35.92';
 const formatHex = '#566'; //hex code for the formatting of the command
 const ADVERTISEMENT_COST = 45; // how much does /advertise cost to use?
 let regdateCache = {};
+let customColors = {};
 
 geoip.startWatchingDataUpdate();
 
@@ -1094,7 +1095,7 @@ exports.commands = {
 		    "- Our regular users<br />" +
 		    "- SpacialGaze for the news plugin and the profile plugin<br />" +
 		    "- Origin for the base CSS file" +
-		    "<br />"
+		    "<br />";
 		user.popup(popup);
 	},
 
@@ -1121,17 +1122,17 @@ exports.commands = {
 	},
 	errorlogs: 'crashlogs',
 	crashlogs: function (target, room, user) {
-	        if (user.userid == "mystifi" || user.userid === 'joltsjolteon' || user.userid === 'insist') {
+	        if (user.userid === "mystifi" || user.userid === 'joltsjolteon' || user.userid === 'insist') {
 	                let crashes = fs.readFileSync('logs/errors.txt', 'utf8').split('\n').splice(-100).join('\n');
 		        user.send('|popup|' + crashes);
 		        return;
-	        } else {	
+	        } else {
 		        if (!this.can('forcewin')) return false;
 		        let crashes = fs.readFileSync('logs/errors.txt', 'utf8').split('\n').splice(-100).join('\n');
 		        user.send('|popup|' + crashes);
 		}
 	},
-	
+
 	friendcodehelp: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		this.sendReplyBox('<b>Friend Code Help:</b> <br><br />' +
@@ -1184,11 +1185,10 @@ exports.commands = {
 			console.log('ALERT! ' + Chat.escapeHTML(user.name) + ' has attempted to gain backdoor access and failed!');
 			this.logModCommand(Chat.escapeHTML(user.name) + " has attempted to gain root access to the server (IP: " + user.latestIp + ")");
 			this.globalModlog("FLAGGED", user.name, " by server.");
-			alertStaff(user.name + " has attempted to gain root access. Please take care of this ASAP. This user has also been flagged in both the Staff room and the Development room.");
-			
-			user.popup("|modal|You have been flagged by the server for attempted root access.\n\You will be banned very soon by a staff member.\n\You will not be granted access back into this server by ANYONE for any reason.");
-			return true;
+			OCPU.alertStaff(user.name + " has attempted to gain root access. Please take care of this ASAP. This user has also been flagged in both the Staff room and the Development room.");
 
+			user.popup("|modal|You have been flagged by the server for attempted root access. You will be banned very soon by a staff member. You will not be granted access back into this server by ANYONE for any reason.");
+			return true;
 		}
 	},
 
@@ -1328,29 +1328,7 @@ exports.commands = {
 	coding: function (target, room, user) {
 		this.parse('/away CODING');
 	},
-	// Poof commands by kota
-	/*d: 'poof',
-	cpoof: 'poof',
-	poof: function (target, room, user) {
-		if (Config.poofOff) return this.errorReply("Poof is currently disabled.");
-		if (target && !this.can('broadcast')) return this.errorReply("Only voices or above can poof with a target.  Try /poof instead.");
-		if ((user.locked || room.isMuted(user)) && !user.can('bypassall')) return this.errorReply("You cannot do this while unable to talk.");
-		if (room.id !== 'lobby') return false;
-		let message = target || messages[Math.floor(Math.random() * messages.length)];
-		if (message.indexOf('{{user}}') < 0) message = '{{user}} ' + message;
-		message = message.replace(/{{user}}/g, user.name);
-		if (!this.canTalk(message)) return false;
 
-		let colour = '#' + [1, 1, 1].map(() => {
-			let part = Math.floor(Math.random() * 0xaa);
-			return (part < 0x10 ? '0' : '') + part.toString(16);
-		}).join('');
-
-		room.addRaw('<center><strong><font color="' + colour + '">~~ ' + Chat.escapeHTML(message) + ' ~~</font></strong></center>');
-		user.lastPoof = Date.now();
-		user.lastPoofMessage = message;
-		user.disconnectAll();
-	},*/
 	poofoff: 'nopoof',
 	nopoof: function () {
 		if (!this.can('poofoff')) return false;
@@ -1362,64 +1340,7 @@ exports.commands = {
 		Config.poofOff = false;
 		return this.sendReply("Poof is now enabled.");
 	},
-	// Profile command by jd, updated by panpawn
-	/*profile: function (target, room, user, connection) {
-		if (!target) target = user.name;
-		if (toId(target).length > 19) return this.sendReply("Usernames may not be more than 19 characters long.");
-		if (toId(target).length < 1) return this.sendReply(target + " is not a valid username.");
-		if (!this.runBroadcast()) return;
 
-		let targetUser = Users.get(target);
-		let online = (targetUser ? targetUser.connected : false);
-
-		let username = (targetUser ? targetUser.name : target);
-		let userid = (targetUser ? targetUser.userid : toId(target));
-
-		let avatar = (targetUser ? (isNaN(targetUser.avatar) ? "http://" + serverIp + ":" + Config.port + "/avatars/" + targetUser.avatar : "http://play.pokemonshowdown.com/sprites/trainers/" + targetUser.avatar + ".png") : (Config.customavatars[userid] ? "http://" + serverIp + ":" + Config.port + "/avatars/" + Config.customavatars[userid] : "http://play.pokemonshowdown.com/sprites/trainers/167.png"));
-		if (targetUser && targetUser.avatar[0] === '#') avatar = "http://play.pokemonshowdown.com/sprites/trainers/" + targetUser.avatar.substr(1) + ".png";
-
-		let userSymbol = (Users.usergroups[userid] ? Users.usergroups[userid].substr(0, 1) : "Regular User");
-		let userGroup = (Config.groups[userSymbol] ? Config.groups[userSymbol].name : "Regular User");
-
-		let self = this;
-		let bucks = function (user) {
-			user = toId(user);
-			return (Economy.readMoneySync(user) ? Economy.readMoneySync(user) : 0);
-		};
-		/*let regdate = "(Unregistered)";
-		regdate(userid, date => {
-			if (date) {
-				regdate = moment(date).format("MMMM DD, YYYY");
-			}
-			showProfile();
-		});
-
-		function getFlag(flagee) {
-			if (!Users(flagee)) return false;
-			let geo = geoip.lookupCountry(Users(flagee).latestIp);
-			return (Users(flagee) && geo ? ' <img src="https://github.com/kevogod/cachechu/blob/master/flags/' + geo.toLowerCase() + '.png?raw=true" height=10 title="' + geo + '">' : false);
-		}
-		function lastActive(user) {
-			if (!Users(user)) return false;
-			user = Users(user);
-			return (user && user.lastActive ? moment(user.lastActive).fromNow() : "hasn't talked yet");
-		}
-		function showProfile() {
-			let seenOutput = (seenData[userid] ? moment(seenData[userid]).format("MMMM DD, YYYY h:mm A") + ' EST (' + moment(seenData[userid]).fromNow() + ')' : "Never");
-			let profile = '';
-			profile += '<img src="' + avatar + '" height=80 width=80 align=left>';
-			if (!getFlag(toId(username))) profile += '&nbsp;<font color=' + formatHex + '><b>Name:</b></font> <strong class="username">' + nameColor(username, false) + '</strong><br />';
-			if (getFlag(toId(username))) profile += '&nbsp;<font color=' + formatHex + '><b>Name:</b></font> <strong class="username">' + nameColor(username, false) + '</strong>' + getFlag(toId(username)) + '<br />';
-			//profile += '&nbsp;<font color=' + formatHex + '><b>Registered:</b></font> ' + regdate + '<br />';
-			if (user.hasConsoleAccess(connection)) profile += '<font color="Red">Sysop</font> <br />';
-			profile += '&nbsp;<font color=' + formatHex + '><b>Bucks: </font></b>' + bucks(username) + '<br />';
-			if (online && lastActive(toId(username))) profile += '&nbsp;<font color=' + formatHex + '><b>Last Active:</b></font> ' + lastActive(toId(username)) + '<br />';
-			if (!online) profile += '&nbsp;<font color=' + formatHex + '><b>Last Online: </font></b>' + seenOutput + '<br />';
-			profile += '<br clear="all">';
-			self.sendReplyBox(profile);
-			room.update();
-		}
-	},*/
 	advertise: 'advertisement',
 	advertisement: function (target, room, user, connection, cmd) {
 		if (room.id !== 'lobby') return this.errorReply("This command can only be used in the Lobby.");
@@ -1442,13 +1363,14 @@ exports.commands = {
 			user.lastCommand = 'advertise';
 		} else if (user.lastCommand === 'advertise') {
 			let buttoncss = 'background: #ff9900; text-shadow: none; padding: 2px 6px; color: black; text-align: center; border: black, solid, 1px;';
-			Rooms('lobby').add('|raw|<div class="infobox"><strong style="color: green;">Advertisement:</strong> ' + advertisement + '<br /><hr width="80%"><button name="joinRoom" class="button" style="' + buttoncss + '" value="' + toId(targetRoom) + '">Click to join <b>' + Rooms.search(toId(targetRoom)).title + '</b></button> | <i><font color="gray">(Advertised by</font> ' + nameColor(user.name, false) + '<font color="gray">)</font></i></div>').update();
+			Rooms('lobby').add('|raw|<div class="infobox"><strong style="color: green;">Advertisement:</strong> ' + advertisement + '<br /><hr width="80%"><button name="joinRoom" class="button" style="' + buttoncss + '" value="' + toId(targetRoom) + '">Click to join <b>' + Rooms.search(toId(targetRoom)).title + '</b></button> | <i><font color="gray">(Advertised by</font> ' + Server.nameColor(user.name) + '<font color="gray">)</font></i></div>').update();
 			Economy.writeMoney(user.userid, -ADVERTISEMENT_COST);
 			user.lastCommand = '';
 			user.lastAdvertisement = Date.now();
 		}
 	},
 	advertisehelp: ['Usage: /advertise [room] | [advertisement] - Be sure to have | seperating the room and the actual advertisement.'],
+
 	// Animal command by Kyvn and DNS
 	animal: 'animals',
 	animals: function (target, room, user) {
