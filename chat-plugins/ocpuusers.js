@@ -161,7 +161,7 @@ try {
 			});
 
 			for (let i = 0; i < number; i++) {
-				if (userids[i]) returnText += `<tr><td style="${tdStyle}">${i + 1}.</td><td style="${tdStyle}">${nameColor(userids[i].id, true)}</td><td style="${tdStyle}">${userids[i].money}</td></tr>`;
+				if (userids[i]) returnText += `<tr><td style="${tdStyle}">${i + 1}.</td><td style="${tdStyle}">${OCPU.nameColor(userids[i].id, true)}</td><td style="${tdStyle}">${userids[i].money}</td></tr>`;
 			}
 			returnText += '</table></div>';
 
@@ -345,7 +345,7 @@ try {
 			message = OCPU.formatMessage(message); // Add PS formatting
 
 			let date = `${moment().format('MMMM Do YYYY, h:mm A')} EST`;
-			let tell = `<u>${date}</u><br />${nameColor(userName, true)} said: ${message}`;
+			let tell = `<u>${date}</u><br />${OCPU.nameColor(userName, true)} said: ${message}`;
 
 			OCPU.userData[user].tellNum++;
 			tells[`${user}#${OCPU.userData[user].tellNum}`] = tell;
