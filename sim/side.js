@@ -96,11 +96,7 @@ class Side {
 		}
 
 		this.team = team;
-<<<<<<< HEAD
 		for (let i = 0; i < this.team.length && i < 24; i++) {
-=======
-		for (let i = 0; i < this.team.length && i < 6; i++) {
->>>>>>> Restart all files
 			//console.log("NEW POKEMON: " + (this.team[i] ? this.team[i].name : '[unidentified]'));
 			this.pokemon.push(new Sim.Pokemon(this.team[i], this));
 		}
@@ -142,11 +138,7 @@ class Side {
 		};
 		for (let i = 0; i < this.pokemon.length; i++) {
 			let pokemon = this.pokemon[i];
-<<<<<<< HEAD
 			let entry = {
-=======
-			data.pokemon.push({
->>>>>>> Restart all files
 				ident: pokemon.fullname,
 				details: pokemon.details,
 				condition: pokemon.getHealth(pokemon.side),
@@ -167,13 +159,9 @@ class Side {
 				baseAbility: pokemon.baseAbility,
 				item: pokemon.item,
 				pokeball: pokemon.pokeball,
-<<<<<<< HEAD
 			};
 			if (this.battle.gen > 6) entry.ability = pokemon.ability;
 			data.pokemon.push(entry);
-=======
-			});
->>>>>>> Restart all files
 		}
 		return data;
 	}
@@ -467,30 +455,23 @@ class Side {
 	chooseTeam(data) {
 		const autoFill = !data;
 		if (autoFill) data = `123456`;
-<<<<<<< HEAD
 		let positions;
 		if (data.includes(',')) {
 			positions = ('' + data).split(',').map(datum => parseInt(datum) - 1);
 		} else {
 			positions = ('' + data).split('').map(datum => parseInt(datum) - 1);
 		}
-=======
-		const positions = ('' + data).split('').map(datum => parseInt(datum) - 1);
->>>>>>> Restart all files
 
 		if (autoFill && this.choice.actions.length >= this.maxTeamSize) return true;
 		if (this.currentRequest !== 'teampreview') {
 			return this.emitChoiceError(`Can't choose for Team Preview: You're not in a Team Preview phase`);
 		}
 
-<<<<<<< HEAD
 		// hack for >6 pokemon Custom Game
 		while (positions.length >= 6 && positions.length < this.maxTeamSize && positions.length < this.pokemon.length) {
 			positions.push(positions.length);
 		}
 
-=======
->>>>>>> Restart all files
 		for (const pos of positions) {
 			const index = this.choice.actions.length;
 			if (index >= this.maxTeamSize || index >= this.pokemon.length) {
@@ -572,11 +553,7 @@ class Side {
 
 		this.clearChoice();
 
-<<<<<<< HEAD
 		const choiceStrings = (input.startsWith('team ') ? [input] : input.split(','));
-=======
-		const choiceStrings = input.split(',');
->>>>>>> Restart all files
 
 		for (let choiceString of choiceStrings) {
 			let choiceType = '';
