@@ -13,7 +13,7 @@ exports.commands = {
 				this.popupReply("Ladder Modchat disabled.");
 				Rooms.rooms.forEach((curRoom, id) => {
 					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-green\">Ladder modchat was disabled!</div>").update();
-			});
+				});
 			} else if (target === 'ac' || target === '+') {
 				if (!user.hasConsoleAccess(connection)) {
 					return this.errorReply("/pmmodchat - Access denied.");
@@ -41,7 +41,7 @@ exports.commands = {
 			return this.errorReply("Global lock is enabled. This is unabled to be changed at this current time. PM zellman01 if you think the lock should be removed.");
 		}
 	},
-		
+
 	pmc: 'pmmodchat',
 	pmmodchat: function (target, room, user, connection) {
 		if (!Config.gmodchatlock) {
@@ -91,7 +91,7 @@ exports.commands = {
 					return this.errorReply("/roommodchat - Access denied.");
 				}
 				if (Config.chatmodchat === false) return this.errorReply("Global room modchat is currently disabled!");
-				
+
 				Config.chatmodchat = false;
 				Rooms.rooms.forEach((curRoom, id) => {
 					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-green\">Room modchat was disabled!</div>").update();
@@ -103,7 +103,7 @@ exports.commands = {
 					return this.errorReply("/roommodchat - Access denied.");
 				}
 				if (Config.chatmodchat === target) return this.errorReply("Global room modchat is currently set to " + target + "!");
-				
+
 				Config.chatmodchat = target;
 				this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
 				Rooms.rooms.forEach((curRoom, id) => {
@@ -111,14 +111,14 @@ exports.commands = {
 					curRoom.modchat = target;
 				});
 				Config.battlemodchat = target;
-			} else if  (target === '%' || target === '@' || target === '*' || target === '#' || target === '&') {
+			} else if (target === '%' || target === '@' || target === '*' || target === '#' || target === '&') {
 				if (!user.hasConsoleAccess(connection)) {
 					return this.errorReply("/roommodchat - Access denied.");
 				}
 				if (Config.chatmodchat === target) return this.errorReply("Global room modchat is currently set to " + target + "!");
-				
+
 				Config.chatmodchat = target;
-				if (target != "#") {
+				if (target !== "#") {
 					this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
 				} else {
 					this.popupReply("Room modchat was set to " + target + ". Battle modchat could not be set to " + target + ".");
@@ -127,7 +127,7 @@ exports.commands = {
 					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-red\">Room modchat was set to " + target + ".</div>").update();
 					curRoom.modchat = target;
 				});
-				if (target != "#") {
+				if (target !== "#") {
 					Config.battlemodchat = target;
 				}
 			} else if (target === '~') {
@@ -135,13 +135,13 @@ exports.commands = {
 					return this.errorReply("/roommodchat - Access denied.");
 				}
 				if (Config.chatmodchat === target) return this.errorReply("Global room modchat is currently set to " + target + "!");
-				
+	
 				Config.chatmodchat = target;
 				this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
 				Rooms.rooms.forEach((curRoom, id) => {
 					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-red\">Room modchat was set to " + target + " because of a sysop thinking something is wrong. ONLY listen to any ~ online. All PMs will also be made to only allow ~ to use.</div>");
 					curRoom.modchat = target;
-				})
+				});
 				this.parse("/pmmodchat ~");
 				Config.battlemodchat = target;
 			} else {
@@ -151,10 +151,10 @@ exports.commands = {
 			return this.errorReply("Global lock is enabled. This is unabled to be changed at this current time. PM zellman01 if you think the lock should be removed.");
 		}
 	},
-	
+
 	gmcl: 'globalmodchatlock',
 	globalmodchatlock: function (target, room, user, connection, cmd) {
-		let allowed = ['joltsjolteon']
+		let allowed = ['joltsjolteon'];
 		if (allowed.includes(user.userid)) {
 			if (!Config.gmodchatlock) {
 				this.send("Enabling global modchat lock...");
@@ -168,24 +168,24 @@ exports.commands = {
 				console.log(Chat.escapeHTML(user.name) + " has disabled the Global modchat lock.");
 			}
 		} else {
-			return this.errorReply("The command \"/globalmodchatlock\" does not exist. To send a message starting with \"/globalmodchatlock\", type \"//globalmodchatlock\".")
+			return this.errorReply("The command \"/globalmodchatlock\" does not exist. To send a message starting with \"/globalmodchatlock\", type \"//globalmodchatlock\".";)
 		}
 	},
-	
+
 	gmclc: function (target, room, user, connection) {
 		if (!user.hasConsoleAccess(connection)) {
 			return this.errorReply("/gmclc - Access denied.");
 		}
 		this.sendReply(Config.gmodchatlock);
 	},
-	
+
 	mclc: function (target, room, user, connection) {
 		if (!user.hasConsoleAccess(connection)) {
 			return this.errorReply("/mclc - Access denied.");
 		}
-		this.sendReply(Config.modchatlock)
+		this.sendReply(Config.modchatlock);
 	},
-	
+
 	mcl: 'modchatlock',
 	modchatlock: function (target, room, user, connection, cmd) {
 		if (!this.can('forcewin')) {
@@ -202,5 +202,5 @@ exports.commands = {
 			Config.modchatlock = false;
 			console.log(Chat.escapeHTML(user.name) + " has disabled the modchat lock.");
 		}
-	}
+	},
 };
