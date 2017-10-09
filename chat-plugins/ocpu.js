@@ -53,31 +53,13 @@ const messages = [
 ];
 
 exports.commands = {
-	
 	todo: function (target, room, user, connection) {
 		if (!user.hasConsoleAccess(connection)) {
 			return this.errorReply("/todo - Access denied.");
 		}
 		user.popup("This command is currently not completed right now.");
 	},
-	/*restart: function (target, room, user, connection) {
-		if (!user.hasConsoleAccess(connection)) {
-			return this.errorReply("/restart - Access denied");
-		}
-		if (!Rooms.global.lockdown) {
-			return this.errorReply("For safety reasons, /restart can only be used during lockdown.");
-		}
-		if (Chat.updateServerLock) {
-			return this.errorReply("Wait for /updateserver to finish before using /restart.");
-		}
-		this.logModCommand(user.name + ' used /restart');
-		try {
-			Rooms.global.send('|refresh|');
-			forever.restart('app.js');
-		} catch (e) {
-			return this.errorReply("Something went wrong while trying to restart.  Are you sure the server is started with the 'forever' module?");
-		}
-	},*/
+
 	dm: 'daymute',
 	daymute: function (target, room, user, connection, cmd) {
 		if (!target) return this.errorReply("Usage: /dm [user], [reason].");
@@ -108,6 +90,7 @@ exports.commands = {
 
 		room.mute(targetUser, muteDuration, false);
 	},
+
 	staffmute: function (target, room, user, connection, cmd) {
 		if (!target) return this.errorReply("Usage: /staffmute [user], [reason].");
 		if (!this.canTalk()) return this.sendReply("You cannot do this while unable to talk.");
@@ -137,6 +120,7 @@ exports.commands = {
 
 		room.mute(targetUser, muteDuration, false);
 	},
+
 	em: 'emergencymeeting',
 	emergencymeeting: function (target, room,user, connection) {
 		if (!user.hasConsoleAccess(connection)) {
@@ -155,16 +139,17 @@ exports.commands = {
 		} else{
 			OCPU.pmStaff("Please use '/profile " + user.name + "' to see if that user is a confirmed sysop. Please alert an actual sysop if they are not.");
 		}
-		
+
 		Rooms.rooms.get("staff").addRaw("<div class=\"broadcast-red\">The sysop user " + user.name + " (at least what the server reconizes as a sysop user) is calling an emergency meeting. Please listen to what he/she needs to say.</div>");
 		Rooms.rooms.get("staff").modchat = '~';
 		Rooms.rooms.get("staff").addRaw("<div class=\"broadcast-red\">Moderated chat has been set to '~' for this. Other admins and sysops, please refrain from saying anything. except for the sysop/admin keeping track of the timer.</div>");
 		Rooms.rooms.get("staff").addRaw("<div class=\"broadcast-blue\">This user's timer will start after another sysop/admin has said so, and that sysop/admin is responsible for keeping track of the timer. Once the timer is up, that sysop/admin will declare that this is over and will remove the modchat. The user who started this may end it at any time OR by a council vote of most sysop/admins (55% rule). The timer is 10 minutes");
-		
+
 		Rooms.rooms.get("upperstaff").addRaw("<div class=\"broadcast-blue\">Please get inside the Staff room if you are not already there please.");
-		
+
 		user.popup("You must have something significant to say to all staff members or it will immediately end.");
 	},
+
 	globalauth: 'gal',
 	stafflist: 'gal',
 	authlist: 'gal',
@@ -251,6 +236,7 @@ exports.commands = {
 			);
 		});
 	},
+
 	ts: 'tournamentstaff',
 	tournamentstaff: function (target, room, user) {
 		let ignoreUsers = [];
@@ -282,7 +268,7 @@ exports.commands = {
 				'<br /><b><u>(' + staff['tournamentstaffs'].length + ')</u></b><br />' + staff['tournamentstaffs'].join(', ') +
 				'<br /><br />(<b>Bold</b> / <i>italic</i> = currently online)' +
 				'<br />Users who are administrators working for the tournament:' +
-				nameColor('joltsjolteon', true) + '.'
+				OCPU.nameColor('joltsjolteon', true) + '.'
 			);
 		});
 	},
@@ -321,15 +307,17 @@ exports.commands = {
 		Rooms.global.writeChatRoomData();
 		room.protect = true; // fairly give new rooms activity a chance
 	},
+
 	insanity: function (target, room, user) {
 		let pokémon = this.target;
-		
+
 		switch(pokémon) {
-			case mewtwo:
+			case mewtwo: {
 				return this.errorReply("This command is currently being worked on. This will not be working anytime soon.");
-				break;
+			}
 		}
 	},
+
 	hide: 'hideauth',
 	hideauth: function (target, room, user) {
 		if (!this.can('lock')) return false;
@@ -369,6 +357,7 @@ exports.commands = {
 		this.logModCommand(user.name + ' is hiding auth symbol as \'' + tar + '\'');
 		user.isHiding = true;
 	},
+
 	show: 'showauth',
 	showauth: function (target, room, user) {
 		if (!user.can('lock')) return this.sendReply("/showauth - access denied.");
@@ -378,6 +367,7 @@ exports.commands = {
 		this.sendReply("You have now revealed your auth symbol.");
 		return this.logModCommand(user.name + " has revealed their auth symbol.");
 	},
+
 	pb: 'permaban',
 	pban: 'permaban',
 	permban: 'permaban',
@@ -391,7 +381,7 @@ exports.commands = {
 		let name = targetUser.getLastName();
 		let userid = targetUser.getLastId();
 
-		if (/*Users.checkBanned(targetUser.latestIp)*/ targetUser.banned && !target && !targetUser.connected) {
+		if (targetUser.banned && !target && !targetUser.connected) {
 			let problem = " but was already banned";
 			return this.privateModCommand('(' + name + " would be banned by " + user.name + problem + '.) (' + targetUser.latestIp + ')');
 		}
@@ -423,6 +413,7 @@ exports.commands = {
 		this.globalModlog("PERMABAN", targetUser, " by " + user.name);
 		Punishments.ban(targetUser, Date.now() + 6 * 4 * 7 * 24 * 60 * 60 * 1000);
 	},
+
 	clearall: 'clearroom',
 	clearroom: function (target, room, user) {
 		if (!this.can('pban')) return false;
@@ -445,6 +436,7 @@ exports.commands = {
 			}
 		}, 1000);
 	},
+
 	hc: function (room, user, cmd) {
 		return this.parse('/hotpatch chat');
 	},
@@ -490,7 +482,7 @@ exports.commands = {
 		let message = target.slice(commaIndex + 1).trim();
 		if (!targetUser || !message) return this.errorReply("Needs a target.");
 		if (!Users.get(targetUser).name) return false;
-		room.addRaw(nameColor(Users.get(targetUser).name, true) + '\'s link: <b>"' + message + '"</b>');
+		room.addRaw(OCPU.nameColor(Users.get(targetUser).name, true) + '\'s link: <b>"' + message + '"</b>');
 	},
 	roomlist: function (target, room, user) {
 		if (!this.can('hotpatch')) return;
@@ -531,7 +523,7 @@ exports.commands = {
 		}
 		this.sendReplyBox(header + official.join(' ') + nonOfficial.join(' ') + privateRoom.join(' ') + (groupChats.length > 1 ? groupChats.join(' ') : '') + (battleRooms.length > 1 ? battleRooms.join(' ') : ''));
 	},
-	
+
 	mt: 'mktour',
 	mktour: function (target, room, user) {
 		if (!target) return this.errorReply("Usage: /mktour [tier] - creates a tournament in single elimination.");
@@ -673,13 +665,7 @@ exports.commands = {
 		return this.sendReplyBox('There ' + (names.length === 1 ? 'is' : 'are') + ' <font color="#24678d"><b>' + names.length + '</b></font> ' + (names.length === 1 ? 'user' : 'users') + ' with the rank <font color="#24678d"><b>' + Config.groups[target].name + '</b></font> currently online.<br />' + names.join(', '));
 	},
 	usersofrankhelp: ["/usersofrank [rank symbol] - Displays all ranked users with that rank currently online."],
-	/*declare: function (target, room, user, connection, cmd) {
-		if (!target) return this.parse('/help declare');
-		if (!this.can('declare', null, room)) return false;
-		if (!this.canTalk()) return;
-		this.add('|raw|<div class="broadcast-"><b>' + target + '</b></div>');
-		this.logModCommand(user.name + ' declared ' + target);
-	},*/
+
 	pdeclare: function (target, room, user, connection, cmd) {
 		if (!target) return this.parse('/help declare');
 		if (!this.can('declare', null, room)) return false;
@@ -691,6 +677,7 @@ exports.commands = {
 		}
 		this.logModCommand(user.name + ' declared ' + target);
 	},
+
 	sd: 'declaremod',
 	staffdeclare: 'declaremod',
 	modmsg: 'declaremod',
@@ -703,46 +690,14 @@ exports.commands = {
 		this.logModCommand(user.name + ' mod declared ' + target);
 	},
 	declaremodhelp: ['/declaremod [message] - Displays a red [message] to all authority in the respected room.  Requires #, &, ~'],
-	/*k: 'kick',
-	kick: function (target, room, user) {
-		if (!target) return this.parse('/help kick');
-		if (!this.canTalk()) return false;
-		let kickBlock = (kick === undefined ? false : kick);
-		switch (target) {
-		case 'disable':
-			if (!this.can('hotpatch')) return false;
-			if (kickBlock) return this.errorReply("Kick is already disabled.");
-			kick = true;
-			this.privateModCommand("(" + user.name + " has disabled kick.)");
-			break;
-		case 'enable':
-			if (!this.can('hotpatch')) return false;
-			if (!kickBlock) return this.errorReply("Kick is already enabled.");
-			kick = false;
-			this.privateModCommand("(" + user.name + " has enabled kick.)");
-			break;
-		default:
-			target = this.splitTarget(target);
-			let targetUser = this.targetUser;
-			if (!targetUser || !targetUser.connected) {
-				return this.errorReply('User ' + this.targetUsername + ' not found.  Check spelling?');
-			}
-			if (!(targetUser in room.users)) return this.errorReply("User '" + targetUser + "' is not in this room.  Check spelling?");
-			if (!this.can('mute', targetUser, room)) return false;
-			if (kickBlock) return this.errorReply("Kick is currently disabled.");
-			this.addModCommand(targetUser.name + ' was kicked from the room by ' + user.name + '.');
-			targetUser.popup('You were kicked from ' + room.id + ' by ' + user.name + '.');
-			targetUser.leaveRoom(room.id);
-		}
-	},
-	kickhelp: ["Usage: /kick [user] - kicks a user from the room",
-				"/kick [enable/disable] - enables or disables kick. Requires ~."],*/
+
 	userid: function (target, room, user) {
 		if (!target) return this.parse('/help userid');
 		if (!this.runBroadcast()) return;
 		return this.sendReplyBox(Chat.escapeHTML(target) + " ID: <b>" + Chat.escapeHTML(toId(target)) + "</b>");
 	},
 	useridhelp: ["/userid [user] - shows the user's ID (removes unicode from name basically)"],
+
 	pus: 'pmupperstaff',
 	pmupperstaff: function (target, room, user) {
 		if (!target) return this.sendReply('/pmupperstaff [message] - Sends a PM to every upper staff');
@@ -770,13 +725,13 @@ exports.commands = {
 	credits: function (target, room, user) {
 		let popup = "|html|" + "<font size=5> Server Credits</font><br />" +
 					"<u>Owners:</u><br />" +
-					"- " + nameColor('zellman01', true) + " (Founder, Sysop, Development, Owner of GitHub repository)<br />" +
-					"- " + nameColor('SparkyHeliolisk', true) + " (Creative Admin, Sysop)<br />" +
-					"- " + nameColor('AlfaStorm', true) + " (Coding Admin, Sysop)<br />" +
+					"- " + OCPU.nameColor('zellman01', true) + " (Founder, Sysop, Development, Owner of GitHub repository)<br />" +
+					"- " + OCPU.nameColor('SparkyHeliolisk', true) + " (Creative Admin, Sysop)<br />" +
+					"- " + OCPU.nameColor('AlfaStorm', true) + " (Coding Admin, Sysop)<br />" +
 		    			//"- " + nameColor('Inactive', true) + " (Sysop)<br />" +
 					"<br />" +
 					"<u>Development:</u><br />" +
-					"- None at this current point<br />" +
+					"- " + OCPU.nameColor('Insist', true) + " (Development, Fixed Eslint)<br />" +
 					//"- " + nameColor('Mystifi', true) + " (Contributor, Development)<br />" +
 					//"- " + nameColor('Co-Champ Salt', true) + " (Server CSS)<br />" +
 					"<br />" +
@@ -786,94 +741,11 @@ exports.commands = {
 					"- SpecialGaze for the news plugin and the profile plugin<br />" +
 					"- Origin for the base CSS file" +
  					"<br />"
-<<<<<<< HEAD
-=======
 		    			"- Origin for the base CSS file" +
 					"<br />"
->>>>>>> Update /credits
-=======
->>>>>>> Fix another error
 		user.popup(popup);
 	},
-	/*regdate: function (target, room, user, connection) {
-		if (toId(target).length < 1 || toId(target).length > 19) return this.sendReply("Usernames may not be less than one character or longer than 19");
-		if (!this.runBroadcast()) return;
-		regdate(target, date => {
-			this.sendReplyBox(nameColor(target, false) + (date ? " was registered on " + moment(date).format("dddd, MMMM DD, YYYY HH:mmA ZZ") : " is not registered."));
-			room.update();
-		});
-	},
-	badgelist: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		let fgs = '<img src="http://www.smogon.com/media/forums/images/badges/forummod_alum.png" title="Former OCPU Staff">';
-		let admin = '<img src="http://www.smogon.com/media/forums/images/badges/sop.png" title="Server Administrator">';
-		let dev = '<img src="http://www.smogon.com/media/forums/images/badges/factory_foreman.png" title="OCPU Developer">';
-		let creator = '<img src="http://www.smogon.com/media/forums/images/badges/dragon.png" title="Server Creator">';
-		let comcun = '<img src="http://www.smogon.com/media/forums/images/badges/cc.png" title="Community Contributor">';
-		let leader = '<img src="http://www.smogon.com/media/forums/images/badges/aop.png" title="Server Leader">';
-		let mod = '<img src="http://www.smogon.com/media/forums/images/badges/pyramid_king.png" title="Exceptional Staff Member">';
-		let league = '<img src="http://www.smogon.com/media/forums/images/badges/forumsmod.png" title="Successful League Owner">';
-		let champ = '<img src="http://www.smogon.com/media/forums/images/badges/forumadmin_alum.png" title="League Champion">';
-		let artist = '<img src="http://www.smogon.com/media/forums/images/badges/ladybug.png" title="Artist">';
-		let twinner = '<img src="http://www.smogon.com/media/forums/images/badges/spl.png" title="Tournament Winner">';
-		let vip = '<img src="http://www.smogon.com/media/forums/images/badges/zeph.png" title="VIP">';
-		let bot = '<img src="http://www.smogon.com/media/forums/images/badges/mind.png" title=" Bot Hoster">';
-		return this.sendReplyBox('<b>List of  Badges</b>:<br>' + fgs + '  ' + admin + '    ' + dev + '  ' + creator + '   ' + comcun + '    ' + mod + '    ' + leader + '    ' + league + '    ' + champ + '    ' + artist + '    ' + twinner + '    ' + vip + '    ' + bot + ' <br>--Hover over them to see the meaning of each.<br>--Get a badge and get a FREE custom avatar!<br>--Click <a href="http://ocpuserver.weebly.com/badges.html">here</a> to find out more about how to get a badge.');
-	},
-	badges: 'badge',
-	badge: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		if (target === '') target = user.userid;
-		target = this.splitTarget(target);
-		let targetUser = this.targetUser;
-		if (!targetUser) return false;
-		let fgs = '<img src="http://www.smogon.com/media/forums/images/badges/forummod_alum.png" title="Former OCPU Staff">';
-		let admin = '<img src="http://www.smogon.com/media/forums/images/badges/sop.png" title="Server Administrator">';
-		let dev = '<img src="http://www.smogon.com/media/forums/images/badges/factory_foreman.png" title="OCPU Developer">';
-		let creator = '<img src="http://www.smogon.com/media/forums/images/badges/dragon.png" title="Server Creator">';
-		let comcun = '<img src="http://www.smogon.com/media/forums/images/badges/cc.png" title="Community Contributor">';
-		let leader = '<img src="http://www.smogon.com/media/forums/images/badges/aop.png" title="Server Leader">';
-		let mod = '<img src="http://www.smogon.com/media/forums/images/badges/pyramid_king.png" title="Exceptional Staff Member">';
-		let league = '<img src="http://www.smogon.com/media/forums/images/badges/forumsmod.png" title="Successful League Owner">';
-		let artist = '<img src="http://www.smogon.com/media/forums/images/badges/ladybug.png" title="Artist">';
-		let twinner = '<img src="http://www.smogon.com/media/forums/images/badges/spl.png" title="Tournament Winner">';
-		let vip = '<img src="http://www.smogon.com/media/forums/images/badges/zeph.png" title="VIP">';
-		let bot = '<img src="http://www.smogon.com/media/forums/images/badges/mind.png" title=" Bot Hoster">';
-		fs.readFile('badges.txt', 'utf8', (err, data) => {
-			if (err) console.log(err);
-			let row = ('' + data).split('\n');
-			let match = false;
-			let currentbadges;
-			for (let i = row.length; i > -1; i--) {
-				if (!row[i]) continue;
-				let split = row[i].split(':');
-				if (split[0] === targetUser.userid) {
-					match = true;
-					currentbadges = split[1];
-				}
-			}
-			if (match === true) {
-				let badgelist = '';
-				if (currentbadges.indexOf('fgs') > -1) badgelist += ' ' + fgs;
-				if (currentbadges.indexOf('admin') > -1) badgelist += ' ' + admin;
-				if (currentbadges.indexOf('dev') > -1) badgelist += ' ' + dev;
-				if (currentbadges.indexOf('creator') > -1) badgelist += ' ' + creator;
-				if (currentbadges.indexOf('comcun') > -1) badgelist += ' ' + comcun;
-				if (currentbadges.indexOf('leader') > -1) badgelist += ' ' + leader;
-				if (currentbadges.indexOf('mod') > -1) badgelist += ' ' + mod;
-				if (currentbadges.indexOf('league') > -1) badgelist += ' ' + league;
-				if (currentbadges.indexOf('artist') > -1) badgelist += ' ' + artist;
-				if (currentbadges.indexOf('twinner') > -1) badgelist += ' ' + twinner;
-				if (currentbadges.indexOf('vip') > -1) badgelist += ' ' + vip;
-				if (currentbadges.indexOf('bot') > -1) badgelist += ' ' + bot;
-				this.sendReplyBox(targetUser.userid + "'s badges: " + badgelist);
-				room.update();
-			} else {
-				this.sendReplyBox('User ' + targetUser.userid + ' has no badges.');
-				room.update();
-			}
-		});
-	},*/
+
 	helixfossil: 'm8b',
 	helix: 'm8b',
 	magic8ball: 'm8b',
@@ -897,7 +769,7 @@ exports.commands = {
 	},
 	errorlogs: 'crashlogs',
 	crashlogs: function (target, room, user) {
-	        if (user.userid == "mystifi" || user.userid === 'joltsjolteon') {
+	        if (user.userid == "mystifi" || user.userid === 'joltsjolteon' || user.userid === 'insist') {
 	                let crashes = fs.readFileSync('logs/errors.txt', 'utf8').split('\n').splice(-100).join('\n');
 		        user.send('|popup|' + crashes);
 		        return;
