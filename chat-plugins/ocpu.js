@@ -9,142 +9,7 @@ const moment = require('moment');
 const http = require('http');
 const https = require('https');
 const geoip = require('geoip-ultralight');
-const colorCache = {};
-const customColors = {};
-const mainCustomColors = {
-	'theimmortal': 'taco',
-	'bmelts': 'testmelts',
-	'zarel': 'aeo',
-	'zarell': 'aeo',
-	'greatsage': 'test454',
-	// 'snowflakes': 'snowflake',
-	'jumpluff': 'zacchaeus',
-	'zacchaeus': 'jumpluff',
-	'kraw': 'kraw1',
-	'growlithe': 'steamroll',
-	'snowflakes': 'endedinariot',
-	'doomvendingmachine': 'theimmortal',
-	'mikel': 'mikkel',
-	'arcticblast': 'rsem',
-	'mjb': 'thefourthchaser',
-	'thefourthchaser': 'mjb',
-	'tfc': 'mjb',
-	'mikedecishere': 'mikedec3boobs',
-	'heartsonfire': 'haatsuonfaiyaa',
-	'royalty': 'wonder9',
-	// 'osiris': 'yamraiha',
-	'limi': 'azure2',
-	'haunter': 'cathy',
-	'ginganinja': 'piratesandninjas',
-	'aurora': 'c6n6fek',
-	'jdarden': 'danielcross',
-	'solace': 'amorlan',
-	'dcae': 'galvatron',
-	'queenofrandoms': 'hahaqor',
-	'jelandee': 'thejelandee',
-	'diatom': 'dledledlewhooop',
-	// 'waterbomb': 'wb0',
-	'texascloverleaf': 'aggronsmash',
-	'treecko': 'treecko56',
-	'treecko37': 'treecko56',
-	'violatic': 'violatic92',
-	'exeggutor': 'ironmanatee',
-	'ironmanatee': 'exeggutor',
-	// 'shamethat': 'aaa10',
-	'skylight': 'aerithass',
-	// 'prem': 'premisapieceofshit',
-	'goddessbriyella': 'jolteonxvii', // third color change
-	'nekonay': 'catbot20',
-	'coronis': 'kowonis',
-	'vaxter': 'anvaxter',
-	'mattl': 'mattl34',
-	'shaymin': 'test33',
-	// 'orphic': 'dmt6922',
-	'kayo': 'endedinariot',
-	'tgmd': 'greatmightydoom',
-	'vacate': 'vacatetest',
-	'bean': 'dragonbean',
-	'yunan': 'osiris13',
-	'politoed': 'brosb4hoohs',
-	'scotteh': 'nsyncluvr67',
-	'bumbadadabum': 'styrofoamboots',
-	'yuihirasawa': 'weeabookiller',
-	'monohearted': 'nighthearted',
-	'prem': 'erinanakiri', // second color change
-	'clefairy': 'fuckes',
-	'morfent': 'aaaa',
-	'crobat': 'supergaycrobat4',
-	'beowulf': '298789z7z',
-	'flippy': 'flippo',
-	'raoulsteve247': 'raoulbuildingpc',
-	'thedeceiver': 'colourtest011',
-	'darnell': 'ggggggg',
-	'shamethat': 'qpwkfklkjpskllj', // second color change
-	'aipom': 'wdsddsdadas',
-	'alter': 'spakling',
-	'biggie': 'aoedoedad',
-	'osiris': 'osiris12', // second color change
-	'azumarill': 'azumarill69',
-	'redew': 'redeww',
-	'sapphire': 'masquerains',
-	'calyxium': 'calyxium142',
-	'kiracookie': 'kracookie',
-	'blitzamirin': 'hikaruhitachii',
-	'skitty': 'shckieei',
-	'sweep': 'jgjjfgdfg', // second color change
-	'panpawn': 'crowt',
-	'val': 'pleasegivemecolorr',
-	'valentine': 'pleasegivemecolorr',
-	'briayan': 'haxorusxi',
-	'xzern': 'mintycolors',
-	'shgeldz': 'cactusl00ver',
-	'abra': 'lunchawaits',
-	'maomiraen': 'aaaaaa',
-	'trickster': 'sunako',
-	'articuno': 'bluekitteh177',
-	// 'antemortem': 'abc11092345678',
-	'scene': 'aspire',
-	'barton': 'hollywood15',
-	// 'psych': 'epicwome',
-	'zodiax': 'coldeann',
-	'ninetynine': 'blackkkk',
-	'kasumi': 'scooter4000',
-	'xylen': 'bloodyrevengebr',
-	'aelita': 'y34co3',
-	'fx': 'cm48ubpq',
-	'horyzhnz': 'superguy69',
-	'quarkz': 'quarkz345',
-	'fleurdyleurse': 'calvaryfishes',
-	'trinitrotoluene': '4qpr7pc5mb',
-	'rekeri': 'qgadlu6g',
-	'austin': 'jkjkjkjkjkgdl',
-	'jinofthegale': 'cainvelasquez',
-	'waterbomb': 'naninan',
-	'starbloom': 'taigaaisaka',
-	'macle': 'flogged',
-	'ashiemore': 'poncp',
-	'charles': 'charlescarmichael',
-	'sigilyph': 'ek6',
-	'spy': 'spydreigon',
-	'kinguu': 'dodmen',
-	'dodmen': 'kinguu',
-	'halite': 'cjilkposqknolssss',
-	'magnemite': 'dsfsdffs',
-	'ace': 'sigilyph143',
-	'leftiez': 'xxxxnbbhiojll',
-	'grim': 'grimoiregod',
-	'strength': '0v0tqpnu',
-	'advantage': 'nsyncluvr67',
-	'quote': 'quotecs',
-	'snow': 'q21yzqgh',
-	'omegaxis': 'omegaxis14',
-	'paradise': 'rnxvzwpwtz',
-	'sailorcosmos': 'goldmedalpas',
-	'dontlose': 'dhcli22h',
-	'tatsumaki': 'developmentary',
-	'starry': 'starryblanket',
-	'cathy': '' //{color: '#ff5cb6'}
-};
+
 let bubbleLetterMap = new Map([
 	['a', '\u24D0'], ['b', '\u24D1'], ['c', '\u24D2'], ['d', '\u24D3'], ['e', '\u24D4'], ['f', '\u24D5'], ['g', '\u24D6'], ['h', '\u24D7'], ['i', '\u24D8'], ['j', '\u24D9'], ['k', '\u24DA'], ['l', '\u24DB'], ['m', '\u24DC'],
 	['n', '\u24DD'], ['o', '\u24DE'], ['p', '\u24DF'], ['q', '\u24E0'], ['r', '\u24E1'], ['s', '\u24E2'], ['t', '\u24E3'], ['u', '\u24E4'], ['v', '\u24E5'], ['w', '\u24E6'], ['x', '\u24E7'], ['y', '\u24E8'], ['z', '\u24E9'],
@@ -165,11 +30,11 @@ let asciiMap = new Map([
 const serverIp = '50.25.35.92';
 const formatHex = '#566'; //hex code for the formatting of the command
 const ADVERTISEMENT_COST = 45; // how much does /advertise cost to use?
-const regdateCache = {};
+let regdateCache = {};
 
 geoip.startWatchingDataUpdate();
 
-global.parseStatus = function(text, encoding) {
+global.parseStatus = function (text, encoding) {
 	if (encoding) {
 		text = text.split('').map(function (char) {
 			return bubbleLetterMap.get(char);
@@ -182,7 +47,7 @@ global.parseStatus = function(text, encoding) {
 	return text;
 };
 
-global.hasBadge = function(user, badge) {
+global.hasBadge = function (user, badge) {
 	let data = fs.readFileSync('badges.txt', 'utf8');
 	let row = data.split('\n');
 	for (let i = row.length; i > -1; i--) {
@@ -198,7 +63,7 @@ global.hasBadge = function(user, badge) {
 	}
 };
 
-OCPU.pmAll  = function (message, pmName) {
+OCPU.pmAll = function (message, pmName) {
 	pmName = (pmName ? pmName : '~Server [Do not reply]');
 	Users.users.forEach(curUser => {
 		curUser.send('|pm|' + pmName + '|' + curUser.getIdentity() + '|' + message);
@@ -222,11 +87,11 @@ OCPU.pmUpperStaff = function (message, pmName, from) {
 	});
 };
 
-function pluralFormat (length, ending) {
+function pluralFormat(length, ending) {
 	if (!ending) ending = 's';
 	if (isNaN(Number(length))) return false;
 	return (length === 1 ? '' : ending);
-};
+}
 
 OCPU.regdate = function (target, callback) {
 	target = toId(target);
@@ -268,7 +133,7 @@ global.reloadCSS = function () {
 	http.get(options);
 };
 
-OCPU.formatName = function(name) {
+OCPU.formatName = function (name) {
 	if (Users.getExact(name) && Users(name).connected) {
 		return '<i>' + OCPU.nameColor(Users.getExact(name).name, true) + '</i>';
 	} else {
@@ -317,10 +182,120 @@ OCPU.regdate = function (target, callback) {
 	});
 };
 
+function load() {
+	fs.readFile('config/customcolors.json', 'utf8', function (err, file) {
+		if (err) return;
+		customColors = JSON.parse(file);
+	});
+}
+setInterval(function () {
+	load();
+}, 500);
+
+function updateColor() {
+	fs.writeFileSync('config/customcolors.json', JSON.stringify(customColors));
+
+	let newCss = '/* COLORS START */\n';
+
+	for (let name in customColors) {
+		newCss += generateCSS(name, customColors[name]);
+	}
+	newCss += '/* COLORS END */\n';
+
+	let file = fs.readFileSync('config/custom.css', 'utf8').split('\n');
+	if (~file.indexOf('/* COLORS START */')) file.splice(file.indexOf('/* COLORS START */'), (file.indexOf('/* COLORS END */') - file.indexOf('/* COLORS START */')) + 1);
+	fs.writeFileSync('config/custom.css', file.join('\n') + newCss);
+	OCPU.reloadCSS();
+}
+
+function generateCSS(name, color) {
+	let css = '';
+	let rooms = [];
+	name = toId(name);
+	Rooms.rooms.forEach((curRoom, id) => {
+		if (id === 'global' || curRoom.type !== 'chat' || curRoom.isPersonal) return;
+		if (!isNaN(Number(id.charAt(0)))) return;
+		rooms.push('#' + id + '-userlist-user-' + name + ' strong em');
+		rooms.push('#' + id + '-userlist-user-' + name + ' strong');
+		rooms.push('#' + id + '-userlist-user-' + name + ' span');
+	});
+	css = rooms.join(', ');
+	css += '{\ncolor: ' + color + ' !important;\n}\n';
+	css += '.chat.chatmessage-' + name + ' strong {\n';
+	css += 'color: ' + color + ' !important;\n}\n';
+	return css;
+}
+
+/*eslint-disable */
+function MD5(e) {
+	function t(e, t) {
+		var n, r, i, s, o;
+		i = e & 2147483648;
+		s = t & 2147483648;
+		n = e & 1073741824;
+		r = t & 1073741824;
+		o = (e & 1073741823) + (t & 1073741823);
+		return n & r ? o ^ 2147483648 ^ i ^ s : n | r ? o & 1073741824 ? o ^ 3221225472 ^ i ^ s : o ^ 1073741824 ^ i ^ s : o ^ i ^ s;
+	}
+
+	function n(e, n, r, i, s, o, u) {
+		e = t(e, t(t(n & r | ~n & i, s), u));
+		return t(e << o | e >>> 32 - o, n);
+	}
+
+	function r(e, n, r, i, s, o, u) {
+		e = t(e, t(t(n & i | r & ~i, s), u));
+		return t(e << o | e >>> 32 - o, n);
+	}
+
+	function i(e, n, r, i, s, o, u) {
+		e = t(e, t(t(n ^ r ^ i, s), u));
+		return t(e << o | e >>> 32 - o, n);
+	}
+
+	function s(e, n, r, i, s, o, u) {
+		e = t(e, t(t(r ^ (n | ~i), s), u));
+		return t(e << o | e >>> 32 - o, n);
+	}
+
+	function o(e) {
+		var t = "",
+			n = "",
+			r;
+		for (r = 0; r <= 3; r++) n = e >>> r * 8 & 255, n = "0" + n.toString(16), t += n.substr(n.length - 2, 2);
+		return t
+	}
+	var u = [],
+		a, f, l, c, h, p, d, v, e = function(e) {
+			for (var e = e.replace(/\r\n/g, "\n"), t = "", n = 0; n < e.length; n++) {
+				var r = e.charCodeAt(n);
+				r < 128 ? t += String.fromCharCode(r) : (r > 127 && r < 2048 ? t += String.fromCharCode(r >> 6 | 192) : (t += String.fromCharCode(r >> 12 | 224), t += String.fromCharCode(r >> 6 & 63 | 128)), t += String.fromCharCode(r & 63 | 128));
+			}
+			return t;
+		}(e),
+		u = function(e) {
+			var t, n = e.length;
+			t = n + 8;
+			for (var r = ((t - t % 64) / 64 + 1) * 16, i = Array(r - 1), s = 0, o = 0; o < n;) t = (o - o % 4) / 4, s = o % 4 * 8, i[t] |= e.charCodeAt(o) << s, o++;
+			i[(o - o % 4) / 4] |= 128 << o % 4 * 8;
+			i[r - 2] = n << 3;
+			i[r - 1] = n >>> 29;
+			return i;
+		}(e);
+	h = 1732584193;
+	p = 4023233417;
+	d = 2562383102;
+	v = 271733878;
+	for (e = 0; e < u.length; e += 16) a = h, f = p, l = d, c = v, h = n(h, p, d, v, u[e + 0], 7, 3614090360), v = n(v, h, p, d, u[e + 1], 12, 3905402710), d = n(d, v, h, p, u[e + 2], 17, 606105819), p = n(p, d, v, h, u[e + 3], 22, 3250441966), h = n(h, p, d, v, u[e + 4], 7, 4118548399), v = n(v, h, p, d, u[e + 5], 12, 1200080426), d = n(d, v, h, p, u[e + 6], 17, 2821735955), p = n(p, d, v, h, u[e + 7], 22, 4249261313), h = n(h, p, d, v, u[e + 8], 7, 1770035416), v = n(v, h, p, d, u[e + 9], 12, 2336552879), d = n(d, v, h, p, u[e + 10], 17, 4294925233), p = n(p, d, v, h, u[e + 11], 22, 2304563134), h = n(h, p, d, v, u[e + 12], 7, 1804603682), v = n(v, h, p, d, u[e + 13], 12, 4254626195), d = n(d, v, h, p, u[e + 14], 17, 2792965006), p = n(p, d, v, h, u[e + 15], 22, 1236535329), h = r(h, p, d, v, u[e + 1], 5, 4129170786), v = r(v, h, p, d, u[e + 6], 9, 3225465664), d = r(d, v, h, p, u[e + 11], 14, 643717713), p = r(p, d, v, h, u[e + 0], 20, 3921069994), h = r(h, p, d, v, u[e + 5], 5, 3593408605), v = r(v, h, p, d, u[e + 10], 9, 38016083), d = r(d, v, h, p, u[e + 15], 14, 3634488961), p = r(p, d, v, h, u[e + 4], 20, 3889429448), h = r(h, p, d, v, u[e + 9], 5, 568446438), v = r(v, h, p, d, u[e + 14], 9, 3275163606), d = r(d, v, h, p, u[e + 3], 14, 4107603335), p = r(p, d, v, h, u[e + 8], 20, 1163531501), h = r(h, p, d, v, u[e + 13], 5, 2850285829), v = r(v, h, p, d, u[e + 2], 9, 4243563512), d = r(d, v, h, p, u[e + 7], 14, 1735328473), p = r(p, d, v, h, u[e + 12], 20, 2368359562), h = i(h, p, d, v, u[e + 5], 4, 4294588738), v = i(v, h, p, d, u[e + 8], 11, 2272392833), d = i(d, v, h, p, u[e + 11], 16, 1839030562), p = i(p, d, v, h, u[e + 14], 23, 4259657740), h = i(h, p, d, v, u[e + 1], 4, 2763975236), v = i(v, h, p, d, u[e + 4], 11, 1272893353), d = i(d, v, h, p, u[e + 7], 16, 4139469664), p = i(p, d, v, h, u[e + 10], 23, 3200236656), h = i(h, p, d, v, u[e + 13], 4, 681279174), v = i(v, h, p, d, u[e + 0], 11, 3936430074), d = i(d, v, h, p, u[e + 3], 16, 3572445317), p = i(p, d, v, h, u[e + 6], 23, 76029189), h = i(h, p, d, v, u[e + 9], 4, 3654602809), v = i(v, h, p, d, u[e + 12], 11, 3873151461), d = i(d, v, h, p, u[e + 15], 16, 530742520), p = i(p, d, v, h, u[e + 2], 23, 3299628645), h = s(h, p, d, v, u[e + 0], 6, 4096336452), v = s(v, h, p, d, u[e + 7], 10, 1126891415), d = s(d, v, h, p, u[e + 14], 15, 2878612391), p = s(p, d, v, h, u[e + 5], 21, 4237533241), h = s(h, p, d, v, u[e + 12], 6, 1700485571), v = s(v, h, p, d, u[e + 3], 10, 2399980690), d = s(d, v, h, p, u[e + 10], 15, 4293915773), p = s(p, d, v, h, u[e + 1], 21, 2240044497), h = s(h, p, d, v, u[e + 8], 6, 1873313359), v = s(v, h, p, d, u[e + 15], 10, 4264355552), d = s(d, v, h, p, u[e + 6], 15, 2734768916), p = s(p, d, v, h, u[e + 13], 21, 1309151649), h = s(h, p, d, v, u[e + 4], 6, 4149444226), v = s(v, h, p, d, u[e + 11], 10, 3174756917), d = s(d, v, h, p, u[e + 2], 15, 718787259), p = s(p, d, v, h, u[e + 9], 21, 3951481745), h = t(h, a), p = t(p, f), d = t(d, l), v = t(v, c);
+	return (o(h) + o(p) + o(d) + o(v)).toLowerCase();
+}
+/*eslint-enable */
+let colorCache = {};
+
+// hashColor function
 OCPU.hashColor = function (name) {
 	name = toId(name);
 	if (customColors[name]) return customColors[name];
-	if (mainCustomColors[name]) name = mainCustomColors[name];
 	if (colorCache[name]) return colorCache[name];
 	let hash = MD5(name);
 	let H = parseInt(hash.substr(4, 4), 16) % 360; // 0 to 360
@@ -329,14 +304,40 @@ OCPU.hashColor = function (name) {
 	let C = (100 - Math.abs(2 * L - 100)) * S / 100 / 100;
 	let X = C * (1 - Math.abs((H / 60) % 2 - 1));
 	let m = L / 100 - C / 2;
+
 	let R1, G1, B1;
 	switch (Math.floor(H / 60)) {
-		case 1: R1 = X; G1 = C; B1 = 0; break;
-		case 2: R1 = 0; G1 = C; B1 = X; break;
-		case 3: R1 = 0; G1 = X; B1 = C; break;
-		case 4: R1 = X; G1 = 0; B1 = C; break;
-		case 5: R1 = C; G1 = 0; B1 = X; break;
-		case 0: default: R1 = C; G1 = X; B1 = 0; break;
+	case 1:
+		R1 = X;
+		G1 = C;
+		B1 = 0;
+		break;
+	case 2:
+		R1 = 0;
+		G1 = C;
+		B1 = X;
+		break;
+	case 3:
+		R1 = 0;
+		G1 = X;
+		B1 = C;
+		break;
+	case 4:
+		R1 = X;
+		G1 = 0;
+		B1 = C;
+		break;
+	case 5:
+		R1 = C;
+		G1 = 0;
+		B1 = X;
+		break;
+	case 0:
+	default:
+		R1 = C;
+		G1 = X;
+		B1 = 0;
+		break;
 	}
 	let lum = (R1 + m) * 0.2126 + (G1 + m) * 0.7152 + (B1 + m) * 0.0722; // 0.05 (dark blue) to 0.93 (yellow)
 	let HLmod = (lum - 0.5) * -100; // -43 (yellow) to 45 (dark blue)
@@ -347,16 +348,18 @@ OCPU.hashColor = function (name) {
 	} else {
 		HLmod = 0;
 	}
+
 	L += HLmod;
 	let Smod = 10 - Math.abs(50 - L);
 	if (HLmod > 15) Smod += (HLmod - 15) / 2;
 	S -= Smod;
+
 	let rgb = hslToRgb(H, S, L);
 	colorCache[name] = "#" + rgbToHex(rgb.r, rgb.g, rgb.b);
 	return colorCache[name];
 };
 
-OCPU.hslToRgb = function (h, s, l) {
+function hslToRgb(h, s, l) {
 	let r, g, b, m, c, x;
 	if (!isFinite(h)) h = 0;
 	if (!isFinite(s)) s = 0;
@@ -402,21 +405,21 @@ OCPU.hslToRgb = function (h, s, l) {
 		g: g,
 		b: b,
 	};
-};
+}
 
-OCPU.toHex = function (N) {
-	if (N === "null") return "00";
+function rgbToHex(R, G, B) {
+	return toHex(R) + toHex(G) + toHex(B);
+}
+
+function toHex(N) {
+	if (N === null || N === undefined) return "00";
 	N = parseInt(N);
-	if (N == 0 || isNaN(N)) return "00";
+	if (N === 0 || isNaN(N)) return "00";
 	N = Math.max(0, N);
 	N = Math.min(N, 255);
 	N = Math.round(N);
 	return "0123456789ABCDEF".charAt((N - N % 16) / 16) + "0123456789ABCDEF".charAt(N % 16);
-};
-
-OCPU.rgbToHex = function (R, G, B) {
-	return toHex(R) + toHex(G) + toHex(B);
-};
+}
 
 exports.commands = {
 	todo: function (target, room, user, connection) {
