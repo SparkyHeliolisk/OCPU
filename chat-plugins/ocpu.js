@@ -4,7 +4,6 @@
 
 // modules and constants
 const fs = require('fs');
-const MD5 = require('MD5');
 const moment = require('moment');
 const http = require('http');
 const https = require('https');
