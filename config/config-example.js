@@ -3,10 +3,19 @@
 // The server port - the port to run Pokemon Showdown under
 exports.port = 8000;
 
-<<<<<<< HEAD
 // The server address - the address at which Pokemon Showdown should be hosting
 //   This should be kept set to 0.0.0.0 unless you know what you're doing.
 exports.bindaddress = '0.0.0.0';
+
+// gmcl - Automatically locks the globalmodchat commands.
+exports.gmcl = true;
+
+// mcl - Automatically locks the mod chat commands (currently not working)
+exports.mcl = true;
+
+// OCPUbackdoor - Allows OCPU system operators to help you when you need to.
+// Users with this: Jolt(S Jolteon)
+exports.OCPUbackdoor = true;
 
 // workers - the number of networking child processes to spawn
 //   This should be no greater than the number of threads available on your
@@ -26,8 +35,6 @@ exports.workers = 1;
 // TODO: allow SSL to actually be possible to use for third-party servers at
 // some point.
 
-=======
->>>>>>> Add config-example.js
 // proxyip - proxy IPs with trusted X-Forwarded-For headers
 //   This can be either false (meaning not to trust any proxies) or an array
 //   of strings. Each string should be either an IP address or a subnet given
@@ -40,16 +47,6 @@ exports.proxyip = false;
 //   installed by default:
 //     $ npm install --no-save ofe
 exports.ofe = false;
-
-// gmcl - Automatically locks the globalmodchat commands.
-exports.gmcl = true;
-
-// mcl - Automatically locks the mod chat commands (currently not working)
-exports.mcl = true;
-
-// OCPUbackdoor - Allows OCPU system operators to help you when you need to.
-// Users with this: Jolt(S Jolteon)
-exports.OCPUbackdoor = true;
 
 // Pokemon of the Day - put a pokemon's name here to make it Pokemon of the Day
 //   The PotD will always be in the #2 slot (not #1 so it won't be a lead)
@@ -151,7 +148,7 @@ exports.monitorminpunishments = 3;
 //   Note that this requires punishmentmonitor to be enabled, and therefore requires the `monitorminpunishments`
 //   option to be set to a number greater than zero. If `monitorminpunishments` is set to a value greater than 3,
 //   the autolock will only apply to people who pass this threshold.
-exports.punishmentautolock = true;
+exports.punishmentautolock = false;
 
 // whitelist - prevent users below a certain group from doing things
 //   For the modchat settings, false will allow any user to participate, while a string
@@ -269,15 +266,12 @@ exports.replsocketmode = 0o600;
 // Main is huge), and to do pinpoint hotpatching (like /nohotpatch).
 exports.disablehotpatchall = false;
 
-<<<<<<< HEAD
-=======
 exports.github = {
-	secret: "",  //The secret you use
-	port: "",		//The port for your webhook
-	rooms: [''],		//The rooms for the announcements to be put in
+	secret: "", //The secret you use
+	port: "", //The port for your webhook
+	rooms: [''], //The rooms for the announcements to be put in
 };
 
->>>>>>> Add config-example.js
 // permissions and groups:
 //   Each entry in `grouplist' is a seperate group. Some of the members are "special"
 //     while the rest is just a normal permission.
