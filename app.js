@@ -71,11 +71,6 @@ try {
 
 global.Config = require('./config/config');
 
-<<<<<<< HEAD
-global.Monitor = require('./monitor');
-
-=======
->>>>>>> Restart all files
 if (Config.watchconfig) {
 	let configPath = require.resolve('./config/config');
 	FS(configPath).onModify(() => {
