@@ -107,4 +107,4 @@ exports.commands = {
 		let message = "DISQUALIFICATION: " + target + " by judge " + user.name + ".";
 		FS.appendFile('logs/modlog/modlog_servertournament.txt', '[' + new Date().toUTCString() + '] ' + message + '\n');
 	},
-}
+};
