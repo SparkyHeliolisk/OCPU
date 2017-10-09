@@ -10,6 +10,7 @@ exports.Formats = [
 	{
 		section: "Custom",
 	},
+	{
 		name: "[Gen 7] Custom Pokemon",
 		desc: ["Current placeholder for a future meta"],
 		ruleset: ['HP Percentage Mod', 'Team Preview', 'Cancel Mod'],
