@@ -63,7 +63,6 @@ exports.BattleScripts = {
 		this.modData('Learnsets', 'spinda').learnset.sketch = ['5E'];
 		this.modData('Learnsets', 'mimejr').learnset.sketch = ['5E'];
 
-<<<<<<< HEAD
 		// Tail Glow :D
 		this.modData('Learnsets', 'finneon').learnset.tailglow = ['5L100'];
 		this.modData('Learnsets', 'lumineon').learnset.tailglow = ['5L100'];
@@ -72,8 +71,6 @@ exports.BattleScripts = {
 		this.modData('Learnsets', 'chinchou').learnset.tailglow = ['5L100'];
 		this.modData('Learnsets', 'lanturn').learnset.tailglow = ['5L100'];
 
-=======
->>>>>>> Restart all files
 		// Spinda: Contrary
 		this.modData('Learnsets', 'spinda').learnset.vcreate = ['5L100'];
 		this.modData('Learnsets', 'spinda').learnset.superpower = ['5L100'];
@@ -126,10 +123,6 @@ exports.BattleScripts = {
 		this.modData('Pokedex', 'weezing').abilities['1'] = 'Aftermath';
 		this.modData('Pokedex', 'eelektross').abilities['1'] = 'Poison Heal';
 		this.modData('Pokedex', 'claydol').abilities['1'] = 'Filter';
-<<<<<<< HEAD
-=======
-		this.modData('Pokedex', 'gengar').abilities['1'] = 'Cursed Body';
->>>>>>> Restart all files
 		this.modData('Pokedex', 'mismagius').abilities['1'] = 'Cursed Body';
 		this.modData('Pokedex', 'cryogonal').abilities['1'] = 'Ice Body';
 		this.modData('Pokedex', 'mesprit').abilities['1'] = 'Serene Grace';
