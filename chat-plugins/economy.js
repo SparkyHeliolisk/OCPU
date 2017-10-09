@@ -333,4 +333,4 @@ exports.commands = {
 		output += "The average user has " + average + " " + (average > 1 ? currencyPlural : currencyName) + ".";
 		this.sendReplyBox(output);
 	},
-};*/
+};
