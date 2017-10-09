@@ -104,10 +104,6 @@ exports.BattleFormatsData = {
 	},
 	pikachu: {
 		inherit: true,
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["nastyplot", "thunderbolt", "hiddenpowerice", "grassknot", "encore", "substitute", "focuspunch"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	raichu: {
@@ -175,10 +171,6 @@ exports.BattleFormatsData = {
 		tier: "LC",
 	},
 	golbat: {
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["bravebird", "roost", "taunt", "uturn", "nastyplot", "gigadrain", "sludgebomb", "airslash", "heatwave"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	crobat: {
@@ -219,10 +211,6 @@ exports.BattleFormatsData = {
 		tier: "NU",
 	},
 	diglett: {
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["earthquake", "rockslide", "substitute", "nightslash", "suckerpunch"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	dugtrio: {
@@ -284,10 +272,6 @@ exports.BattleFormatsData = {
 		tier: "LC",
 	},
 	kadabra: {
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["calmmind", "psychic", "hiddenpowerfighting", "shadowball", "encore", "substitute"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	alakazam: {
@@ -299,10 +283,6 @@ exports.BattleFormatsData = {
 		tier: "LC",
 	},
 	machoke: {
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["closecombat", "payback", "icepunch", "thunderpunch", "bulletpunch"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	machamp: {
@@ -364,10 +344,6 @@ exports.BattleFormatsData = {
 	},
 	magneton: {
 		inherit: true,
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["thunderbolt", "hiddenpowerfire", "chargebeam", "substitute", "flashcannon", "hiddenpowerice", "explosion"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	magnezone: {
@@ -415,10 +391,6 @@ exports.BattleFormatsData = {
 		tier: "LC",
 	},
 	haunter: {
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["shadowball", "sludgebomb", "hiddenpowerground", "thunderbolt", "substitute", "painsplit", "hypnosis", "explosion"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	gengar: {
@@ -522,10 +494,6 @@ exports.BattleFormatsData = {
 	},
 	chansey: {
 		inherit: true,
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["wish", "softboiled", "protect", "toxic", "aromatherapy", "seismictoss", "thunderwave", "stealthrock"],
->>>>>>> Restart all files
 		tier: "UU",
 	},
 	blissey: {
@@ -534,10 +502,6 @@ exports.BattleFormatsData = {
 	},
 	tangela: {
 		inherit: true,
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["sunnyday", "sleeppowder", "endeavor", "leafstorm", "solarbeam", "hiddenpowerfire"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	tangrowth: {
@@ -609,10 +573,6 @@ exports.BattleFormatsData = {
 	},
 	electabuzz: {
 		inherit: true,
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["thunderbolt", "substitute", "hiddenpowerice", "hiddenpowergrass", "crosschop", "focusblast", "psychic"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	electivire: {
@@ -750,10 +710,6 @@ exports.BattleFormatsData = {
 		tier: "LC",
 	},
 	dragonair: {
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["dragondance", "outrage", "fireblast", "extremespeed", "dracometeor", "aquatail"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	dragonite: {
@@ -825,11 +781,7 @@ exports.BattleFormatsData = {
 		tier: "LC",
 	},
 	ledian: {
-<<<<<<< HEAD
 		randomBattleMoves: ["roost", "reflect", "lightscreen", "toxic", "uturn", "encore"],
-=======
-		randomBattleMoves: ["roost", "agility", "swordsdance", "batonpass", "encore"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	spinarak: {
@@ -852,10 +804,6 @@ exports.BattleFormatsData = {
 		tier: "LC",
 	},
 	togetic: {
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["nastyplot", "batonpass", "hiddenpowerflying", "roost"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	togekiss: {
@@ -905,11 +853,7 @@ exports.BattleFormatsData = {
 		tier: "NFE",
 	},
 	jumpluff: {
-<<<<<<< HEAD
 		randomBattleMoves: ["leechseed", "substitute", "encore", "sleeppowder", "uturn", "stunspore", "toxic", "grassknot", "bounce"],
-=======
-		randomBattleMoves: ["leechseed", "substitute", "encore", "sleeppowder", "uturn", "stunspore"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	aipom: {
@@ -929,10 +873,6 @@ exports.BattleFormatsData = {
 		tier: "NU",
 	},
 	yanma: {
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["bugbuzz", "airslash", "hiddenpowerground", "hypnosis", "protect"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	yanmega: {
@@ -948,10 +888,6 @@ exports.BattleFormatsData = {
 	},
 	murkrow: {
 		inherit: true,
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["suckerpunch", "bravebird", "heatwave", "hiddenpowergrass"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	honchkrow: {
@@ -960,10 +896,6 @@ exports.BattleFormatsData = {
 	},
 	misdreavus: {
 		inherit: true,
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["rest", "sleeptalk", "calmmind", "willowisp", "shadowball"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	mismagius: {
@@ -976,10 +908,6 @@ exports.BattleFormatsData = {
 	},
 	wynaut: {
 		inherit: true,
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["destinybond", "counter", "mirrorcoat", "encore"],
->>>>>>> Restart all files
 		tier: "Uber",
 	},
 	wobbuffet: {
@@ -996,11 +924,7 @@ exports.BattleFormatsData = {
 		tier: "LC",
 	},
 	forretress: {
-<<<<<<< HEAD
 		randomBattleMoves: ["rapidspin", "stealthrock", "toxicspikes", "spikes", "gyroball", "earthquake", "explosion"],
-=======
-		randomBattleMoves: ["rapidspin", "toxicspikes", "spikes", "gyroball", "earthquake", "explosion"],
->>>>>>> Restart all files
 		tier: "OU",
 	},
 	dunsparce: {
@@ -1009,10 +933,6 @@ exports.BattleFormatsData = {
 	},
 	gligar: {
 		inherit: true,
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["substitute", "toxic", "roost", "taunt", "earthquake", "aerialace"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	gliscor: {
@@ -1029,11 +949,7 @@ exports.BattleFormatsData = {
 	},
 	qwilfish: {
 		inherit: true,
-<<<<<<< HEAD
 		randomBattleMoves: ["waterfall", "spikes", "toxicspikes", "swordsdance", "poisonjab", "explosion", "taunt", "destinybond"],
-=======
-		randomBattleMoves: ["waterfall", "spikes", "swordsdance", "poisonjab", "explosion", "taunt", "destinybond"],
->>>>>>> Restart all files
 		tier: "UU",
 	},
 	shuckle: {
@@ -1047,10 +963,6 @@ exports.BattleFormatsData = {
 	},
 	sneasel: {
 		inherit: true,
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["iceshard", "brickbreak", "lowkick", "pursuit", "punishment"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	weavile: {
@@ -1079,10 +991,6 @@ exports.BattleFormatsData = {
 		tier: "LC",
 	},
 	piloswine: {
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["earthquake", "iceshard", "stoneedge", "substitute", "icefang"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	mamoswine: {
@@ -1172,11 +1080,7 @@ exports.BattleFormatsData = {
 	},
 	tyranitar: {
 		inherit: true,
-<<<<<<< HEAD
 		randomBattleMoves: ["crunch", "stoneedge", "pursuit", "superpower", "earthquake", "dragondance", "icepunch", "fireblast", "icebeam", "firepunch", "stealthrock"],
-=======
-		randomBattleMoves: ["crunch", "stoneedge", "pursuit", "superpower", "earthquake", "dragondance", "icepunch", "fireblast", "icebeam"],
->>>>>>> Restart all files
 		tier: "OU",
 	},
 	lugia: {
@@ -1191,11 +1095,7 @@ exports.BattleFormatsData = {
 	},
 	celebi: {
 		inherit: true,
-<<<<<<< HEAD
 		randomBattleMoves: ["stealthrock", "thunderwave", "leafstorm", "hiddenpowerfire", "psychic", "uturn", "recover", "nastyplot", "energyball", "earthpower", "substitute", "leechseed", "batonpass"],
-=======
-		randomBattleMoves: ["thunderwave", "leafstorm", "hiddenpowerfire", "psychic", "uturn", "recover", "nastyplot", "grassknot", "earthpower", "substitute", "leechseed", "batonpass"],
->>>>>>> Restart all files
 		tier: "OU",
 	},
 	treecko: {
@@ -1206,11 +1106,7 @@ exports.BattleFormatsData = {
 		tier: "NFE",
 	},
 	sceptile: {
-<<<<<<< HEAD
 		randomBattleMoves: ["substitute", "leechseed", "energyball", "hiddenpowerice", "hiddenpowerfire", "leafstorm", "earthquake", "focusblast"],
-=======
-		randomBattleMoves: ["substitute", "leechseed", "grassknot", "hiddenpowerice", "hiddenpowerfire", "leafstorm", "earthquake", "focusblast"],
->>>>>>> Restart all files
 		tier: "UU",
 	},
 	torchic: {
@@ -1277,11 +1173,7 @@ exports.BattleFormatsData = {
 		tier: "NFE",
 	},
 	ludicolo: {
-<<<<<<< HEAD
 		randomBattleMoves: ["raindance", "surf", "energyball", "icebeam", "substitute", "leechseed"],
-=======
-		randomBattleMoves: ["raindance", "surf", "energyball", "icebeam", "grassknot", "substitute", "leechseed"],
->>>>>>> Restart all files
 		tier: "UU",
 	},
 	seedot: {
@@ -1463,10 +1355,6 @@ exports.BattleFormatsData = {
 	},
 	roselia: {
 		inherit: true,
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["spikes", "toxicspikes", "sleeppowder", "gigadrain", "stunspore", "rest"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	roserade: {
@@ -1539,11 +1427,7 @@ exports.BattleFormatsData = {
 	},
 	cacturne: {
 		inherit: true,
-<<<<<<< HEAD
 		randomBattleMoves: ["swordsdance", "substitute", "suckerpunch", "seedbomb", "focuspunch", "lowkick", "encore", "spikes"],
-=======
-		randomBattleMoves: ["swordsdance", "substitute", "suckerpunch", "seedbomb", "focuspunch"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	swablu: {
@@ -1637,11 +1521,7 @@ exports.BattleFormatsData = {
 		battleOnly: true,
 	},
 	kecleon: {
-<<<<<<< HEAD
 		randomBattleMoves: ["stealthrock", "recover", "return", "aquatail", "thunderwave", "toxic"],
-=======
-		randomBattleMoves: ["stealthrock", "recover", "return", "aquatail", "thunderwave"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	shuppet: {
@@ -1658,10 +1538,6 @@ exports.BattleFormatsData = {
 		tier: "LC",
 	},
 	dusclops: {
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["willowisp", "sleeptalk", "rest", "painsplit", "seismictoss", "shadowpunch"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	dusknoir: {
@@ -1710,10 +1586,6 @@ exports.BattleFormatsData = {
 		tier: "NU",
 	},
 	clamperl: {
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["icebeam", "surf", "hiddenpowergrass", "brine"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	huntail: {
@@ -1737,10 +1609,6 @@ exports.BattleFormatsData = {
 		tier: "LC",
 	},
 	shelgon: {
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["outrage", "brickbreak", "dragonclaw", "dragondance"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	salamence: {
@@ -1753,10 +1621,6 @@ exports.BattleFormatsData = {
 	},
 	metang: {
 		inherit: true,
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["stealthrock", "meteormash", "explosion", "toxic", "lightscreen", "reflect"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	metagross: {
@@ -1806,11 +1670,7 @@ exports.BattleFormatsData = {
 	},
 	jirachi: {
 		inherit: true,
-<<<<<<< HEAD
 		randomBattleMoves: ["stealthrock", "ironhead", "firepunch", "substitute", "bodyslam", "wish", "uturn", "trick", "calmmind", "psychic", "thunderbolt", "icepunch", "flashcannon"],
-=======
-		randomBattleMoves: ["ironhead", "firepunch", "substitute", "bodyslam", "wish", "uturn", "trick", "calmmind", "psychic", "thunderbolt", "icepunch", "flashcannon"],
->>>>>>> Restart all files
 		tier: "OU",
 	},
 	deoxys: {
@@ -1848,10 +1708,6 @@ exports.BattleFormatsData = {
 		tier: "LC",
 	},
 	monferno: {
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["stealthrock", "endeavor", "fireblast", "taunt", "vacuumwave"],
->>>>>>> Restart all files
 		tier: "NU",
 	},
 	infernape: {
@@ -2021,18 +1877,10 @@ exports.BattleFormatsData = {
 		tier: "LC",
 	},
 	gabite: {
-<<<<<<< HEAD
 		tier: "NU",
 	},
 	garchomp: {
 		randomBattleMoves: ["stealthrock", "outrage", "dragonclaw", "earthquake", "stoneedge", "firefang", "swordsdance", "substitute"],
-=======
-		randomBattleMoves: ["outrage", "dragonclaw", "earthquake", "stoneedge"],
-		tier: "NU",
-	},
-	garchomp: {
-		randomBattleMoves: ["outrage", "dragonclaw", "earthquake", "stoneedge", "firefang", "swordsdance", "substitute"],
->>>>>>> Restart all files
 		tier: "Uber",
 	},
 	riolu: {
@@ -2045,10 +1893,6 @@ exports.BattleFormatsData = {
 		tier: "OU",
 	},
 	hippopotas: {
-<<<<<<< HEAD
-=======
-		randomBattleMoves: ["earthquake", "slackoff", "roar", "stealthrock", "protect", "toxic", "yawn"],
->>>>>>> Restart all files
 		tier: "BL2",
 	},
 	hippowdon: {
@@ -2081,18 +1925,10 @@ exports.BattleFormatsData = {
 		tier: "NU",
 	},
 	snover: {
-<<<<<<< HEAD
 		tier: "BL2",
 	},
 	abomasnow: {
 		randomBattleMoves: ["blizzard", "iceshard", "woodhammer", "leechseed", "substitute", "earthquake", "hiddenpowerfire", "energyball"],
-=======
-		randomBattleMoves: ["blizzard", "iceshard", "protect", "leechseed", "substitute", "swordsdance", "seedbomb"],
-		tier: "BL2",
-	},
-	abomasnow: {
-		randomBattleMoves: ["blizzard", "iceshard", "woodhammer", "leechseed", "substitute", "earthquake", "hiddenpowerfire", "grassknot"],
->>>>>>> Restart all files
 		tier: "BL",
 	},
 	rotom: {
@@ -2126,20 +1962,12 @@ exports.BattleFormatsData = {
 	},
 	mesprit: {
 		inherit: true,
-<<<<<<< HEAD
 		randomBattleMoves: ["hiddenpowerfire", "thunderbolt", "icebeam", "psychic", "calmmind", "substitute", "thunderwave", "uturn", "stealthrock"],
-=======
-		randomBattleMoves: ["hiddenpowerfire", "thunderbolt", "icebeam", "psychic", "thunderwave", "uturn", "stealthrock", "trick"],
->>>>>>> Restart all files
 		tier: "UU",
 	},
 	azelf: {
 		inherit: true,
-<<<<<<< HEAD
 		randomBattleMoves: ["stealthrock", "fireblast", "psychic", "explosion", "taunt", "uturn", "nastyplot", "flamethrower", "hiddenpowerfighting", "thunderbolt"],
-=======
-		randomBattleMoves: ["stealthrock", "fireblast", "psychic", "explosion", "taunt", "uturn", "nastyplot", "flamethrower", "hiddenpowerfighting"],
->>>>>>> Restart all files
 		tier: "OU",
 	},
 	dialga: {
@@ -2175,11 +2003,7 @@ exports.BattleFormatsData = {
 	},
 	cresselia: {
 		inherit: true,
-<<<<<<< HEAD
 		randomBattleMoves: ["moonlight", "psychic", "hiddenpowerfire", "icebeam", "thunderwave", "toxic", "substitute", "calmmind", "reflect", "lightscreen"],
-=======
-		randomBattleMoves: ["moonlight", "psychic", "hiddenpowerfire", "icebeam", "thunderwave", "lunardance", "calmmind", "reflect", "lightscreen"],
->>>>>>> Restart all files
 		tier: "BL",
 	},
 	phione: {
@@ -2189,11 +2013,7 @@ exports.BattleFormatsData = {
 	},
 	manaphy: {
 		inherit: true,
-<<<<<<< HEAD
 		randomBattleMoves: ["tailglow", "surf", "icebeam", "energyball"],
-=======
-		randomBattleMoves: ["tailglow", "surf", "icebeam", "grassknot"],
->>>>>>> Restart all files
 		tier: "Uber",
 	},
 	darkrai: {
@@ -2213,11 +2033,7 @@ exports.BattleFormatsData = {
 	},
 	arceus: {
 		inherit: true,
-<<<<<<< HEAD
 		randomBattleMoves: ["swordsdance", "extremespeed", "shadowclaw", "earthquake", "recover"],
-=======
-		randomBattleMoves: ["swordsdance", "extremespeed", "shadowclaw", "earthquake", "recover", "overheat"],
->>>>>>> Restart all files
 		tier: "Uber",
 	},
 	arceusbug: {
@@ -2241,11 +2057,7 @@ exports.BattleFormatsData = {
 		requiredItem: "Zap Plate",
 	},
 	arceusfighting: {
-<<<<<<< HEAD
 		randomBattleMoves: ["calmmind", "judgment", "icebeam", "darkpulse", "recover"],
-=======
-		randomBattleMoves: ["calmmind", "judgment", "icebeam", "darkpulse", "recover", "toxic"],
->>>>>>> Restart all files
 		eventOnly: true,
 		requiredItem: "Fist Plate",
 	},
@@ -2255,29 +2067,17 @@ exports.BattleFormatsData = {
 		requiredItem: "Flame Plate",
 	},
 	arceusflying: {
-<<<<<<< HEAD
 		randomBattleMoves: ["calmmind", "judgment", "substitute", "earthpower", "recover"],
-=======
-		randomBattleMoves: ["calmmind", "judgment", "substitute", "hiddenpowerfighting", "recover"],
->>>>>>> Restart all files
 		eventOnly: true,
 		requiredItem: "Sky Plate",
 	},
 	arceusghost: {
-<<<<<<< HEAD
 		randomBattleMoves: ["calmmind", "recover", "focusblast", "judgment", "flamethrower", "willowisp", "roar"],
-=======
-		randomBattleMoves: ["swordsdance", "extremespeed", "shadowclaw", "shadowforce", "recover", "brickbreak", "judgment", "flamethrower", "willowisp", "roar"],
->>>>>>> Restart all files
 		eventOnly: true,
 		requiredItem: "Spooky Plate",
 	},
 	arceusgrass: {
-<<<<<<< HEAD
 		randomBattleMoves: ["calmmind", "icebeam", "judgment", "earthpower", "recover", "thunderwave"],
-=======
-		randomBattleMoves: ["calmmind", "icebeam", "judgment", "earthpower", "flamethrower", "recover", "thunderwave"],
->>>>>>> Restart all files
 		eventOnly: true,
 		requiredItem: "Meadow Plate",
 	},
@@ -2292,11 +2092,7 @@ exports.BattleFormatsData = {
 		requiredItem: "Icicle Plate",
 	},
 	arceuspoison: {
-<<<<<<< HEAD
 		randomBattleMoves: ["calmmind", "judgment", "earthpower", "recover", "willowisp", "roar"],
-=======
-		randomBattleMoves: ["calmmind", "judgment", "focusblast", "recover", "willowisp", "icebeam", "roar"],
->>>>>>> Restart all files
 		eventOnly: true,
 		requiredItem: "Toxic Plate",
 	},
@@ -2306,11 +2102,7 @@ exports.BattleFormatsData = {
 		requiredItem: "Mind Plate",
 	},
 	arceusrock: {
-<<<<<<< HEAD
 		randomBattleMoves: ["calmmind", "judgment", "earthpower", "willowisp", "recover"],
-=======
-		randomBattleMoves: ["swordsdance", "stoneedge", "earthquake", "extremespeed", "recover"],
->>>>>>> Restart all files
 		eventOnly: true,
 		requiredItem: "Stone Plate",
 	},
@@ -2320,11 +2112,7 @@ exports.BattleFormatsData = {
 		requiredItem: "Iron Plate",
 	},
 	arceuswater: {
-<<<<<<< HEAD
 		randomBattleMoves: ["recover", "calmmind", "judgment", "icebeam", "thunderbolt", "willowisp", "refresh"],
-=======
-		randomBattleMoves: ["recover", "calmmind", "judgment", "icebeam", "substitute"],
->>>>>>> Restart all files
 		eventOnly: true,
 		requiredItem: "Splash Plate",
 	},
