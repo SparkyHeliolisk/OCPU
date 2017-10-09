@@ -131,11 +131,7 @@ exports.BattleFormatsData = {
 		tier: "NFE",
 	},
 	nidoking: {
-<<<<<<< HEAD
 		randomBattleMoves: ["earthquake", "sludgebomb", "icebeam", "thunderbolt", "substitute", "megahorn", "focuspunch", "fireblast", "shadowball"],
-=======
-		randomBattleMoves: ["earthquake", "sludgebomb", "icebeam", "thunderbolt", "substitute", "megahorn", "focuspunch", "fireblast", "shadowball", "superpower"],
->>>>>>> Restart all files
 		tier: "UU",
 	},
 	cleffa: {

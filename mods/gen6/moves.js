@@ -26,7 +26,6 @@ exports.BattleMovedex = {
 		accuracy: 80,
 		onTryMove: function () {},
 	},
-<<<<<<< HEAD
 	defog: {
 		inherit: true,
 		desc: "Lowers the target's evasiveness by 1 stage. If this move is successful and whether or not the target's evasiveness was affected, the effects of Reflect, Light Screen, Safeguard, Mist, Spikes, Toxic Spikes, Stealth Rock, and Sticky Web end for the target's side, and the effects of Spikes, Toxic Spikes, Stealth Rock, and Sticky Web end for the user's side. Ignores a target's substitute, although a substitute will still block the lowering of evasiveness.",
@@ -34,21 +33,14 @@ exports.BattleMovedex = {
 	destinybond: {
 		inherit: true,
 		desc: "Until the user's next turn, if an opposing Pokemon's attack knocks the user out, that Pokemon faints as well, unless the attack was Doom Desire or Future Sight.",
-=======
-	destinybond: {
-		inherit: true,
->>>>>>> Restart all files
 		onPrepareHit: function (pokemon) {
 			pokemon.removeVolatile('destinybond');
 		},
 	},
-<<<<<<< HEAD
 	detect: {
 		inherit: true,
 		desc: "The user is protected from most attacks made by other Pokemon during this turn. This move has a 1/X chance of being successful, where X starts at 1 and triples each time this move is successfully used. X resets to 1 if this move fails or if the user's last move used is not Detect, Endure, King's Shield, Protect, Quick Guard, Spiky Shield, or Wide Guard. Fails if the user moves last this turn.",
 	},
-=======
->>>>>>> Restart all files
 	diamondstorm: {
 		inherit: true,
 		desc: "Has a 50% chance to raise the user's Defense by 1 stage.",
@@ -62,7 +54,6 @@ exports.BattleMovedex = {
 			},
 		},
 	},
-<<<<<<< HEAD
 	encore: {
 		inherit: true,
 		desc: "For 3 turns, the target is forced to repeat its last move used. If the affected move runs out of PP, the effect ends. Fails if the target is already under this effect, if it has not made a move, if the move has 0 PP, or if the move is Encore, Mimic, Mirror Move, Sketch, Struggle, or Transform.",
@@ -123,20 +114,6 @@ exports.BattleMovedex = {
 		onAfterMoveSecondarySelf: function (pokemon, target, move) {
 			if (!target || target.fainted || target.hp <= 0) this.boost({atk:2}, pokemon, pokemon, move);
 		},
-=======
-	fellstinger: {
-		inherit: true,
-		basePower: 30,
-		effect: {
-			duration: 1,
-			onAfterMoveSecondarySelf: function (pokemon, target, move) {
-				if (!target || target.fainted || target.hp <= 0) this.boost({atk:2}, pokemon, pokemon, move);
-				pokemon.removeVolatile('fellstinger');
-			},
-		},
-		desc: "Raises the user's Attack by 2 stages if this move knocks out the target.",
-		shortDesc: "Raises user's Attack by 2 if this KOes the target.",
->>>>>>> Restart all files
 	},
 	flyingpress: {
 		inherit: true,
@@ -146,7 +123,6 @@ exports.BattleMovedex = {
 		inherit: true,
 		desc: "The power of this move depends on (user's weight / target's weight), rounded down. Power is equal to 120 if the result is 5 or more, 100 if 4, 80 if 3, 60 if 2, and 40 if 1 or less.",
 	},
-<<<<<<< HEAD
 	hyperspacefury: {
 		inherit: true,
 		desc: "Lowers the user's Defense by 1 stage. This move cannot be used successfully unless the user's current form, while considering Transform, is Hoopa Unbound. If this move is successful, it breaks through the target's Detect, King's Shield, Protect, or Spiky Shield for this turn, allowing other Pokemon to attack the target normally. If the target's side is protected by Crafty Shield, Mat Block, Quick Guard, or Wide Guard, that protection is also broken for this turn and other Pokemon may attack the target's side normally.",
@@ -158,34 +134,6 @@ exports.BattleMovedex = {
 	kingsshield: {
 		inherit: true,
 		desc: "The user is protected from most attacks made by other Pokemon during this turn, and Pokemon trying to make contact with the user have their Attack lowered by 2 stages. Non-damaging moves go through this protection. This move has a 1/X chance of being successful, where X starts at 1 and triples each time this move is successfully used. X resets to 1 if this move fails or if the user's last move used is not Detect, Endure, King's Shield, Protect, Quick Guard, Spiky Shield, or Wide Guard. Fails if the user moves last this turn.",
-=======
-	kingsshield: {
-		inherit: true,
-		desc: "The user is protected from most attacks made by other Pokemon during this turn, and Pokemon trying to make contact with the user have their Attack lowered by 2 stages. Non-damaging moves go through this protection. This move has a 1/X chance of being successful, where X starts at 1 and triples each time this move is successfully used. X resets to 1 if this move fails or if the user's last move used is not Detect, Endure, King's Shield, Protect, Quick Guard, Spiky Shield, or Wide Guard. Fails if the user moves last this turn.",
-		shortDesc: "Protects from attacks. Contact try: lowers Atk by 2.",
-		effect: {
-			duration: 1,
-			onStart: function (target) {
-				this.add('-singleturn', target, 'Protect');
-			},
-			onTryHitPriority: 3,
-			onTryHit: function (target, source, move) {
-				if (!move.flags['protect'] || move.category === 'Status') return;
-				this.add('-activate', target, 'move: Protect');
-				let lockedmove = source.getVolatile('lockedmove');
-				if (lockedmove) {
-					// Outrage counter is reset
-					if (source.volatiles['lockedmove'].duration === 2) {
-						delete source.volatiles['lockedmove'];
-					}
-				}
-				if (move.flags['contact']) {
-					this.boost({atk:-2}, source, target, this.getMove("King's Shield"));
-				}
-				return null;
-			},
-		},
->>>>>>> Restart all files
 	},
 	knockoff: {
 		inherit: true,
@@ -197,13 +145,10 @@ exports.BattleMovedex = {
 		isViable: false,
 		pp: 15,
 	},
-<<<<<<< HEAD
 	lightscreen: {
 		inherit: true,
 		desc: "For 5 turns, the user and its party members take 0.5x damage from special attacks, or 0.66x damage if in a Double or Triple Battle. Critical hits ignore this protection. It is removed from the user's side if the user or an ally is successfully hit by Brick Break or Defog. Lasts for 8 turns if the user is holding Light Clay.",
 	},
-=======
->>>>>>> Restart all files
 	minimize: {
 		inherit: true,
 		desc: "Raises the user's evasiveness by 2 stages. Whether or not the user's evasiveness was changed, Body Slam, Dragon Rush, Flying Press, Heat Crash, Phantom Force, Shadow Force, Steamroller, and Stomp will not check accuracy and have their damage doubled if used against the user while it is active.",
@@ -268,7 +213,6 @@ exports.BattleMovedex = {
 		inherit: true,
 		basePower: 50,
 	},
-<<<<<<< HEAD
 	phantomforce: {
 		inherit: true,
 		desc: "If this move is successful, it breaks through the target's Detect, King's Shield, Protect, or Spiky Shield for this turn, allowing other Pokemon to attack the target normally. If the target's side is protected by Crafty Shield, Mat Block, Quick Guard, or Wide Guard, that protection is also broken for this turn and other Pokemon may attack the target's side normally. This attack charges on the first turn and executes on the second. On the first turn, the user avoids all attacks. If the user is holding a Power Herb, the move completes in one turn. Damage doubles and no accuracy check is done if the target has used Minimize while active.",
@@ -276,14 +220,6 @@ exports.BattleMovedex = {
 	powder: {
 		inherit: true,
 		desc: "If the target uses a Fire-type move this turn, it is prevented from executing and the target loses 1/4 of its maximum HP, rounded half up. This effect happens before the Fire-type move would be prevented by Primordial Sea.",
-=======
-	rockblast: {
-		inherit: true,
-		flags: {protect: 1, mirror: 1},
-	},
-	powder: {
-		inherit: true,
->>>>>>> Restart all files
 		effect: {
 			duration: 1,
 			onStart: function (target) {
@@ -299,7 +235,6 @@ exports.BattleMovedex = {
 			},
 		},
 	},
-<<<<<<< HEAD
 	protect: {
 		inherit: true,
 		desc: "The user is protected from most attacks made by other Pokemon during this turn. This move has a 1/X chance of being successful, where X starts at 1 and triples each time this move is successfully used. X resets to 1 if this move fails or if the user's last move used is not Detect, Endure, King's Shield, Protect, Quick Guard, Spiky Shield, or Wide Guard. Fails if the user moves last this turn.",
@@ -312,13 +247,10 @@ exports.BattleMovedex = {
 		inherit: true,
 		desc: "For 5 turns, the user and its party members take 0.5x damage from physical attacks, or 0.66x damage if in a Double or Triple Battle. Critical hits ignore this protection. It is removed from the user's side if the user or an ally is successfully hit by Brick Break or Defog. Brick Break removes the effect before damage is calculated. Lasts for 8 turns if the user is holding Light Clay.",
 	},
-=======
->>>>>>> Restart all files
 	reflecttype: {
 		inherit: true,
 		desc: "Causes the user's types to become the same as the current types of the target. Fails if the user is an Arceus.",
 	},
-<<<<<<< HEAD
 	rockblast: {
 		inherit: true,
 		flags: {protect: 1, mirror: 1},
@@ -327,21 +259,16 @@ exports.BattleMovedex = {
 		inherit: true,
 		desc: "If this move is successful, it breaks through the target's Detect, King's Shield, Protect, or Spiky Shield for this turn, allowing other Pokemon to attack the target normally. If the target's side is protected by Crafty Shield, Mat Block, Quick Guard, or Wide Guard, that protection is also broken for this turn and other Pokemon may attack the target's side normally. This attack charges on the first turn and executes on the second. On the first turn, the user avoids all attacks. If the user is holding a Power Herb, the move completes in one turn. Damage doubles and no accuracy check is done if the target has used Minimize while active.",
 	},
-=======
->>>>>>> Restart all files
 	sheercold: {
 		inherit: true,
 		desc: "Deals damage to the target equal to the target's maximum HP. Ignores accuracy and evasiveness modifiers. This attack's accuracy is equal to (user's level - target's level + 30)%, and fails if the target is at a higher level. Pokemon with the Ability Sturdy are immune.",
 		shortDesc: "OHKOs the target. Fails if user is a lower level.",
 		ohko: true,
 	},
-<<<<<<< HEAD
 	spikyshield: {
 		inherit: true,
 		desc: "The user is protected from most attacks made by other Pokemon during this turn, and Pokemon making contact with the user lose 1/8 of their maximum HP, rounded down. This move has a 1/X chance of being successful, where X starts at 1 and triples each time this move is successfully used. X resets to 1 if this move fails or if the user's last move used is not Detect, Endure, King's Shield, Protect, Quick Guard, Spiky Shield, or Wide Guard. Fails if the user moves last this turn.",
 	},
-=======
->>>>>>> Restart all files
 	suckerpunch: {
 		inherit: true,
 		basePower: 80,
@@ -380,13 +307,8 @@ exports.BattleMovedex = {
 	},
 	watershuriken: {
 		inherit: true,
-<<<<<<< HEAD
 		desc: "Hits two to five times. Has a 1/3 chance to hit two or three times, and a 1/6 chance to hit four or five times. If one of the hits breaks the target's substitute, it will take damage for the remaining hits. If the user has the Ability Skill Link, this move will always hit five times.",
 		category: "Physical",
-=======
-		category: "Physical",
-		desc: "Hits two to five times. Has a 1/3 chance to hit two or three times, and a 1/6 chance to hit four or five times. If one of the hits breaks the target's substitute, it will take damage for the remaining hits. If the user has the Ability Skill Link, this move will always hit five times.",
->>>>>>> Restart all files
 	},
 	wideguard: {
 		inherit: true,

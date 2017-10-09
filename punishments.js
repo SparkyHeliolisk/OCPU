@@ -167,12 +167,7 @@ Punishments.loadPunishments = async function () {
 		if (Date.now() >= expireTime) {
 			continue;
 		}
-<<<<<<< HEAD
 		for (const key of keys) {
-=======
-		for (let j = 0; j < keys.length; j++) {
-			const key = keys[j];
->>>>>>> Restart all files
 			if (!USERID_REGEX.test(key)) {
 				Punishments.ips.set(key, punishment);
 			} else {
@@ -1172,11 +1167,7 @@ Punishments.checkIpBanned = function (connection) {
 		let appeal = (Config.appealurl ? `||||Or you can appeal at: ${Config.appealurl}` : ``);
 		connection.send(`|popup||modal|You are banned because you have the same IP (${ip}) as banned user '${banned}'. Your ban will expire in a few days.${appeal}`);
 	}
-<<<<<<< HEAD
 	Monitor.notice(`CONNECT BLOCKED - IP BANNED: ${ip} (${banned})`);
-=======
-	if (!Config.quietconsole) console.log(`CONNECT BLOCKED - IP BANNED: ${ip} (${banned})`);
->>>>>>> Restart all files
 
 	return banned;
 };
@@ -1285,12 +1276,7 @@ Punishments.getRoomPunishments = function (user, options) {
 
 	let punishments = [];
 
-<<<<<<< HEAD
 	for (const curRoom of Rooms.global.chatRooms) {
-=======
-	for (let i = 0; i < Rooms.global.chatRooms.length; i++) {
-		const curRoom = Rooms.global.chatRooms[i];
->>>>>>> Restart all files
 		if (!curRoom || curRoom.isPrivate === true || ((options && options.publicOnly) && (curRoom.isPersonal || curRoom.battle))) continue;
 		let punishment = Punishments.roomUserids.nestedGet(curRoom.id, userid);
 		if (punishment) {
@@ -1306,20 +1292,11 @@ Punishments.getRoomPunishments = function (user, options) {
 			}
 		}
 		if (checkMutes && curRoom.muteQueue) {
-<<<<<<< HEAD
 			for (const entry of curRoom.muteQueue) {
 				if (userid === entry.userid ||
 					user.guestNum === entry.guestNum ||
 					(user.autoconfirmed && user.autoconfirmed === entry.autoconfirmed)) {
 					punishments.push([curRoom, ['MUTE', entry.userid, entry.time]]);
-=======
-			for (let i = 0; i < curRoom.muteQueue.length; i++) {
-				let entry = curRoom.muteQueue[i];
-				if (userid === entry.userid ||
-					user.guestNum === entry.guestNum ||
-					(user.autoconfirmed && user.autoconfirmed === entry.autoconfirmed)) {
-					punishments.push([curRoom, ['MUTE', entry.userid, curRoom.muteQueue[i].time]]);
->>>>>>> Restart all files
 				}
 			}
 		}

@@ -64,12 +64,7 @@ class BattlePlayer {
 		this.slotNum = Number(slot.charAt(1)) - 1;
 		this.active = true;
 
-<<<<<<< HEAD
 		for (const connection of user.connections) {
-=======
-		for (let i = 0; i < user.connections.length; i++) {
-			let connection = user.connections[i];
->>>>>>> Restart all files
 			if (connection.inRooms.has(game.id)) {
 				Sockets.subchannelMove(connection.worker, this.game.id, this.slotNum + 1, connection.socketid);
 			}
@@ -79,12 +74,7 @@ class BattlePlayer {
 		if (this.active) this.simSend('leave');
 		let user = Users(this.userid);
 		if (user) {
-<<<<<<< HEAD
 			for (const connection of user.connections) {
-=======
-			for (let j = 0; j < user.connections.length; j++) {
-				let connection = user.connections[j];
->>>>>>> Restart all files
 				Sockets.subchannelMove(connection.worker, this.game.id, '0', connection.socketid);
 			}
 			user.games.delete(this.game.id);
@@ -98,12 +88,7 @@ class BattlePlayer {
 			Sockets.subchannelMove(user.worker, this.game.id, this.slotNum + 1, user.socketid);
 			return;
 		}
-<<<<<<< HEAD
 		for (const connection of user.connections) {
-=======
-		for (let i = 0; i < user.connections.length; i++) {
-			let connection = user.connections[i];
->>>>>>> Restart all files
 			Sockets.subchannelMove(connection.worker, this.game.id, this.slotNum + 1, connection.socketid);
 		}
 	}
@@ -614,6 +599,9 @@ class Battle {
 	}
 	tie() {
 		this.send('tie');
+	}
+	tiebreak() {
+		this.send('tiebreak');
 	}
 	forfeit(user, message, side) {
 		if (this.ended || !this.started) return false;

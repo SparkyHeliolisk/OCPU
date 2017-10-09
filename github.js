@@ -32,7 +32,7 @@ github.on('push', function push(repo, ref, result) {
 	let messages = [];
 	let message = "";
 	message += "[<font color='FF00FF'>" + Chat.escapeHTML(repo) + '</font>] ';
-	message += nameColor(result.pusher.name, true) + " ";
+	message += OCPU.nameColor(result.pusher.name, true) + " ";
 	message += (result.forced ? '<font color="red">force-pushed</font>' : 'pushed') + " ";
 	message += "<b>" + Chat.escapeHTML(result.commits.length) + "</b> ";
 	message += "new commit" + (result.commits.length === 1 ? '' : 's') + " to ";
@@ -50,7 +50,7 @@ github.on('push', function push(repo, ref, result) {
 		message += "<font color='800080'>" + Chat.escapeHTML(branch) + "</font> ";
 		message += "<a href=\"" + Chat.escapeHTML(commit.url) + "\">";
 		message += "<font color='606060'>" + Chat.escapeHTML(commit.id.substring(0, 6)) + "</font></a> ";
-		message += nameColor(commit.author.name, true) + ": " + Chat.escapeHTML(shortCommit);
+		message += OCPU.nameColor(commit.author.name, true) + ": " + Chat.escapeHTML(shortCommit);
 		messages.push(message);
 	});
 	sendMessages(messages.join("<br>"));
@@ -76,7 +76,7 @@ github.on('pull_request', function pullRequest(repo, ref, result) {
 	updates[repo][requestNumber] = now;
 	let message = "";
 	message += "[<font color='FF00FF'>" + repo + "</font>] ";
-	message += nameColor(result.sender.login, true) + " ";
+	message += OCPU.nameColor(result.sender.login, true) + " ";
 	message += action + " pull request <a href=\"" + url + "\">#" + requestNumber + "</a>: ";
 	message += result.pull_request.title;
 	sendMessages(message);
@@ -90,11 +90,9 @@ github.on('issues', function issues(repo, ref, result) {
 		action = 'labled';
 		return;
 	}
-	let now = Date.now();
-	
 	let message = "";
 	message += "[<font color='FF00FF'>" + repo + "</font>]";
-	message += nameColor(result.sender.login, true) + " ";
+	message += OCPU.nameColor(result.sender.login, true) + " ";
 	message += action + " issue <a href=\"" + url + "\">#" + requestNumber + "</a>: ";
 	message += result.issue.title;
 	sendMessages(message);

@@ -2,7 +2,6 @@
 
 exports.BattleItems = {
 	"burndrive": {
-<<<<<<< HEAD
 		inherit: true,
 		onBasePower: function (basePower, user, target, move) {},
 		desc: "Changes Genesect to Genesect-Burn.",
@@ -20,53 +19,6 @@ exports.BattleItems = {
 	"shockdrive": {
 		inherit: true,
 		onBasePower: function (basePower, user, target, move) {},
-=======
-		id: "burndrive",
-		name: "Burn Drive",
-		spritenum: 103,
-		fling: {
-			basePower: 70,
-		},
-		onBasePower: function (basePower, user, target, move) {
-		},
-		onDrive: 'Fire',
-		desc: "Changes Genesect to Genesect-Burn.",
-	},
-	"chilldrive": {
-		id: "chilldrive",
-		name: "Chill Drive",
-		spritenum: 103,
-		fling: {
-			basePower: 70,
-		},
-		onBasePower: function (basePower, user, target, move) {
-		},
-		onDrive: 'Ice',
-		desc: "Changes Genesect to Genesect-Chill.",
-	},
-	"dousedrive": {
-		id: "dousedrive",
-		name: "Douse Drive",
-		spritenum: 103,
-		fling: {
-			basePower: 70,
-		},
-		onBasePower: function (basePower, user, target, move) {
-		},
-		onDrive: 'Water',
-		desc: "Changes Genesect to Genesect-Douse.",
-	},
-	"shockdrive": {
-		id: "shockdrive",
-		name: "Shock Drive",
-		spritenum: 103,
-		fling: {
-			basePower: 70,
-		},
-		onBasePower: function (basePower, user, target, move) {
-		},
-		onDrive: 'Electric',
->>>>>>> Restart all files
 		desc: "Changes Genesect to Genesect-Shock.",
 	},
 	"widelens": {
@@ -76,10 +28,7 @@ exports.BattleItems = {
 				return accuracy * 1.3;
 			}
 		},
-<<<<<<< HEAD
 		desc: "The accuracy of attacks by the holder is 1.6x.",
-=======
->>>>>>> Restart all files
 	},
 	"zoomlens": {
 		inherit: true,
@@ -89,10 +38,7 @@ exports.BattleItems = {
 				return accuracy * 1.6;
 			}
 		},
-<<<<<<< HEAD
 		desc: "The accuracy of attacks by the holder is 1.6x if it moves after its target.",
-=======
->>>>>>> Restart all files
 	},
 	"bigroot": {
 		inherit: true,
@@ -108,11 +54,8 @@ exports.BattleItems = {
 				this.heal(pokemon.maxhp / 16);
 			}
 		},
-<<<<<<< HEAD
 		desc: "Holder gains 1.3x HP from draining/Aqua Ring/Ingrain/Leech Seed/Strength Sap; If the user is a Grass type, the holder heals 1/16 of its max HP every turn, and for every damaging move the holder uses 1/8th of the damage dealt is restored.",
 		shortDesc: "Holder gains 1.3x from most healing moves; if the user is a Grass type, Leftovers & Shell Bell effects occur.",
-=======
->>>>>>> Restart all files
 	},
 	"blacksludge": {
 		inherit: true,
@@ -125,21 +68,10 @@ exports.BattleItems = {
 				this.damage(pokemon.maxhp / 8);
 			}
 		},
-<<<<<<< HEAD
 		desc: "Each turn, if holder is a Poison type, restores 1/16 max HP; loses 1/8 if not. Pure Poison types restore 1/8 max HP.",
 	},
 	"focusband": {
 		inherit: true,
-=======
-	},
-	"focusband": {
-		id: "focusband",
-		name: "Focus Band",
-		spritenum: 150,
-		fling: {
-			basePower: 10,
-		},
->>>>>>> Restart all files
 		onDamage: function (damage, target, source, effect) {
 			let types = target.getTypes();
 			if (types.length === 1 && types[0] === 'Fighting' &&
@@ -153,13 +85,7 @@ exports.BattleItems = {
 				}
 			}
 		},
-<<<<<<< HEAD
 		desc: "Breaks on first hit, but allows pure Fighting types to survive that hit with 1 HP.",
-=======
-		num: 230,
-		gen: 2,
-		desc: "Holder has a 10% chance to survive an attack that would KO it with 1HP.",
->>>>>>> Restart all files
 	},
 	"wiseglasses": {
 		inherit: true,
@@ -172,11 +98,8 @@ exports.BattleItems = {
 				return basePower * 1.1;
 			}
 		},
-<<<<<<< HEAD
 		desc: "Holder's special attacks have 1.1x power. Pure Psychic types special attacks have 1.2x power.",
 		shortDesc: "Holder's SpA have 1.1x power. Pure Psychic types SpA have 1.2x power.",
-=======
->>>>>>> Restart all files
 	},
 	"muscleband": {
 		inherit: true,
@@ -189,22 +112,11 @@ exports.BattleItems = {
 				return basePower * 1.1;
 			}
 		},
-<<<<<<< HEAD
 		desc: "Holder's physical attacks have 1.1x power. Pure Fighting types physical attacks have 1.2x power.",
 		shortDesc: "Holder's Atk have 1.1x power. Pure Fighting types Atk have 1.2x power.",
 	},
 	"stick": {
 		inherit: true,
-=======
-	},
-	"stick": {
-		id: "stick",
-		name: "Stick",
-		fling: {
-			basePower: 60,
-		},
-		spritenum: 475,
->>>>>>> Restart all files
 		// The Stick is a stand-in for a number of pokemon-exclusive items
 		// introduced with Gen Next
 		onModifyCritRatio: function (critRatio, user) {

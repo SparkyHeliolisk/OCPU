@@ -8,7 +8,7 @@
  * Economy - "bucks," used to buy things from the "shop"
  * Offline Messaging (tells) - Offline private messaging system
  * Last seen - When a user was last on the server
- * Badges - Various acomplisments
+ * Badges - Various accomplishments
  * VIP Status - Lets a user use specific features other user's can't
  * Proxy whitelisting - Trusting specific users to not get locked when using a proxy
  * User Statuses - Appears on user's profiles
@@ -23,6 +23,7 @@
 
 const fs = require('fs');
 const moment = require('moment');
+const Autolinker = require('autolinker');
 
 OCPU.userData = Object.create(null);
 function loadUserData() {
@@ -160,7 +161,7 @@ try {
 			});
 
 			for (let i = 0; i < number; i++) {
-				if (userids[i]) returnText += `<tr><td style="${tdStyle}">${i + 1}.</td><td style="${tdStyle}">${nameColor(userids[i].id, true)}</td><td style="${tdStyle}">${userids[i].money}</td></tr>`;
+				if (userids[i]) returnText += `<tr><td style="${tdStyle}">${i + 1}.</td><td style="${tdStyle}">${OCPU.nameColor(userids[i].id, true)}</td><td style="${tdStyle}">${userids[i].money}</td></tr>`;
 			}
 			returnText += '</table></div>';
 
@@ -344,7 +345,7 @@ try {
 			message = OCPU.formatMessage(message); // Add PS formatting
 
 			let date = `${moment().format('MMMM Do YYYY, h:mm A')} EST`;
-			let tell = `<u>${date}</u><br />${nameColor(userName, true)} said: ${message}`;
+			let tell = `<u>${date}</u><br />${OCPU.nameColor(userName, true)} said: ${message}`;
 
 			OCPU.userData[user].tellNum++;
 			tells[`${user}#${OCPU.userData[user].tellNum}`] = tell;
@@ -492,7 +493,7 @@ try {
 			Users.users.forEach(curUser => {
 				if (!curUser.isStaff) {
 					curUser.send('|pm|' + pmName + '|' + curUser.getIdentity() + '|' + message);
-				};
+				}
 			});
 		},
 		pmAllE: function (message, pmName) { //This is a special method only used for the emergency server command to PM everyone special directions that do not include Staff.
@@ -500,7 +501,7 @@ try {
 			Users.users.forEach(curUser => {
 				if (!curUser.isStaff) {
 					curUser.send('|pm|' + pmName + '|' + curUser.getIdentity() + '|' + message);
-				};
+				}
 			});
 		},
 		pmStaffL: function (message, pmName) { //This is a special method only used for the lockdown server command to PM all staff a special set of directions.
@@ -556,3 +557,48 @@ try {
 	let staff = Rooms('staff');
 	if (staff) staff.add(`|html|<div class="broadcast-red"><b>CUSTOM OCPU FUNCTIONALITY HAS CRASHED:</b><br />${e.stack}<br /><br /><b>Please report this to a developer... so panpawn.`).update();
 }
+
+//Credit to SG
+OCPU.nameColor = function (name, bold, userGroup) {
+	let userGroupSymbol = Users.usergroups[toId(name)] ? '<strong><font color=#948A88>' + Users.usergroups[toId(name)].substr(0, 1) + '</font></strong>' : "";
+	return (userGroup ? userGroupSymbol : "") + (bold ? "<strong>" : "") + "<font color=" + OCPU.hashColor(name) + ">" + (Users(name) && Users(name).connected && Users.getExact(name) ? Chat.escapeHTML(Users.getExact(name).name) : Chat.escapeHTML(name)) + "</font>" + (bold ? "</strong>" : "");
+};
+// usage: OCPU.nameColor(user.name, true) for bold OR OCPU.nameColor(user.name, false) for non-bolded.
+
+OCPU.messageSeniorStaff = function (message, pmName, from) {
+	pmName = (pmName ? pmName : '~OCPU Server');
+	from = (from ? ' (PM from ' + from + ')' : '');
+	Users.users.forEach(curUser => {
+		if (curUser.group === '~' || curUser.group === '&') {
+			curUser.send('|pm|' + pmName + '|' + curUser.getIdentity() + '|' + message + from);
+		}
+	});
+};
+// format: OCPU.messageSeniorStaff('message', 'person')
+//
+// usage: OCPU.messageSeniorStaff('Mystifi is a confirmed user and they were banned from a public room. Assess the situation immediately.', '~Server')
+//
+// this makes a PM from ~OCPU Server stating the message
+
+OCPU.parseMessage = function (message) {
+	if (message.substr(0, 5) === "/html") {
+		message = message.substr(5);
+		message = message.replace(/\_\_([^< ](?:[^<]*?[^< ])?)\_\_(?![^<]*?<\/a)/g, '<i>$1</i>'); // italics
+		message = message.replace(/\*\*([^< ](?:[^<]*?[^< ])?)\*\*/g, '<strong>$1</strong>'); // bold
+		message = message.replace(/\~\~([^< ](?:[^<]*?[^< ])?)\~\~/g, '<strike>$1</strike>'); // strikethrough
+		message = message.replace(/&lt;&lt;([a-z0-9-]+)&gt;&gt;/g, '&laquo;<a href="/$1" target="_blank">$1</a>&raquo;'); // <<roomid>>
+		message = Autolinker.link(message.replace(/&#x2f;/g, '/'), {stripPrefix: false, phone: false, twitter: false});
+		return message;
+	}
+	message = Chat.escapeHTML(message).replace(/&#x2f;/g, '/');
+	message = message.replace(/\_\_([^< ](?:[^<]*?[^< ])?)\_\_(?![^<]*?<\/a)/g, '<i>$1</i>'); // italics
+	message = message.replace(/\*\*([^< ](?:[^<]*?[^< ])?)\*\*/g, '<strong>$1</strong>'); // bold
+	message = message.replace(/\~\~([^< ](?:[^<]*?[^< ])?)\~\~/g, '<strike>$1</strike>'); // strikethrough
+	message = message.replace(/&lt;&lt;([a-z0-9-]+)&gt;&gt;/g, '&laquo;<a href="/$1" target="_blank">$1</a>&raquo;'); // <<roomid>>
+	message = Autolinker.link(message, {stripPrefix: false, phone: false, twitter: false});
+	return message;
+};
+
+OCPU.randomString = function (length) {
+	return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+};

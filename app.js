@@ -71,11 +71,6 @@ try {
 
 global.Config = require('./config/config');
 
-<<<<<<< HEAD
-global.Monitor = require('./monitor');
-
-=======
->>>>>>> Restart all files
 if (Config.watchconfig) {
 	let configPath = require.resolve('./config/config');
 	FS(configPath).onModify(() => {
@@ -83,15 +78,9 @@ if (Config.watchconfig) {
 			delete require.cache[configPath];
 			global.Config = require('./config/config');
 			if (global.Users) Users.cacheGroupData();
-<<<<<<< HEAD
 			Monitor.notice('Reloaded config/config.js');
 		} catch (e) {
 			Monitor.adminlog(`Error reloading config/config.js: ${e.stack}`);
-=======
-			console.log('Reloaded config/config.js');
-		} catch (e) {
-			console.error(`Error reloading config/config.js: ${e.stack}`);
->>>>>>> Restart all files
 		}
 	});
 }
@@ -100,11 +89,8 @@ if (Config.watchconfig) {
  * Set up most of our globals
  *********************************************************/
 
-<<<<<<< HEAD
-=======
 global.Monitor = require('./monitor');
 
->>>>>>> Restart all files
 global.Dex = require('./sim/dex');
 global.toId = Dex.getId;
 
@@ -120,11 +106,9 @@ global.Chat = require('./chat');
 
 global.Rooms = require('./rooms');
 
-<<<<<<< HEAD
 global.Verifier = require('./verifier');
 Verifier.PM.spawn();
 
-=======
 global.Tells = require('./tells.js');
 
 global.Db = require('nef')(require('nef-fs')('config/db'));
@@ -134,10 +118,7 @@ Verifier.PM.spawn();
 
 global.OCPU = {};
 
->>>>>>> Restart all files
 global.Tournaments = require('./tournaments');
-
-global.github = require('./github');
 
 global.Dnsbl = require('./dnsbl');
 Dnsbl.loadDatacenters();
@@ -182,6 +163,11 @@ if (require.main === module) {
 
 global.TeamValidator = require('./team-validator');
 TeamValidator.PM.spawn();
+
+/*********************************************************
+ * Start up the githubhook server
+ ********************************************************/
+require('./github');
 
 /*********************************************************
  * Start up the REPL server
