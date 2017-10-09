@@ -6,7 +6,6 @@
 
 'use strict';
 
-<<<<<<< HEAD
 const FS = require('../fs');
 
 Punishments.roomPunishmentTypes.set('GIVEAWAYBAN', 'banned from giveaways');
@@ -27,11 +26,6 @@ if (!stats || typeof stats !== 'object') stats = {};
 function saveStats() {
 	FS(STATS_FILE).write(JSON.stringify(stats));
 }
-=======
-Punishments.roomPunishmentTypes.set('GIVEAWAYBAN', 'banned from giveaways');
-
-const BAN_DURATION = 7 * 24 * 60 * 60 * 1000;
->>>>>>> Restart all files
 
 function toPokemonId(str) {
 	return str.toLowerCase().replace(/é/g, 'e').replace(/[^a-z0-9 /]/g, '');
@@ -56,11 +50,7 @@ class Giveaway {
 
 		this.joined = {};
 
-<<<<<<< HEAD
 		[this.monIds, this.sprite] = Giveaway.getSprite(prize);
-=======
-		this.sprite = Giveaway.getSprite(prize);
->>>>>>> Restart all files
 	}
 
 	send(content) {
@@ -119,10 +109,7 @@ class Giveaway {
 		text = toPokemonId(text);
 		let mons = new Map();
 		let output = '';
-<<<<<<< HEAD
 		let monIds = new Set();
-=======
->>>>>>> Restart all files
 		for (let i in Dex.data.Pokedex) {
 			let id = i;
 			if (!Dex.data.Pokedex[i].baseSpecies && (Dex.data.Pokedex[i].species.includes(' '))) {
@@ -168,10 +155,7 @@ class Giveaway {
 						}
 					}
 				}
-<<<<<<< HEAD
 				monIds.add(spriteid);
-=======
->>>>>>> Restart all files
 				if (mons.size > 1) {
 					output += `<psicon pokemon="${spriteid}" />`;
 				} else {
@@ -180,7 +164,6 @@ class Giveaway {
 				}
 			});
 		}
-<<<<<<< HEAD
 		return [monIds, output];
 	}
 
@@ -192,9 +175,6 @@ class Giveaway {
 		}
 
 		saveStats();
-=======
-		return output;
->>>>>>> Restart all files
 	}
 
 	generateWindow(rightSide) {
@@ -290,10 +270,7 @@ class QuestionGiveaway extends Giveaway {
 				this.winner.sendTo(this.room, `|raw|You have won the giveaway. PM <b>${Chat.escapeHTML(this.giver.name)}</b> (FC: ${this.fc}) to claim your prize!`);
 				if (this.winner.connected) this.winner.popup(`You have won the giveaway. PM **${Chat.escapeHTML(this.giver.name)}** (FC: ${this.fc}) to claim your prize!`);
 				if (this.giver.connected) this.giver.popup(`${Chat.escapeHTML(this.winner.name)} has won your question giveaway!`);
-<<<<<<< HEAD
 				Giveaway.updateStats(this.monIds);
-=======
->>>>>>> Restart all files
 			}
 		}
 
@@ -406,10 +383,7 @@ class LotteryGiveaway extends Giveaway {
 				if (this.winners[i].connected) this.winners[i].popup(`You have won the lottery giveaway! PM **${this.giver.name}** (FC: ${this.fc}) to claim your prize!`);
 			}
 			if (this.giver.connected) this.giver.popup(`The following users have won your lottery giveaway:\n${Chat.escapeHTML(winnerNames)}`);
-<<<<<<< HEAD
 			Giveaway.updateStats(this.monIds);
-=======
->>>>>>> Restart all files
 		}
 		delete this.room.giveaway;
 	}
@@ -429,11 +403,7 @@ class GtsGiveaway {
 		this.deposit = GtsGiveaway.linkify(Chat.escapeHTML(deposit));
 		this.lookfor = lookfor;
 
-<<<<<<< HEAD
 		[this.monIds, this.sprite] = Giveaway.getSprite(this.summary);
-=======
-		this.sprite = Giveaway.getSprite(this.summary);
->>>>>>> Restart all files
 		this.sent = [];
 		this.noDeposits = false;
 
@@ -503,10 +473,7 @@ class GtsGiveaway {
 			this.changeUhtml(`<p style="text-align:center;font-size:13pt;font-weight:bold;">The GTS giveaway has finished.</p>`);
 			this.room.modlog(`${this.giver.name} has finished their GTS giveaway for "${this.summary}"`);
 			this.send(`<p style="text-align:center;font-size:11pt">The GTS giveaway for a "<strong>${Chat.escapeHTML(this.lookfor)}</strong>" has finished.</p>`);
-<<<<<<< HEAD
 			Giveaway.updateStats(this.monIds);
-=======
->>>>>>> Restart all files
 		}
 		delete this.room.gtsga;
 	}
@@ -540,11 +507,7 @@ let commands = {
 		if (room.giveaway) return this.errorReply("There is already a giveaway going on!");
 
 		let [giver, ot, tid, fc, prize, question, ...answers] = target.split(target.includes('|') ? '|' : ',').map(param => param.trim());
-<<<<<<< HEAD
 		if (!(giver && ot && tid && fc && prize && question && answers.length)) return this.errorReply("Invalid arguments specified - /question giver | ot | tid | fc | prize | question | answer(s)");
-=======
-		if (!(giver && ot && tid && fc && prize && question && answers.length)) return this.errorReply("Invalid arguments specified - /question giver, ot, tid, fc, prize, question, answer(s)");
->>>>>>> Restart all files
 		tid = toId(tid);
 		if (isNaN(tid) || tid.length < 5 || tid.length > 6) return this.errorReply("Invalid TID");
 		fc = toId(fc);
@@ -597,11 +560,7 @@ let commands = {
 		if (room.giveaway) return this.errorReply("There is already a giveaway going on!");
 
 		let [giver, ot, tid, fc, prize, winners] = target.split(target.includes('|') ? '|' : ',').map(param => param.trim());
-<<<<<<< HEAD
 		if (!(giver && ot && tid && fc && prize)) return this.errorReply("Invalid arguments specified - /lottery giver | ot | tid | fc | prize | winners");
-=======
-		if (!(giver && ot && tid && fc && prize)) return this.errorReply("Invalid arguments specified - /lottery giver, ot, tid, fc, prize, winners");
->>>>>>> Restart all files
 		tid = toId(tid);
 		if (isNaN(tid) || tid.length < 5 || tid.length > 6) return this.errorReply("Invalid TID");
 		fc = toId(fc);
@@ -655,11 +614,7 @@ let commands = {
 			if (room.gtsga) return this.errorReply("There is already a GTS giveaway going on!");
 
 			let [giver, amount, summary, deposit, lookfor] = target.split(target.includes('|') ? '|' : ',').map(param => param.trim());
-<<<<<<< HEAD
 			if (!(giver && amount && summary && deposit && lookfor)) return this.errorReply("Invalid arguments specified - /gts start giver | amount | summary | deposit | lookfor");
-=======
-			if (!(giver && amount && summary && deposit && lookfor)) return this.errorReply("Invalid arguments specified - /gts start giver, amount, summary, deposit, lookfor");
->>>>>>> Restart all files
 			amount = parseInt(amount);
 			if (!amount || amount < 30 || amount > 100) return this.errorReply("Please enter a valid amount. For a GTS giveaway, you need to give away at least 30 mons, and no more than 100.");
 			let targetUser = Users(giver);
@@ -776,7 +731,6 @@ let commands = {
 			room.giveaway.display();
 		}
 	},
-<<<<<<< HEAD
 	count: function (target, room, user) {
 		if (room.id !== 'wifi') return this.errorReply("This command can only be used in the Wi-Fi room.");
 		target = Array.from(Giveaway.getSprite(target)[0])[0];
@@ -790,8 +744,6 @@ let commands = {
 
 		this.sendReplyBox(`This Pokémon has been given away ${count.length} time${Chat.plural(count)}, a total of ${recent} time${Chat.plural(recent)} in the past month.`);
 	},
-=======
->>>>>>> Restart all files
 	'': 'help',
 	help: function (target, room, user) {
 		if (room.id !== 'wifi') return this.errorReply("This command can only be used in the Wi-Fi room.");
@@ -807,12 +759,8 @@ let commands = {
 			        '- changeanswer - Changes the answer of a question giveaway (Requires: giveaway host)<br />' +
 					'- viewanswer - Shows the answer in a question giveaway (only to giveaway host/giver)<br />' +
 					'- ban - Temporarily bans a user from entering giveaways (Requires: % @ * # & ~)<br />' +
-<<<<<<< HEAD
 			        '- end - Forcibly ends the current giveaway (Requires: % @ * # & ~)<br />' +
 					'- count <em>Mon</em> - Displays how often a certain mon has been given away. Use <code>!giveaway count</code> to broadcast this to the entire room<br />';
-=======
-			        '- end - Forcibly ends the current giveaway (Requires: % @ * # & ~)<br />';
->>>>>>> Restart all files
 			break;
 		case 'gts':
 			if (!this.can('broadcast', null, room)) return;
