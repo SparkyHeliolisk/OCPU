@@ -4,7 +4,6 @@
 
 // modules and constants
 const fs = require('fs');
-const moment = require('moment');
 const http = require('http');
 const https = require('https');
 const geoip = require('geoip-ultralight');
@@ -26,8 +25,6 @@ let asciiMap = new Map([
 ]);
 
 // misc
-const serverIp = '50.25.35.92';
-const formatHex = '#566'; //hex code for the formatting of the command
 const ADVERTISEMENT_COST = 45; // how much does /advertise cost to use?
 let regdateCache = {};
 let customColors = {};
@@ -1329,6 +1326,56 @@ exports.commands = {
 		this.parse('/away CODING');
 	},
 
+	customcolour: 'customcolor',
+	customcolor: {
+		set: function (target, room, user) {
+			if (!this.can('roomowner')) return false;
+			target = target.split(',');
+			for (let u = 0; u < target.length; u++) target[u] = target[u].trim();
+			if (!target[1]) return this.parse('/help customcolor');
+			if (toId(target[0]).length > 19) return this.errorReply("Usernames are not this long...");
+			this.sendReply("|raw|You have given <b><font color=" + target[1] + ">" + Chat.escapeHTML(target[0]) + "</font></b> a custom color.");
+			this.privateModCommand("(" + target[0] + " has received custom color: '" + target[1] + "' from " + user.name + ".)");
+			Monitor.adminlog(target[0] + " has received custom color: '" + target[1] + "' from " + user.name + ".");
+			customColors[toId(target[0])] = target[1];
+			updateColor();
+		},
+		delete: function (target, room, user) {
+			if (!this.can('roomowner')) return false;
+			if (!target) return this.parse('/help customcolor');
+			if (!customColors[toId(target)]) return this.errorReply('/customcolor - ' + target + ' does not have a custom color.');
+			delete customColors[toId(target)];
+			updateColor();
+			this.sendReply("You removed " + target + "'s custom color.");
+			this.privateModCommand("(" + target + "'s custom color was removed by " + user.name + ".)");
+			Monitor.adminlog(target + "'s custom color was removed by " + user.name + ".");
+			if (Users(target) && Users(target).connected) Users(target).popup(user.name + " removed your custom color.");
+			return;
+		},
+		preview: function (target, room, user) {
+			if (!this.runBroadcast()) return;
+			target = target.split(',');
+			for (let u = 0; u < target.length; u++) target[u] = target[u].trim();
+			if (!target[1]) return this.parse('/help customcolor');
+			return this.sendReplyBox('<b><font size="3" color="' + target[1] + '">' + Chat.escapeHTML(target[0]) + '</font></b>');
+		},
+		reload: function (target, room, user) {
+			if (!this.can('hotpatch')) return false;
+			updateColor();
+			this.privateModCommand("(" + user.name + " has reloaded custom colours.)");
+		},
+		'': function (target, room, user) {
+			return this.parse("/help customcolor");
+		},
+	},
+	customcolorhelp: [
+		"Commands Include:",
+		"/customcolor set [user], [hex] - Gives [user] a custom color of [hex]",
+		"/customcolor delete [user], delete - Deletes a user's custom color",
+		"/customcolor reload - Reloads colours.",
+		"/customcolor preview [user], [hex] - Previews what that username looks like with [hex] as the color.",
+	],
+
 	poofoff: 'nopoof',
 	nopoof: function () {
 		if (!this.can('poofoff')) return false;
@@ -1363,7 +1410,7 @@ exports.commands = {
 			user.lastCommand = 'advertise';
 		} else if (user.lastCommand === 'advertise') {
 			let buttoncss = 'background: #ff9900; text-shadow: none; padding: 2px 6px; color: black; text-align: center; border: black, solid, 1px;';
-			Rooms('lobby').add('|raw|<div class="infobox"><strong style="color: green;">Advertisement:</strong> ' + advertisement + '<br /><hr width="80%"><button name="joinRoom" class="button" style="' + buttoncss + '" value="' + toId(targetRoom) + '">Click to join <b>' + Rooms.search(toId(targetRoom)).title + '</b></button> | <i><font color="gray">(Advertised by</font> ' + Server.nameColor(user.name) + '<font color="gray">)</font></i></div>').update();
+			Rooms('lobby').add('|raw|<div class="infobox"><strong style="color: green;">Advertisement:</strong> ' + advertisement + '<br /><hr width="80%"><button name="joinRoom" class="button" style="' + buttoncss + '" value="' + toId(targetRoom) + '">Click to join <b>' + Rooms.search(toId(targetRoom)).title + '</b></button> | <i><font color="gray">(Advertised by</font> ' + OCPU.nameColor(user.name) + '<font color="gray">)</font></i></div>').update();
 			Economy.writeMoney(user.userid, -ADVERTISEMENT_COST);
 			user.lastCommand = '';
 			user.lastAdvertisement = Date.now();
