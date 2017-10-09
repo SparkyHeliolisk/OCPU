@@ -1051,22 +1051,16 @@ let commands = {
 					if (Config.tourdefaultplayercap && tournament.playerCap > Config.tourdefaultplayercap) {
 						Monitor.log('[TourMonitor] Room ' + tournament.room.id + ' starting a tour over default cap (' + tournament.playerCap + ')');
 					}
-<<<<<<< HEAD
 					this.room.send('|tournament|update|' + JSON.stringify({playerCap: tournament.playerCap}));
 				} else if (tournament.playerCap && !playerCap) {
 					tournament.playerCap = 0;
 					this.room.send('|tournament|update|' + JSON.stringify({playerCap: tournament.playerCap}));
-=======
-				} else if (tournament.playerCap && !playerCap) {
-					tournament.playerCap = 0;
->>>>>>> Restart all files
 				}
 				const capNote = (tournament.playerCap ? " with a player cap of " + tournament.playerCap : "");
 				this.privateModCommand("(" + user.name + " set tournament type to " + generator.name + capNote + ".)");
 				this.sendReply("Tournament set to " + generator.name + capNote + ".");
 			}
 		},
-<<<<<<< HEAD
 		cap: 'setplayercap',
 		playercap: 'setplayercap',
 		setcap: 'setplayercap',
@@ -1103,8 +1097,6 @@ let commands = {
 			}
 			this.room.send('|tournament|update|' + JSON.stringify({playerCap: tournament.playerCap}));
 		},
-=======
->>>>>>> Restart all files
 		end: 'delete',
 		stop: 'delete',
 		delete: function (tournament, user) {
@@ -1498,10 +1490,7 @@ Chat.commands.tournamenthelp = function (target, room, user) {
 	return this.sendReplyBox(
 		"- create/new &lt;format>, &lt;type> [, &lt;comma-separated arguments>]: Creates a new tournament in the current room.<br />" +
 		"- settype &lt;type> [, &lt;comma-separated arguments>]: Modifies the type of tournament after it's been created, but before it has started.<br />" +
-<<<<<<< HEAD
 		"- cap/playercap &lt;cap>: Sets the player cap of the tournament before it has started.<br />" +
-=======
->>>>>>> Restart all files
 		"- rules/banlist &lt;comma-separated arguments>: Sets the custom rules for the tournament before it has started.<br />" +
 		"- viewrules/viewbanlist: Shows the custom rules for the tournament.<br />" +
 		"- clearrules/clearbanlist: Clears the custom rules for the tournament before it has started.<br />" +
