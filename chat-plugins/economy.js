@@ -402,7 +402,7 @@ exports.commands = {
 		if (!this.runBroadcast()) return;
 		if (!target) target = user.name;
 		let output = "<u>OCPU Wallet:</u><br />", bucks = OCPU.readMoney(target);
-		output += nameColor(target, true) + ' ' + (bucks === 0 ? "does not have any SBucks." : /*nameColor(target, true) + */" has " + bucks + " SBucks");
+		output += nameColor(target, true) + ' ' + (bucks === 0 ? "does not have any Bucks." : /*nameColor(target, true) + */" has " + bucks + " SBucks");
 		return this.sendReplyBox(output);
 	},
 
@@ -424,7 +424,7 @@ exports.commands = {
 		let lines = fs.readFileSync('logs/transactions.log', 'utf8').split('\n').reverse();
 		let output = '';
 		let count = 0;
-		let regex = new RegExp(target.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), "gi");
+		let regex = new RegExp(target.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&'), "gi");
 
 		if (word) {
 			output += `Displaying last 50 lines containing "${target}":\n`;
