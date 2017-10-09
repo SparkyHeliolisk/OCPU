@@ -168,7 +168,7 @@ exports.commands = {
 				console.log(Chat.escapeHTML(user.name) + " has disabled the Global modchat lock.");
 			}
 		} else {
-			return this.errorReply("The command \"/globalmodchatlock\" does not exist. To send a message starting with \"/globalmodchatlock\", type \"//globalmodchatlock\".";)
+			return this.errorReply("The command \"/globalmodchatlock\" does not exist. To send a message starting with \"/globalmodchatlock\", type \"//globalmodchatlock\".");
 		}
 	},
 
