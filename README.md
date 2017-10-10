@@ -180,9 +180,3 @@ Contributors
 Special thanks
 
 - See http://pokemonshowdown.com/credits
-<<<<<<< HEAD
-=======
-# OCPU
->>>>>>> Initial commit
-=======
->>>>>>> Restart all files
