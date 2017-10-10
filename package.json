@@ -32,10 +32,6 @@
     "url": "^0.11.0",
     "websocket": "^1.0.17"
   },
-  "optionalDependencies": {
-    "cloud-env": "0.2.2",
-    "node-static": "0.7.9"
-  },
   "nonDefaultDependencies": {
     "nodemailer": "4.0.1",
     "ofe": "0.5.1"
