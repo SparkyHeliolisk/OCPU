@@ -6,8 +6,8 @@ const fs = require('fs');
 // Ideally, this should be zero.
 const DEFAULT_AMOUNT = 0;
 
-global.currencyName = 'SBuck';
-global.currencyPlural = 'SBucks';
+global.currencyName = 'OBuck';
+global.currencyPlural = 'OBucks';
 
 let Economy = global.Economy = {
 	/**
@@ -201,8 +201,8 @@ exports.commands = {
 		});
 	},
 
-	confirmtransferstardust: 'transfercurrency', //You can change "transferstardust" and "confirmtransferstardust" to your currency name for an alias that applies to your currency Example: AwesomeBucks could be "transferawesomebucks" and "confirmtransferawesomebucks"
-	transferstardust: 'transfercurrency',
+	confirmtransfermoney: 'transfercurrency', //You can change "transferstardust" and "confirmtransferstardust" to your currency name for an alias that applies to your currency Example: AwesomeBucks could be "transferawesomebucks" and "confirmtransferawesomebucks"
+	transfermoney: 'transfercurrency',
 	confirmtransfercurrency: 'transfercurrency',
 	transfercurrency: function (target, room, user, connection, cmd) {
 		if (!target) return this.sendReply("Usage: /" + cmd + " [user], [amount]");
@@ -289,7 +289,7 @@ exports.commands = {
 		this.sendReplyBox(rankLadder('Richest Users', currencyPlural, keys.slice(0, target), 'money') + '</div>');
 	},
 
-	resetstardust: 'resetmoney',
+	resetcurrency: 'resetmoney',
 	resetmoney: function (target, room, user) {
 		if (!this.can('roomowner')) return false;
 		if (!target) return this.parse('/help resetmoney');
@@ -323,7 +323,7 @@ exports.commands = {
 
 	economy: 'economystats',
 	currency: 'economystats',
-	stardust: 'economystats',
+	money: 'economystats',
 	economystats: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		const users = Db.currency.keys().map(curUser => ({amount: Db.currency.get(curUser)}));
