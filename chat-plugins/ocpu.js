@@ -6,7 +6,6 @@
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
-const geoip = require('geoip-ultralight');
 
 let bubbleLetterMap = new Map([
 	['a', '\u24D0'], ['b', '\u24D1'], ['c', '\u24D2'], ['d', '\u24D3'], ['e', '\u24D4'], ['f', '\u24D5'], ['g', '\u24D6'], ['h', '\u24D7'], ['i', '\u24D8'], ['j', '\u24D9'], ['k', '\u24DA'], ['l', '\u24DB'], ['m', '\u24DC'],
@@ -28,37 +27,6 @@ let asciiMap = new Map([
 const ADVERTISEMENT_COST = 45; // how much does /advertise cost to use?
 let regdateCache = {};
 let customColors = {};
-
-geoip.startWatchingDataUpdate();
-
-global.parseStatus = function (text, encoding) {
-	if (encoding) {
-		text = text.split('').map(function (char) {
-			return bubbleLetterMap.get(char);
-		}).join('');
-	} else {
-		text = text.split('').map(function (char) {
-			return asciiMap.get(char);
-		}).join('');
-	}
-	return text;
-};
-
-global.hasBadge = function (user, badge) {
-	let data = fs.readFileSync('badges.txt', 'utf8');
-	let row = data.split('\n');
-	for (let i = row.length; i > -1; i--) {
-		if (!row[i]) continue;
-		let split = row[i].split(':');
-		if (split[0] === toId(user)) {
-			if (split[1].indexOf(badge) > -1) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-	}
-};
 
 OCPU.pmAll = function (message, pmName) {
 	pmName = (pmName ? pmName : '~Server [Do not reply]');
@@ -120,7 +88,7 @@ OCPU.regdate = function (target, callback) {
 	});
 };
 
-global.reloadCSS = function () {
+OCPU.reloadCSS = function () {
 	let options = {
 		host: 'play.pokemonshowdown.com',
 		port: 80,
@@ -147,6 +115,21 @@ loadRegdateCache();
 
 function saveRegdateCache() {
 	fs.writeFileSync('config/regdate.json', JSON.stringify(regdateCache));
+}
+
+function parseStatus(text, encoding) {
+	if (encoding) {
+		text = text
+			.split('')
+			.map(char => bubbleLetterMap.get(char))
+			.join('');
+	} else {
+		text = text
+			.split('')
+			.map(char => asciiMap.get(char))
+			.join('');
+	}
+	return text;
 }
 
 OCPU.regdate = function (target, callback) {
@@ -986,13 +969,15 @@ exports.commands = {
 		});
 	},
 
+	'!hex': true,
 	gethex: 'hex',
 	hex: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		if (!this.canTalk()) return;
 		if (!target) target = toId(user.name);
-		return this.sendReplyBox(OCPU.nameColor(target, true) + '.  The hexcode for this name color is: ' + OCPU.hashColor(target) + '.');
+		return this.sendReplyBox('The hex code for ' + OCPU.nameColor(target, true) + ' is: ' + OCPU.hashColor(target) + '.');
 	},
+
 	rsi: 'roomshowimage',
 	roomshowimage: function (target, room, user) {
 		if (!this.can('ban', null, room)) return false;
@@ -1046,6 +1031,7 @@ exports.commands = {
 	},
 	declaremodhelp: ['/declaremod [message] - Displays a red [message] to all authority in the respected room.  Requires #, &, ~'],
 
+	'!userid': true,
 	userid: function (target, room, user) {
 		if (!target) return this.parse('/help userid');
 		if (!this.runBroadcast()) return;
@@ -1058,10 +1044,6 @@ exports.commands = {
 		if (!target) return this.sendReply('/pmupperstaff [message] - Sends a PM to every upper staff');
 		if (!this.can('pban')) return false;
 		OCPU.pmUpperStaff(target, false, user.name);
-	},
-	client: function (target, room, user) {
-		if (!this.runBroadcast()) return;
-		return this.sendReplyBox('\'s custom client can be found <a href="http://servers.info">here</a>.');
 	},
 	pas: 'pmallstaff',
 	pmallstaff: function (target, room, user) {
@@ -1096,6 +1078,7 @@ exports.commands = {
 		user.popup(popup);
 	},
 
+	'!m8b': true,
 	helixfossil: 'm8b',
 	helix: 'm8b',
 	magic8ball: 'm8b',
@@ -1296,35 +1279,74 @@ exports.commands = {
 		}
 		return this.sendReply("You are no longer hiding.");
 	},
-	//different pre-set away commands
-	afk: function (target, room, user) {
-		if (!target) {
-			this.parse('/away AFK');
-		} else {
-			this.parse('/away ' + target);
+
+	afk: 'away',
+	busy: 'away',
+	work: 'away',
+	working: 'away',
+	eating: 'away',
+	sleep: 'away',
+	sleeping: 'away',
+	gaming: 'away',
+	nerd: 'away',
+	nerding: 'away',
+	mimis: 'away',
+	away: function (target, room, user, connection, cmd) {
+		if (!user.isAway && user.name.length > 19 && !user.can('lock')) return this.sendReply("Your username is too long for any kind of use of this command.");
+		if (!this.canTalk()) return false;
+		target = toId(target);
+		if (/^\s*$/.test(target)) target = 'away';
+		if (cmd !== 'away') target = cmd;
+		let newName = user.name;
+		let status = parseStatus(target, true);
+		let statusLen = status.length;
+		if (statusLen > 14) return this.sendReply("Your away status should be short and to-the-point, not a dissertation on why you are away.");
+
+		if (user.isAway) {
+			let statusIdx = newName.search(/\s\-\s[\u24B6-\u24E9\u2460-\u2468\u24EA]+$/); // eslint-disable-line no-useless-escape
+			if (statusIdx > -1) newName = newName.substr(0, statusIdx);
+			if (user.name.substr(-statusLen) === status) return this.sendReply("Your away status is already set to \"" + target + "\".");
 		}
+
+		newName += ' - ' + status;
+		if (newName.length > 18 && !user.can('lock')) return this.sendReply("\"" + target + "\" is too long to use as your away status.");
+
+		// forcerename any possible impersonators
+		let targetUser = Users.getExact(user.userid + target);
+		if (targetUser && targetUser !== user && targetUser.name === user.name + ' - ' + target) {
+			targetUser.resetName();
+			targetUser.send("|nametaken||Your name conflicts with " + user.name + (user.name.substr(-1) === "s" ? "'" : "'s") + " new away status.");
+		}
+
+		if (user.can('mute', null, room)) this.add("|raw|-- " + OCPU.nameColor(user.name, true) + " is now " + target.toLowerCase() + ".");
+		if (user.can('lock')) this.parse('/hide');
+		user.forceRename(newName, user.registered);
+		user.updateIdentity();
+		user.isAway = true;
 	},
-	busy: function (target, room, user) {
-		this.parse('/away BUSY');
+	awayhelp: ["/away [message] - Sets a user's away status."],
+
+	back: function (target, room, user) {
+		if (!user.isAway) return this.sendReply("You are not set as away.");
+		user.isAway = false;
+
+		let newName = user.name;
+		let statusIdx = newName.search(/\s\-\s[\u24B6-\u24E9\u2460-\u2468\u24EA]+$/); // eslint-disable-line no-useless-escape
+		if (statusIdx < 0) {
+			user.isAway = false;
+			if (user.can('mute', null, room)) this.add("|raw|-- " + OCPU.nameColor(user.userid, true) + " is no longer away.");
+			return false;
+		}
+
+		let status = parseStatus(newName.substr(statusIdx + 3), false);
+		newName = newName.substr(0, statusIdx);
+		user.forceRename(newName, user.registered);
+		user.updateIdentity();
+		user.isAway = false;
+		if (user.can('mute', null, room)) this.add("|raw|-- " + OCPU.nameColor(user.userid, true) + " is no longer " + status.toLowerCase() + ".");
+		if (user.can('lock')) this.parse('/show');
 	},
-	working: 'work',
-	work: function (target, room, user) {
-		this.parse('/away WORK');
-	},
-	eat: 'eating',
-	eating: function (target, room, user) {
-		this.parse('/away EATING');
-	},
-	gaming: function (target, room, user) {
-		this.parse('/away GAMING');
-	},
-	sleeping: 'sleep',
-	sleep: function (target, room, user) {
-		this.parse('/away SLEEP');
-	},
-	coding: function (target, room, user) {
-		this.parse('/away CODING');
-	},
+	backhelp: ["/back - Sets a users away status back to normal."],
 
 	customcolour: 'customcolor',
 	customcolor: {
@@ -1421,6 +1443,7 @@ exports.commands = {
 	// Animal command by Kyvn and DNS
 	animal: 'animals',
 	animals: function (target, room, user) {
+		if (!this.runBroadcast()) return;
 		if (!target) return this.parse('/help animals');
 		let tarId = toId(target);
 		let validTargets = ['cat', 'otter', 'dog', 'bunny', 'pokemon', 'kitten', 'puppy'];
