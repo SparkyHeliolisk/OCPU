@@ -550,24 +550,6 @@ exports.commands = {
 	},
 	unignorepmshelp: ["/unblockpms - Unblocks private messages. Block them with /blockpms."],
 
-	'!away': true,
-	idle: 'away',
-	afk: 'away',
-	away: function (target, room, user) {
-		this.parse('/blockchallenges');
-		this.parse('/blockpms ' + target);
-	},
-	awayhelp: ["/away - Blocks challenges and private messages. Unblock them with /back."],
-
-	'!back': true,
-	unaway: 'back',
-	unafk: 'back',
-	back: function () {
-		this.parse('/unblockpms');
-		this.parse('/unblockchallenges');
-	},
-	backhelp: ["/back - Unblocks challenges and/or private messages, if either are blocked."],
-
 	'!rank': true,
 	rank: function (target, room, user) {
 		if (!target) target = user.name;
