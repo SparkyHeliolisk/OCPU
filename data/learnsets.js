@@ -25740,11 +25740,8 @@ exports.BattleLearnsets = {
 	}},
 	celebi: {learnset: {
 		aerialace: ["7M", "6M", "5M", "4M", "3M"],
-<<<<<<< HEAD
 		ancientpower: ["7L28", "7S7", "6L28", "5L28", "4T", "4L28", "3L20", "3S1", "3S3"],
-=======
 		ancientpower: ["7L28", "6L28", "5L28", "4T", "4L28", "3L20", "3S1", "3S3"],
->>>>>>> Restart all files
 		batonpass: ["7L37", "6L37", "5L37", "4L37", "3L40", "3S1"],
 		calmmind: ["7M", "6M", "5M", "4M", "3M"],
 		chargebeam: ["7M", "6M", "5M", "4M"],
@@ -25764,19 +25761,16 @@ exports.BattleLearnsets = {
 		flash: ["6M", "5M", "4M", "3M"],
 		fling: ["7M", "6M", "5M", "4M"],
 		frustration: ["7M", "6M", "5M", "4M", "3M"],
-<<<<<<< HEAD
 		futuresight: ["7L64", "7S7", "6L64", "5L64", "4L64", "3L30", "3S1", "3S3"],
 		gigadrain: ["6T", "5T", "4M", "3M"],
 		gigaimpact: ["7M", "6M", "5M", "4M"],
 		grassknot: ["7M", "6M", "5M", "4M"],
 		healbell: ["7L1", "7S7", "6T", "6L1", "6S5", "6S6", "5T", "5L1", "4T", "4L1", "3L1", "3S0", "3S2", "3S3"],
-=======
 		futuresight: ["7L64", "6L64", "5L64", "4L64", "3L30", "3S1", "3S3"],
 		gigadrain: ["6T", "5T", "4M", "3M"],
 		gigaimpact: ["7M", "6M", "5M", "4M"],
 		grassknot: ["7M", "6M", "5M", "4M"],
 		healbell: ["7L1", "6T", "6L1", "6S5", "6S6", "5T", "5L1", "4T", "4L1", "3L1", "3S0", "3S2", "3S3"],
->>>>>>> Restart all files
 		healblock: ["7L55", "6L55", "5L55", "4L55"],
 		healingwish: ["7L73", "6L73", "5L73", "4L73", "4S4"],
 		helpinghand: ["6T", "5T", "4T"],
@@ -25807,11 +25801,8 @@ exports.BattleLearnsets = {
 		rest: ["7M", "6M", "5M", "4M", "3M"],
 		return: ["7M", "6M", "5M", "4M", "3M"],
 		round: ["7M", "6M", "5M"],
-<<<<<<< HEAD
 		safeguard: ["7M", "7L10", "7S7", "6M", "6L10", "6S5", "6S6", "5M", "5L10", "4M", "4L10", "3M", "3L10", "3S0", "3S2", "3S3"],
-=======
 		safeguard: ["7M", "7L10", "6M", "6L10", "6S5", "6S6", "5M", "5L10", "4M", "4L10", "3M", "3L10", "3S0", "3S2", "3S3"],
->>>>>>> Restart all files
 		sandstorm: ["7M", "6M", "5M", "4M", "3M"],
 		secretpower: ["6M", "4M", "3M"],
 		seedbomb: ["6T", "5T", "4T"],
@@ -58903,21 +58894,18 @@ exports.BattleLearnsets = {
 		imprison: ["7L1"],
 		ironhead: ["7L1"],
 		metalsound: ["7L45"],
-<<<<<<< HEAD
 		multiattack: ["7L1", "7S0"],
 		partingshot: ["7L85", "7S0"],
 		payback: ["7M"],
 		poisonfang: ["7L1"],
 		protect: ["7M"],
 		punishment: ["7L65", "7S0"],
-=======
 		multiattack: ["7L1"],
 		partingshot: ["7L85"],
 		payback: ["7M"],
 		poisonfang: ["7L1"],
 		protect: ["7M"],
 		punishment: ["7L65"],
->>>>>>> Restart all files
 		pursuit: ["7L10"],
 		rage: ["7L5"],
 		raindance: ["7M"],
@@ -58928,11 +58916,8 @@ exports.BattleLearnsets = {
 		rockslide: ["7M"],
 		round: ["7M"],
 		sandstorm: ["7M"],
-<<<<<<< HEAD
 		scaryface: ["7L30", "7S0"],
-=======
 		scaryface: ["7L30"],
->>>>>>> Restart all files
 		shadowball: ["7M"],
 		shadowclaw: ["7M"],
 		sleeptalk: ["7M"],
@@ -59169,22 +59154,16 @@ exports.BattleLearnsets = {
 		zingzap: ["7L33"],
 	}},
 	mimikyu: {learnset: {
-<<<<<<< HEAD
 		astonish: ["7L1", "7S0", "7S1"],
-=======
 		astonish: ["7L1", "7S0"],
->>>>>>> Restart all files
 		attract: ["7M"],
 		babydolleyes: ["7L10", "7S0"],
 		bulkup: ["7M"],
 		chargebeam: ["7M"],
 		charm: ["7L28"],
 		confide: ["7M"],
-<<<<<<< HEAD
 		copycat: ["7L1", "7S0", "7S1"],
-=======
 		copycat: ["7L1", "7S0"],
->>>>>>> Restart all files
 		curse: ["7E"],
 		darkpulse: ["7M"],
 		dazzlinggleam: ["7M"],
@@ -59207,11 +59186,8 @@ exports.BattleLearnsets = {
 		nightmare: ["7E"],
 		painsplit: ["7L50"],
 		payback: ["7M"],
-<<<<<<< HEAD
 		playrough: ["7L46", "7S1"],
-=======
 		playrough: ["7L46"],
->>>>>>> Restart all files
 		protect: ["7M"],
 		psychic: ["7M"],
 		psychup: ["7M"],
@@ -59226,11 +59202,8 @@ exports.BattleLearnsets = {
 		slash: ["7L32"],
 		sleeptalk: ["7M"],
 		splash: ["7L1", "7S0"],
-<<<<<<< HEAD
 		substitute: ["7M", "7S1"],
-=======
 		substitute: ["7M"],
->>>>>>> Restart all files
 		swagger: ["7M"],
 		swordsdance: ["7M"],
 		taunt: ["7M"],
