@@ -14,7 +14,7 @@ exports.commands = {
 			return this.errorReply("You can already manipulate the current battle.");
 		}
 
-		OCPU.pmUpperStaff(user.name + " needs help in the room " + room.id + " for " + target + ".");
+		OCPU.messageSeniorStaff(user.name + " needs help in the room " + room.id + " for " + target + ".");
 	},
 	'ur': 'userreport',
 	'ureport': 'userreport',
@@ -32,7 +32,7 @@ exports.commands = {
 		this.popupReply("If this report is false, you will be locked by a staff member.");
 
 		OCPU.pmStaff(user.name + " needs help with the user " + this.targetUsername + " for " + target + ". All actions taken against either of these users must first be authorized with a global & or ~.");
-		OCPU.pmUpperStaff(user.name + " has sent in a report. Please check the other automated message to check who it is.");
+		OCPU.messageSeniorStaff(user.name + " has sent in a report. Please check the other automated message to check who it is.");
 	},
 	userreporthelp: ["/userreport [user], [reason] - Reports a specific user to global auth through a special PM system."],
 
@@ -50,6 +50,6 @@ exports.commands = {
 			return this.errorReply("An emergency is currently not going on. Please use '/alertstaff' instead.");
 		}
 
-		OCPU.pmStaffE("Emergency Command from " + user.name + ": **" + target + "**.");
+		OCPU.pmStaff("Emergency Command from " + user.name + ": **" + target + "**.");
 	},
 };

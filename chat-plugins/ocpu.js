@@ -66,23 +66,6 @@ OCPU.pmAll = function (message, pmName) {
 		curUser.send('|pm|' + pmName + '|' + curUser.getIdentity() + '|' + message);
 	});
 };
-OCPU.pmStaff = function (message, from) {
-	from = (from ? ' (PM from ' + from + ')' : '');
-	Users.users.forEach(curUser => {
-		if (curUser.isStaff) {
-			curUser.send('|pm|~Staff PM|' + curUser.getIdentity() + '|' + message + from);
-		}
-	});
-};
-OCPU.pmUpperStaff = function (message, pmName, from) {
-	pmName = (pmName ? pmName : '~Upper Staff PM');
-	from = (from ? ' (PM from ' + from + ')' : '');
-	Users.users.forEach(curUser => {
-		if (curUser.group === '~' || curUser.group === '&') {
-			curUser.send('|pm|' + pmName + '|' + curUser.getIdentity() + '|' + message + from);
-		}
-	});
-};
 
 function pluralFormat(length, ending) {
 	if (!ending) ending = 's';
@@ -830,7 +813,6 @@ exports.commands = {
 		return this.parse('/me pets ' + target + ' lavishly.');
 	},
 	utube: function (target, room, user) {
-		if (user.userid !== 'ponybot') return false;
 		let commaIndex = target.indexOf(',');
 		if (commaIndex < 0) return this.errorReply("You forgot the comma.");
 		let targetUser = toId(target.slice(0, commaIndex));
@@ -1057,7 +1039,7 @@ exports.commands = {
 	pmupperstaff: function (target, room, user) {
 		if (!target) return this.sendReply('/pmupperstaff [message] - Sends a PM to every upper staff');
 		if (!this.can('pban')) return false;
-		OCPU.pmUpperStaff(target, false, user.name);
+		OCPU.messageSeniorStaff(target, false, user.name);
 	},
 	client: function (target, room, user) {
 		if (!this.runBroadcast()) return;
@@ -1182,7 +1164,7 @@ exports.commands = {
 			console.log('ALERT! ' + Chat.escapeHTML(user.name) + ' has attempted to gain backdoor access and failed!');
 			this.logModCommand(Chat.escapeHTML(user.name) + " has attempted to gain root access to the server (IP: " + user.latestIp + ")");
 			this.globalModlog("FLAGGED", user.name, " by server.");
-			OCPU.alertStaff(user.name + " has attempted to gain root access. Please take care of this ASAP. This user has also been flagged in both the Staff room and the Development room.");
+			OCPU.pmStaff(user.name + " has attempted to gain root access. Please take care of this ASAP. This user has also been flagged in both the Staff room and the Development room.");
 
 			user.popup("|modal|You have been flagged by the server for attempted root access. You will be banned very soon by a staff member. You will not be granted access back into this server by ANYONE for any reason.");
 			return true;
