@@ -1080,7 +1080,7 @@ exports.commands = {
 	credits: function (target, room, user) {
 		let popup = "|html|" + "<font size=5> Server Credits</font><br />" +
 		    "<u>Owners:</u><br />" +
-		    "- " + OCPU.nameColor('zellman01', true) + " (Founder, Sysop, Development, Owner of GitHub repository)<br />" +
+		    "- " + OCPU.nameColor('Jolt (S Jolteon)', true) + " (Founder, Sysop, Development, Owner of GitHub repository)<br />" +
 		    "- " + OCPU.nameColor('SparkyHeliolisk', true) + " (Creative Administrator, Sysop)<br />" +
 		    "- " + OCPU.nameColor('AlfaStorm', true) + " (Programming Administrator, Sysop)<br />" +
 		    "<br />" +
