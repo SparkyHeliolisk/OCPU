@@ -56,8 +56,8 @@ exports.commands = {
 		if (!user.can('roomowner') && user.userid !== target) return this.errorReply(`/checkroomrequest -  Access Denied for viewing requests for other users.`);
 		let curRequest = Db.rooms.get(target);
 		if (!curRequest || curRequest.blacklisted) return this.errorReply(`${(target === user.userid ? "You don't " : target + " does not ")} have a pending room request.`);
-		let output = `<center><h1>Spacialgaze Room Request</h1></center><b>Requester</b>: ${target} <br/><b>Room Name</b>: ${curRequest.name}<br/><b>Room Type</b>: ${curRequest.type}<br/><b>Description</b>: ${curRequest.desc}<br/>`;
-		if (user.can('roomowner')) output += `${(curRequest.staff ? `The requester is a Spacial Gaze global staff member` : (curRequest.trusted ? `The requester is a trusted user.` : ``))}`;
+		let output = `<center><h1>OCPU Room Request</h1></center><b>Requester</b>: ${target} <br/><b>Room Name</b>: ${curRequest.name}<br/><b>Room Type</b>: ${curRequest.type}<br/><b>Description</b>: ${curRequest.desc}<br/>`;
+		if (user.can('roomowner')) output += `${(curRequest.staff ? `The requester is a OCPU global staff member` : (curRequest.trusted ? `The requester is a trusted user.` : ``))}`;
 		this.sendReplyBox(output);
 	},
 	checkroomrequesthelp: ["/checkroomrequest (username) - Check a users current room request. leave username blank to default to your request. Requires: &, ~ if username is not your username."],
@@ -69,7 +69,7 @@ exports.commands = {
 		case '':
 		case 'view':
 			let requests = Db.rooms.keys();
-			let output = `<div class="infobox infobox-limited"><table><tr><th style="border: 1px solid" colspan="6"><b>Spacial Gaze Room Requests</b></th></tr><tr><th style="border: 1px solid">Requester</th><th style="border: 1px solid">Room Name</th><th style="border: 1px solid">Room Type</th><th style="border: 1px solid">Description</th><th style="border: 1px solid">Status</th><th style="border: 1px solid">Options</th></tr>`;
+			let output = `<div class="infobox infobox-limited"><table><tr><th style="border: 1px solid" colspan="6"><b>OCPU Room Requests</b></th></tr><tr><th style="border: 1px solid">Requester</th><th style="border: 1px solid">Room Name</th><th style="border: 1px solid">Room Type</th><th style="border: 1px solid">Description</th><th style="border: 1px solid">Status</th><th style="border: 1px solid">Options</th></tr>`;
 			for (let i = 0; i < requests.length; i++) {
 				let cur = Db.rooms.get(requests[i]);
 				if (cur.blacklisted) {
