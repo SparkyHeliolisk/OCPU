@@ -1462,4 +1462,17 @@ exports.commands = {
 		'/animals pokemon - Displays a pokemon.',
 		'/animals help - Displays this help box.',
 	],
+
+	'!seen': true,
+	seen: function (target) {
+		if (!this.runBroadcast()) return;
+		if (!target) return this.parse('/help seen');
+		let targetUser = Users.get(target);
+		if (targetUser && targetUser.connected) return this.sendReplyBox(OCPU.nameColor(targetUser.name, true) + " is <strong><font color='limegreen'>Currently Online</strong></font>.");
+		target = Chat.escapeHTML(target);
+		let seen = Db.seen.get(toId(target));
+		if (!seen) return this.sendReplyBox(OCPU.nameColor(target, true) + " has <strong><font color='red'>never been online</font></strong> on this server.");
+		this.sendReplyBox(OCPU.nameColor(target, true) + " was last seen <strong>" + Chat.toDurationString(Date.now() - seen, {precision: true}) + "</strong> ago.");
+	},
+	seenhelp: ["/seen - Shows when the user last connected on the server."],
 };
