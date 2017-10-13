@@ -1072,7 +1072,7 @@ exports.commands = {
 		    "<u>Special Thanks:</u><br />" +
 		    "- Current staff team<br />" +
 		    "- Our regular users<br />" +
-		    "- SpacialGaze for the news plugin, the profile plugin and the complete economy plugin.<br />" +
+		    "- SpacialGaze for the news plugin, the profile plugin, complete economy plugin and the roomrequest plugin.<br />" +
 		    "- Origin for the base CSS file" +
 		    "<br />";
 		user.popup(popup);
