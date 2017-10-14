@@ -551,24 +551,6 @@ exports.commands = {
 			this.privateModCommand("(" + user.name + " has protected this room from being automatically deleted.)");
 		}
 	},
-	roomfounder: function (target, room, user) {
-		if (!room.chatRoomData) {
-			return this.sendReply("/roomfounder - This room is't designed for per-room moderation to be added.");
-		}
-		target = this.splitTarget(target, true);
-		let targetUser = this.targetUser;
-		if (!targetUser) return this.sendReply("User '" + this.targetUsername + "' is not online.");
-		if (!this.can('pban')) return false;
-		if (!room.auth) room.auth = room.chatRoomData.auth = {};
-		let name = targetUser.name;
-		room.auth[targetUser.userid] = '#';
-		room.founder = targetUser.userid;
-		this.addModCommand(name + " was appointed to Room Founder by " + user.name + ".");
-		room.onUpdateIdentity(targetUser);
-		room.chatRoomData.founder = room.founder;
-		Rooms.global.writeChatRoomData();
-		room.protect = true; // fairly give new rooms activity a chance
-	},
 
 	hide: 'hideauth',
 	hideauth: function (target, room, user) {
