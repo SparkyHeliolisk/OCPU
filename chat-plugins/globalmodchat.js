@@ -1,3 +1,8 @@
+/**
+* This plugin is a security plugin made so that any sysop, if needed, could quickly change all room, pm, and ladder modchat if neccessary
+* Created by Jolt(S Jolteon)
+*/
+
 'use strict';
 
 exports.commands = {
