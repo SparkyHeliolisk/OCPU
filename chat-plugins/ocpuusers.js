@@ -105,23 +105,6 @@ try {
 
 			if (!data.ips.includes(ip)) data.ips.push(ip);
 		},
-		updateSeen: function (user) {
-			if (toId(user).substr(0, 5) === 'guest') return false;
-
-			let data = this.checkExisting(user);
-
-			data.lastSeen = Date.now();
-			this.saveData();
-		},
-		getLastSeen: function (user) {
-			let data = OCPU.userData[toId(user)] || false;
-
-			if (data && data.lastSeen && data.lastSeen !== 0) {
-				let reply = moment(OCPU.userData[toId(user)].lastSeen).format("MMMM DD, YYYY h:mm A") + ' EST (' + moment(OCPU.userData[toId(user)].lastSeen).fromNow() + ')';
-				return reply;
-			}
-			return "Never";
-		},
 		updateFriends: function (user, friend, action) {
 			friend = toId(friend);
 			let data = this.checkExisting(user);

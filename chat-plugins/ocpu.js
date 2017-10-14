@@ -499,92 +499,6 @@ exports.commands = {
 		user.popup("You must have something significant to say to all staff members or it will immediately end.");
 	},
 
-	globalauth: 'gal',
-	stafflist: 'gal',
-	authlist: 'gal',
-	auth: 'gal',
-	gal: function (target, room, user, connection) {
-		let ignoreUsers = [];
-		fs.readFile('config/usergroups.csv', 'utf8', (err, data) => {
-			let staff = {
-				"admins": [],
-				"leaders": [],
-				"bots": [],
-				"mods": [],
-				"drivers": [],
-			};
-			let row = ('' + data).split('\n');
-			for (let i = row.length; i > -1; i--) {
-				if (!row[i]) continue;
-				let rank = row[i].split(',')[1].replace("\r", '');
-				let person = row[i].split(',')[0];
-				let personId = toId(person);
-				switch (rank) {
-				case '~':
-					if (~ignoreUsers.indexOf(personId)) break;
-					staff['admins'].push(person);
-					break;
-				case '&':
-					if (~ignoreUsers.indexOf(personId)) break;
-					staff['leaders'].push(person);
-					break;
-				case '*':
-					if (~ignoreUsers.indexOf(personId)) break;
-					staff['bots'].push(person);
-					break;
-				case '@':
-					if (~ignoreUsers.indexOf(personId)) break;
-					staff['mods'].push(person);
-					break;
-				case '%':
-					if (~ignoreUsers.indexOf(personId)) break;
-					staff['drivers'].push(person);
-					break;
-				default:
-					continue;
-				}
-			}
-			connection.popup('|html|' +
-				'<h3> Authority List</h3>' +
-				'<b><u>~Administrator' + staff['admins'].length + ' (' + staff['admins'].length + ')</u></b>:<br />' + staff['admins'].join(', ') +
-				'<br /><b><u>&Leader' + staff['leaders'].length + ' (' + staff['leaders'].length + ')</u></b>:<br />' + staff['leaders'].join(', ') +
-				'<br /><b><u>*Bots (' + staff['bots'].length + ')</u></b>:<br />' + staff['bots'].join(', ') +
-				'<br /><b><u>@Moderators (' + staff['mods'].length + ')</u></b>:<br />' + staff['mods'].join(', ') +
-				'<br /><b><u>%Drivers (' + staff['drivers'].length + ')</u></b>:<br />' + staff['drivers'].join(', ') +
-				'<br /><br />(<b>Bold</b> / <i>italic</i> = currently online)'
-			);
-		});
-	},
-	gvl: 'globalvoicelist',
-	globalvoicelist: function (target, room, user, connection) {
-		let ignoreUsers = [];
-		fs.readFile('config/usergroups.csv', 'utf8', (err, data) => {
-			let staff = {
-				"voices": [],
-			};
-			let row = ('' + data).split('\n');
-			for (let i = row.length; i > -1; i--) {
-				if (!row[i]) continue;
-				let rank = row[i].split(',')[1].replace("\r", '');
-				let person = row[i].split(',')[0];
-				let personId = toId(person);
-				switch (rank) {
-				case '+':
-					if (~ignoreUsers.indexOf(personId)) break;
-					staff['voices'].push(person);
-					break;
-				default:
-					continue;
-				}
-			}
-			connection.popup('|html|' +
-				'<h3> Server Global Voices</h3>' +
-				'<br />' + staff['voices'].join(', ') +
-				'<br /><br />(<b>Bold</b> / <i>italic</i> = currently online)'
-			);
-		});
-	},
-
 	ts: 'tournamentstaff',
 	tournamentstaff: function (target, room, user, connection) {
 		let ignoreUsers = [];
@@ -612,9 +526,9 @@ exports.commands = {
 				}
 			}
 			connection.popup('|html|' +
-				'<h3> Server Global Voices</h3>' +
-				'<br /><b><u>(' + staff['tournamentstaffs'].length + ')</u></b><br />' + staff['tournamentstaffs'].join(', ') +
-				'<br /><br />(<b>Bold</b> / <i>italic</i> = currently online)' +
+				'<h3> Tournament Staff</h3>' +
+				'<br /><strong><u>(' + staff['tournamentstaffs'].length + ')</u></strong><br />' + staff['tournamentstaffs'].join(', ') +
+				'<br /><br />(<strong>Bold</strong> / <i>italic</i> = currently online)' +
 				'<br />Users who are administrators working for the tournament:' +
 				OCPU.nameColor('joltsjolteon', true) + '.'
 			);
@@ -636,24 +550,6 @@ exports.commands = {
 			Rooms.global.writeChatRoomData();
 			this.privateModCommand("(" + user.name + " has protected this room from being automatically deleted.)");
 		}
-	},
-	roomfounder: function (target, room, user) {
-		if (!room.chatRoomData) {
-			return this.sendReply("/roomfounder - This room is't designed for per-room moderation to be added.");
-		}
-		target = this.splitTarget(target, true);
-		let targetUser = this.targetUser;
-		if (!targetUser) return this.sendReply("User '" + this.targetUsername + "' is not online.");
-		if (!this.can('pban')) return false;
-		if (!room.auth) room.auth = room.chatRoomData.auth = {};
-		let name = targetUser.name;
-		room.auth[targetUser.userid] = '#';
-		room.founder = targetUser.userid;
-		this.addModCommand(name + " was appointed to Room Founder by " + user.name + ".");
-		room.onUpdateIdentity(targetUser);
-		room.chatRoomData.founder = room.founder;
-		Rooms.global.writeChatRoomData();
-		room.protect = true; // fairly give new rooms activity a chance
 	},
 
 	hide: 'hideauth',
@@ -819,17 +715,17 @@ exports.commands = {
 		let message = target.slice(commaIndex + 1).trim();
 		if (!targetUser || !message) return this.errorReply("Needs a target.");
 		if (!Users.get(targetUser).name) return false;
-		room.addRaw(OCPU.nameColor(Users.get(targetUser).name, true) + '\'s link: <b>"' + message + '"</b>');
+		room.addRaw(OCPU.nameColor(Users.get(targetUser).name, true) + '\'s link: <strong>"' + message + '"</strong>');
 	},
 	roomlist: function (target, room, user) {
 		if (!this.can('hotpatch')) return;
 
-		let header = ['<b><font color="#DA9D01" size="2">Total users connected: ' + Rooms.global.userCount + '</font></b><br />'],
-			official = ['<b><font color="#1a5e00" size="2"><u>Official Rooms:</u></font></b><br />'],
-			nonOfficial = ['<hr><b><u><font color="#000b5e" size="2">Public Rooms:</font></u></b><br />'],
-			privateRoom = ['<hr><b><font color="#ff5cb6" size="2">Private chat rooms:</font></b><br />'],
-			groupChats = ['<hr><b><font color="#740B53" size="2">Group Chats:</font></b><br />'],
-			battleRooms = ['<hr><b><font color="#0191C6" size="2">Battle Rooms:</font></b><br />'];
+		let header = ['<strong><font color="#DA9D01" size="2">Total users connected: ' + Rooms.global.userCount + '</font></strong><br />'],
+			official = ['<strong><font color="#1a5e00" size="2"><u>Official Rooms:</u></font></strong><br />'],
+			nonOfficial = ['<hr><strong><u><font color="#000b5e" size="2">Public Rooms:</font></u></strong><br />'],
+			privateRoom = ['<hr><strong><font color="#ff5cb6" size="2">Private chat rooms:</font></strong><br />'],
+			groupChats = ['<hr><strong><font color="#740B53" size="2">Group Chats:</font></strong><br />'],
+			battleRooms = ['<hr><strong><font color="#0191C6" size="2">Battle Rooms:</font></strong><br />'];
 
 		let rooms = [];
 		Rooms.rooms.forEach(curRoom => {
@@ -913,15 +809,15 @@ exports.commands = {
 				data += chunk;
 			}).on('end', () => {
 				data = JSON.parse(data);
-				let output = '<font color=#24678d><b>Definitions for ' + target + ':</b></font><br />';
+				let output = '<font color=#24678d><strong>Definitions for ' + target + ':</strong></font><br />';
 				if (!data[0]) {
-					this.sendReplyBox('No results for <b>"' + target + '"</b>.');
+					this.sendReplyBox('No results for <strong>"' + target + '"</strong>.');
 					return room.update();
 				} else {
 					let count = 1;
 					for (let u in data) {
 						if (count > 3) break;
-						output += '(<b>' + count + '</b>) ' + Chat.escapeHTML(data[u]['text']) + '<br />';
+						output += '(<strong>' + count + '</strong>) ' + Chat.escapeHTML(data[u]['text']) + '<br />';
 						count++;
 					}
 					this.sendReplyBox(output);
@@ -952,14 +848,14 @@ exports.commands = {
 				data = JSON.parse(data);
 				let definitions = data['list'];
 				if (data['result_type'] === 'no_results') {
-					this.sendReplyBox('No results for <b>"' + Chat.escapeHTML(target) + '"</b>.');
+					this.sendReplyBox('No results for <strong>"' + Chat.escapeHTML(target) + '"</strong>.');
 					return room.update();
 				} else {
 					if (!definitions[0]['word'] || !definitions[0]['definition']) {
-						this.sendReplyBox('No results for <b>"' + Chat.escapeHTML(target) + '"</b>.');
+						this.sendReplyBox('No results for <strong>"' + Chat.escapeHTML(target) + '"</strong>.');
 						return room.update();
 					}
-					let output = '<b>' + Chat.escapeHTML(definitions[0]['word']) + ':</b> ' + Chat.escapeHTML(definitions[0]['definition']).replace(/\r\n/g, '<br />').replace(/\n/g, ' ');
+					let output = '<strong>' + Chat.escapeHTML(definitions[0]['word']) + ':</strong> ' + Chat.escapeHTML(definitions[0]['definition']).replace(/\r\n/g, '<br />').replace(/\n/g, ' ');
 					if (output.length > 400) output = output.slice(0, 400) + '...';
 					this.sendReplyBox(output);
 					return room.update();
@@ -998,8 +894,8 @@ exports.commands = {
 				names.push(Users(users).name);
 			}
 		}
-		if (names.length < 1) return this.sendReplyBox('There are no users of the rank <font color="#24678d"><b>' + Chat.escapeHTML(Config.groups[target].name) + '</b></font> currently online.');
-		return this.sendReplyBox('There ' + (names.length === 1 ? 'is' : 'are') + ' <font color="#24678d"><b>' + names.length + '</b></font> ' + (names.length === 1 ? 'user' : 'users') + ' with the rank <font color="#24678d"><b>' + Config.groups[target].name + '</b></font> currently online.<br />' + names.join(', '));
+		if (names.length < 1) return this.sendReplyBox('There are no users of the rank <font color="#24678d"><strong>' + Chat.escapeHTML(Config.groups[target].name) + '</strong></font> currently online.');
+		return this.sendReplyBox('There ' + (names.length === 1 ? 'is' : 'are') + ' <font color="#24678d"><strong>' + names.length + '</strong></font> ' + (names.length === 1 ? 'user' : 'users') + ' with the rank <font color="#24678d"><strong>' + Config.groups[target].name + '</strong></font> currently online.<br />' + names.join(', '));
 	},
 	usersofrankhelp: ["/usersofrank [rank symbol] - Displays all ranked users with that rank currently online."],
 
@@ -1008,9 +904,9 @@ exports.commands = {
 		if (!this.can('declare', null, room)) return false;
 		if (!this.canTalk()) return;
 		if (cmd === 'pdeclare') {
-			this.add('|raw|<div class="broadcast-purple"><b>' + target + '</b></div>');
+			this.add('|raw|<div class="broadcast-purple"><strong>' + target + '</strong></div>');
 		} else if (cmd === 'pdeclare') {
-			this.add('|raw|<div class="broadcast-purple"><b>' + target + '</b></div>');
+			this.add('|raw|<div class="broadcast-purple"><strong>' + target + '</strong></div>');
 		}
 		this.logModCommand(user.name + ' declared ' + target);
 	},
@@ -1023,7 +919,7 @@ exports.commands = {
 		if (!target) return this.parse('/help declaremod');
 		if (!this.can('declare', null, room)) return false;
 		if (!this.canTalk()) return;
-		this.privateModCommand('|raw|<div class="broadcast-red"><b><font size=1><i>Private Auth (Driver +) declare from ' + user.name + '<br /></i></font size>' + target + '</b></div>');
+		this.privateModCommand('|raw|<div class="broadcast-red"><strong><font size=1><i>Private Auth (Driver +) declare from ' + user.name + '<br /></i></font size>' + target + '</strong></div>');
 		this.logModCommand(user.name + ' mod declared ' + target);
 	},
 	declaremodhelp: ['/declaremod [message] - Displays a red [message] to all authority in the respected room.  Requires #, &, ~'],
@@ -1031,7 +927,7 @@ exports.commands = {
 	userid: function (target, room, user) {
 		if (!target) return this.parse('/help userid');
 		if (!this.runBroadcast()) return;
-		return this.sendReplyBox(Chat.escapeHTML(target) + " ID: <b>" + Chat.escapeHTML(toId(target)) + "</b>");
+		return this.sendReplyBox(Chat.escapeHTML(target) + " ID: <strong>" + Chat.escapeHTML(toId(target)) + "</strong>");
 	},
 	useridhelp: ["/userid [user] - shows the user's ID (removes unicode from name basically)"],
 
@@ -1060,7 +956,7 @@ exports.commands = {
 	},
 	credit: 'credits',
 	credits: function (target, room, user) {
-		let popup = "|html|" + "<font size=5> Server Credits</font><br />" +
+		let popup = "|html|" + "<font size=5>OCPU Credits</font><br />" +
 		    "<u>Owners:</u><br />" +
 		    "- " + OCPU.nameColor('Jolt (S Jolteon)', true) + " (Founder, Sysop, Development, Owner of GitHub repository)<br />" +
 		    "- " + OCPU.nameColor('SparkyHeliolisk', true) + " (Creative Administrator, Sysop)<br />" +
@@ -1097,7 +993,7 @@ exports.commands = {
 		if (random === 2) {
 			results = '<img src="http://upload.wikimedia.org/wikipedia/commons/e/e5/2005_Penny_Rev_Unc_D.png" width="15%" title="Tails!"><br>It\'s tails!';
 		}
-		return this.sendReplyBox('<center><font size="3"><b>Coin Game!</b></font><br>' + results + '');
+		return this.sendReplyBox('<center><font size="3"><strong>Coin Game!</strong></font><br>' + results + '');
 	},
 	errorlogs: 'crashlogs',
 	crashlogs: function (target, room, user) {
@@ -1114,7 +1010,7 @@ exports.commands = {
 
 	friendcodehelp: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox('<b>Friend Code Help:</b> <br><br />' +
+		this.sendReplyBox('<strong>Friend Code Help:</strong> <br><br />' +
 			'/friendcode (/fc) [friendcode] - Sets your Friend Code.<br />' +
 			'/getcode (gc) - Sends you a popup of all of the registered user\'s Friend Codes.<br />' +
 			'/deletecode [user] - Deletes this user\'s friend code from the server (Requires %, @, &, ~)<br>' +
@@ -1231,7 +1127,7 @@ exports.commands = {
 			}).on('end', () => {
 				if (data.charAt(0) === '{') {
 					data = JSON.parse(data);
-					if (data['data'] && data['data']['currentSong']) nowPlaying = "<br /><b>Now Playing:</b> " + Chat.escapeHTML(data['data']['currentSong'].name);
+					if (data['data'] && data['data']['currentSong']) nowPlaying = "<br /><strong>Now Playing:</strong> " + Chat.escapeHTML(data['data']['currentSong'].name);
 				}
 				this.sendReplyBox('Join our dubtrack.fm room <a href="https://www.dubtrack.fm/join/enrod-radio-tower">here!</a>' + nowPlaying);
 				room.update();
@@ -1244,9 +1140,9 @@ exports.commands = {
 		if (!user.can('broadcast', null, room)) return this.sendReply('You do not have enough authority to use this command.');
 		if (!this.canTalk()) return false;
 		this.add(
-			'|raw|<div class="broadcast-blue"><b>AOTD has begun in enrodRadioTower! ' +
+			'|raw|<div class="broadcast-blue"><strong>AOTD has begun in enrodRadioTower! ' +
 			'<button name="joinRoom" value="enrodradiotower" target="_blank">Join now</button> to nominate your favorite artist for AOTD to be featured on the ' +
-			'official page next to your name for a chance to win the monthly prize at the end of the month!</b></div>'
+			'official page next to your name for a chance to win the monthly prize at the end of the month!</strong></div>'
 		);
 		this.logModCommand(user.name + " used declareaotd.");
 	},
@@ -1316,7 +1212,7 @@ exports.commands = {
 			for (let u = 0; u < target.length; u++) target[u] = target[u].trim();
 			if (!target[1]) return this.parse('/help customcolor');
 			if (toId(target[0]).length > 19) return this.errorReply("Usernames are not this long...");
-			this.sendReply("|raw|You have given <b><font color=" + target[1] + ">" + Chat.escapeHTML(target[0]) + "</font></b> a custom color.");
+			this.sendReply("|raw|You have given <strong><font color=" + target[1] + ">" + Chat.escapeHTML(target[0]) + "</font></strong> a custom color.");
 			this.privateModCommand("(" + target[0] + " has received custom color: '" + target[1] + "' from " + user.name + ".)");
 			Monitor.adminlog(target[0] + " has received custom color: '" + target[1] + "' from " + user.name + ".");
 			customColors[toId(target[0])] = target[1];
@@ -1339,7 +1235,7 @@ exports.commands = {
 			target = target.split(',');
 			for (let u = 0; u < target.length; u++) target[u] = target[u].trim();
 			if (!target[1]) return this.parse('/help customcolor');
-			return this.sendReplyBox('<b><font size="3" color="' + target[1] + '">' + Chat.escapeHTML(target[0]) + '</font></b>');
+			return this.sendReplyBox('<strong><font size="3" color="' + target[1] + '">' + Chat.escapeHTML(target[0]) + '</font></strong>');
 		},
 		reload: function (target, room, user) {
 			if (!this.can('hotpatch')) return false;
@@ -1392,7 +1288,7 @@ exports.commands = {
 			user.lastCommand = 'advertise';
 		} else if (user.lastCommand === 'advertise') {
 			let buttoncss = 'background: #ff9900; text-shadow: none; padding: 2px 6px; color: black; text-align: center; border: black, solid, 1px;';
-			Rooms('lobby').add('|raw|<div class="infobox"><strong style="color: green;">Advertisement:</strong> ' + advertisement + '<br /><hr width="80%"><button name="joinRoom" class="button" style="' + buttoncss + '" value="' + toId(targetRoom) + '">Click to join <b>' + Rooms.search(toId(targetRoom)).title + '</b></button> | <i><font color="gray">(Advertised by</font> ' + OCPU.nameColor(user.name) + '<font color="gray">)</font></i></div>').update();
+			Rooms('lobby').add('|raw|<div class="infobox"><strong style="color: green;">Advertisement:</strong> ' + advertisement + '<br /><hr width="80%"><button name="joinRoom" class="button" style="' + buttoncss + '" value="' + toId(targetRoom) + '">Click to join <strong>' + Rooms.search(toId(targetRoom)).title + '</strong></button> | <i><font color="gray">(Advertised by</font> ' + OCPU.nameColor(user.name) + '<font color="gray">)</font></i></div>').update();
 			Economy.writeMoney(user.userid, -ADVERTISEMENT_COST);
 			user.lastCommand = '';
 			user.lastAdvertisement = Date.now();
@@ -1457,4 +1353,173 @@ exports.commands = {
 		this.sendReplyBox(OCPU.nameColor(target, true) + " was last seen <strong>" + Chat.toDurationString(Date.now() - seen, {precision: true}) + "</strong> ago.");
 	},
 	seenhelp: ["/seen - Shows when the user last connected on the server."],
+
+	rf: 'roomfounder',
+	roomfounder: function (target, room, user) {
+		if (!room.chatRoomData) {
+			return this.sendReply("/roomfounder - This room isn't designed for per-room moderation to be added");
+		}
+		if (!target) return this.parse('/help roomfounder');
+		target = this.splitTarget(target, true);
+		let targetUser = this.targetUser;
+		let name = this.targetUsername;
+		let userid = toId(name);
+
+		if (!Users.isUsernameKnown(userid)) {
+			return this.errorReply(`User '${this.targetUsername}' is offline and unrecognized, and so can't be promoted.`);
+		}
+
+		if (!this.can('makeroom')) return false;
+
+		if (!room.auth) room.auth = room.chatRoomData.auth = {};
+
+		room.auth[userid] = '#';
+		room.chatRoomData.founder = userid;
+		room.founder = userid;
+		this.addModCommand(`${name} was appointed Room Founder by ${user.name}.`);
+		if (targetUser) {
+			targetUser.popup(`|html|You were appointed Room Founder by ${OCPU.nameColor(user.name, true)} in ${room.title}.`);
+			room.onUpdateIdentity(targetUser);
+		}
+		Rooms.global.writeChatRoomData();
+	},
+	roomfounderhelp: ["/roomfounder [username] - Appoints [username] as a room founder. Requires: & ~"],
+
+	deroomfounder: 'roomdefounder',
+	roomdefounder: function (target, room) {
+		if (!room.chatRoomData) {
+			return this.sendReply("/roomdefounder - This room isn't designed for per-room moderation.");
+		}
+		if (!target) return this.parse('/help roomdefounder');
+		if (!this.can('makeroom')) return false;
+		let targetUser = toId(target);
+		if (room.founder !== targetUser) return this.errorReply(targetUser + ' is not the room founder of ' + room.title + '.');
+		room.founder = false;
+		room.chatRoomData.founder = false;
+		return this.parse('/roomdeauth ' + target);
+	},
+	roomdefounderhelp: ["/roomdefounder [username] - Revoke [username]'s room founder position. Requires: &, ~"],
+
+	roomowner: function (target, room, user) {
+		if (!room.chatRoomData) {
+			return this.sendReply("/roomowner - This room isn't designed for per-room moderation to be added");
+		}
+		if (!target) return this.parse('/help roomowner');
+		target = this.splitTarget(target, true);
+		let targetUser = this.targetUser;
+		let name = this.targetUsername;
+		let userid = toId(name);
+
+		if (!Users.isUsernameKnown(userid)) {
+			return this.errorReply(`User '${this.targetUsername}' is offline and unrecognized, and so can't be promoted.`);
+		}
+
+		if (!user.can('makeroom')) {
+			if (user.userid !== room.founder) return false;
+		}
+
+		if (!room.auth) room.auth = room.chatRoomData.auth = {};
+
+		room.auth[userid] = '#';
+		this.addModCommand(`${name} was appointed Room Owner by ${user.name}.`);
+		if (targetUser) {
+			targetUser.popup(`|html|You were appointed Room Owner by ${OCPU.nameColor(user.name, true)} in ${room.title}.`);
+			room.onUpdateIdentity(targetUser);
+		}
+		Rooms.global.writeChatRoomData();
+	},
+	roomownerhelp: ["/roomowner [username] - Appoints [username] as a room owner. Requires: & ~"],
+
+	roomdeowner: 'deroomowner',
+	deroomowner: function (target, room, user) {
+		if (!room.auth) {
+			return this.sendReply("/roomdeowner - This room isn't designed for per-room moderation");
+		}
+		target = this.splitTarget(target, true);
+		let targetUser = this.targetUser;
+		let name = this.targetUsername;
+		let userid = toId(name);
+		if (!userid || userid === '') return this.sendReply("User '" + name + "' does not exist.");
+
+		if (room.auth[userid] !== '#') return this.sendReply("User '" + name + "' is not a room owner.");
+		if (!room.founder || user.userid !== room.founder && !this.can('makeroom', null, room)) return false;
+
+		delete room.auth[userid];
+		this.sendReply("(" + name + " is no longer Room Owner.)");
+		if (targetUser) targetUser.updateIdentity();
+		if (room.chatRoomData) {
+			Rooms.global.writeChatRoomData();
+		}
+	},
+
+	'!authority': true,
+	auth: 'authority',
+	stafflist: 'authority',
+	globalauth: 'authority',
+	authlist: 'authority',
+	authority: function (target, room, user, connection) {
+		if (target) {
+			let targetRoom = Rooms.search(target);
+			let unavailableRoom = targetRoom && targetRoom.checkModjoin(user);
+			if (targetRoom && !unavailableRoom) return this.parse('/roomauth1 ' + target);
+			return this.parse('/userauth ' + target);
+		}
+		let rankLists = {};
+		let ranks = Object.keys(Config.groups);
+		for (let u in Users.usergroups) {
+			let rank = Users.usergroups[u].charAt(0);
+			if (rank === ' ') continue;
+			// In case the usergroups.csv file is not proper, we check for the server ranks.
+			if (ranks.includes(rank)) {
+				let name = Users.usergroups[u].substr(1);
+				if (!rankLists[rank]) rankLists[rank] = [];
+				if (name) rankLists[rank].push(OCPU.nameColor(name, (Users(name) && Users(name).connected)));
+			}
+		}
+
+		let buffer = Object.keys(rankLists).sort((a, b) =>
+			(Config.groups[b] || {rank: 0}).rank - (Config.groups[a] || {rank: 0}).rank
+		).map(r =>
+			(Config.groups[r] ? "<b>" + Config.groups[r].name + "s</b> (" + r + ")" : r) + ":\n" + rankLists[r].sort((a, b) => toId(a).localeCompare(toId(b))).join(", ")
+		);
+
+		if (!buffer.length) return connection.popup("This server has no global authority.");
+		connection.send("|popup||html|" + buffer.join("\n\n"));
+	},
+
+	'!roomauth': true,
+	roomstaff: 'roomauth',
+	roomauth1: 'roomauth',
+	roomauth: function (target, room, user, connection, cmd) {
+		let userLookup = '';
+		if (cmd === 'roomauth1') userLookup = '\n\nTo look up auth for a user, use /userauth ' + target;
+		let targetRoom = room;
+		if (target) targetRoom = Rooms.search(target);
+		if (!targetRoom || targetRoom.id === 'global' || !targetRoom.checkModjoin(user)) return this.errorReply(`The room "${target}" does not exist.`);
+		if (!targetRoom.auth) return this.sendReply("/roomauth - The room '" + (targetRoom.title || target) + "' isn't designed for per-room moderation and therefore has no auth list." + userLookup);
+
+		let rankLists = {};
+		for (let u in targetRoom.auth) {
+			if (!rankLists[targetRoom.auth[u]]) rankLists[targetRoom.auth[u]] = [];
+			rankLists[targetRoom.auth[u]].push(u);
+		}
+
+		let buffer = Object.keys(rankLists).sort((a, b) =>
+			(Config.groups[b] || {rank:0}).rank - (Config.groups[a] || {rank:0}).rank
+		).map(r => {
+			let roomRankList = rankLists[r].sort();
+			roomRankList = roomRankList.map(s => ((Users(s) && Users(s).connected) ? OCPU.nameColor(s, true) : OCPU.nameColor(s)));
+			return (Config.groups[r] ? Chat.escapeHTML(Config.groups[r].name) + "s (" + Chat.escapeHTML(r) + ")" : r) + ":\n" + roomRankList.join(", ");
+		});
+
+		if (!buffer.length) {
+			connection.popup("The room '" + targetRoom.title + "' has no auth." + userLookup);
+			return;
+		}
+		if (targetRoom.founder) {
+			buffer.unshift((targetRoom.founder ? "Room Founder:\n" + ((Users(targetRoom.founder) && Users(targetRoom.founder).connected) ? OCPU.nameColor(targetRoom.founder, true) : OCPU.nameColor(targetRoom.founder)) : ''));
+		}
+		if (targetRoom !== room) buffer.unshift("" + targetRoom.title + " room auth:");
+		connection.send("|popup||html|" + buffer.join("\n\n") + userLookup);
+	},
 };

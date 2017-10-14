@@ -900,7 +900,7 @@ exports.commands = {
 			target = toId(target);
 			if (!leagues[target]) return this.errorReply("That league does not exist.");
 			let output = Chat.escapeHTML(leagues[target].name) + " members:\n\n";
-			let sortedRanks = Object.keys(leagues[target].ranks).sort(function (a, b) {return leagues[target].ranks[b].sortBy - leagues[target].ranks[a].sortBy;});
+			let sortedRanks = Object.keys(leagues[target].ranks).sort(function (a, b) { return leagues[target].ranks[b].sortBy - leagues[target].ranks[a].sortBy; });
 
 			for (let rank in sortedRanks) {
 				let users = [];
