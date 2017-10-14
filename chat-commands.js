@@ -34,44 +34,6 @@ exports.commands = {
 		this.sendReplyBox("Server version: <b>" + Chat.package.version + "</b>");
 	},
 
-	'!authority': true,
-	auth: 'authority',
-	stafflist: 'authority',
-	globalauth: 'authority',
-	authlist: 'authority',
-	authority: function (target, room, user, connection) {
-		if (target) {
-			let targetRoom = Rooms.search(target);
-			let availableRoom = targetRoom && targetRoom.checkModjoin(user);
-			if (targetRoom && availableRoom) return this.parse('/roomauth1 ' + target);
-			return this.parse('/userauth ' + target);
-		}
-		let rankLists = {};
-		let ranks = Object.keys(Config.groups);
-		for (let u in Users.usergroups) {
-			let rank = Users.usergroups[u].charAt(0);
-			if (rank === ' ' || rank === '+') continue;
-			// In case the usergroups.csv file is not proper, we check for the server ranks.
-			if (ranks.includes(rank)) {
-				let name = Users.usergroups[u].substr(1);
-				if (!rankLists[rank]) rankLists[rank] = [];
-				if (name) rankLists[rank].push(name);
-			}
-		}
-
-		let buffer = Object.keys(rankLists).sort((a, b) =>
-			(Config.groups[b] || {rank: 0}).rank - (Config.groups[a] || {rank: 0}).rank
-		).map(r =>
-			(Config.groups[r] ? "**" + Config.groups[r].name + "s** (" + r + ")" : r) + ":\n" + rankLists[r].sort((a, b) => toId(a).localeCompare(toId(b))).join(", ")
-		);
-
-		if (!buffer.length) return connection.popup("This server has no global authority.");
-		connection.popup(buffer.join("\n\n"));
-	},
-	authhelp: ["/auth - Show global staff for the server.",
-		"/auth [room] - Show what roomauth a room has.",
-		"/auth [user] - Show what global and roomauth a user has."],
-
 	userlist: function (target, room, user) {
 		let userList = [];
 
@@ -549,24 +511,6 @@ exports.commands = {
 		return this.sendReply("You are no longer blocking private messages.");
 	},
 	unignorepmshelp: ["/unblockpms - Unblocks private messages. Block them with /blockpms."],
-
-	'!away': true,
-	idle: 'away',
-	afk: 'away',
-	away: function (target, room, user) {
-		this.parse('/blockchallenges');
-		this.parse('/blockpms ' + target);
-	},
-	awayhelp: ["/away - Blocks challenges and private messages. Unblock them with /back."],
-
-	'!back': true,
-	unaway: 'back',
-	unafk: 'back',
-	back: function () {
-		this.parse('/unblockpms');
-		this.parse('/unblockchallenges');
-	},
-	backhelp: ["/back - Unblocks challenges and/or private messages, if either are blocked."],
 
 	'!rank': true,
 	rank: function (target, room, user) {
