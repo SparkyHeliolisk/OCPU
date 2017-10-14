@@ -61,7 +61,7 @@ global.hasBadge = function (user, badge) {
 };
 
 OCPU.pmAll = function (message, pmName) {
-	pmName = (pmName ? pmName : '~Server [Do not reply]');
+	pmName = (pmName ? pmName : 'OCPU Server');
 	Users.users.forEach(curUser => {
 		curUser.send('|pm|' + pmName + '|' + curUser.getIdentity() + '|' + message);
 	});
