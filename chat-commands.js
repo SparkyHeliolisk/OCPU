@@ -449,8 +449,7 @@ exports.commands = {
 		if (!targetUser.connected) {
 			return this.errorReply("User " + this.targetUsername + " is offline.");
 		}
-		
-		if (targetUser == "OCPU Server") {
+		if (targetUser === "OCPU Server") {
 			return this.errorReply("You cannot reply to the server's global PM system.");
 		}
 
