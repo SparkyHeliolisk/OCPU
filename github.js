@@ -57,7 +57,6 @@ github.on('push', function push(repo, ref, result) {
 });
 
 github.on('pull_request', function pullRequest(repo, ref, result) {
-	let COOLDOWN = 10 * 60 * 1000;
 	let requestNumber = result.pull_request.number;
 	let url = result.pull_request.html_url;
 	let action = result.action;
@@ -69,11 +68,6 @@ github.on('pull_request', function pullRequest(repo, ref, result) {
 		action = 'labled';
 		return;
 	}
-	let now = Date.now();
-	if (updates[repo][requestNumber] && updates[repo][requestNumber] + COOLDOWN > now) {
-		return;
-	}
-	updates[repo][requestNumber] = now;
 	let message = "";
 	message += "[<font color='FF00FF'>" + repo + "</font>] ";
 	message += OCPU.nameColor(result.sender.login, true) + " ";
