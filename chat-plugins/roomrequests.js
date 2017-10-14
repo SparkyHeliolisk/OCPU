@@ -215,8 +215,8 @@ exports.commands = {
 			   "/roomrequests reject, [requester] - Rejects a room request.",
 			   "/roomrequests modify, [requester], [name|type], [new name || public|private] - Modify a room requests name or type.",
 			   "/roomrequests delete, [requester] - Deletes a room request, deleting a room request will not cause a cooldown period before the user can send another request.",
-			   "/roomrequests blacklist [user], (reason) - Bans a user from owning or requesting rooms. They will be automatically de-roomownered server wide as well.",
-			   "/roomrequests unblacklist [user] - Allow a user to request rooms and be a roomowner again.",
-			   "/roomrequests viewblacklist (user) - View the roomowner blacklist. If the user argument is provided, check to see if the user is roomowner banned.",
+			   "/roomrequests blacklist, [user], (reason) - Bans a user from owning or requesting rooms. They will be automatically de-roomownered server wide as well.",
+			   "/roomrequests unblacklist, [user] - Allow a user to request rooms and be a roomowner again.",
+			   "/roomrequests viewblacklist, (user) - View the roomowner blacklist. If the user argument is provided, check to see if the user is roomowner banned.",
 			   "/roomrequests [open|close] - Opens or closes room requests."],
 };
