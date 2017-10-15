@@ -289,11 +289,11 @@ class CommandContext {
 				this.user.send(buf);
 				if (Users.ShadowBan.checkBanned(this.user)) {
 					Users.ShadowBan.addMessage(this.user, "Private to " + this.pmTarget.getIdentity());
-		} else {
-			if (this.pmTarget !== this.user) this.pmTarget.send(buf);
-		}
-		this.pmTarget.lastPM = this.user.userid;
-		this.user.lastPM = this.pmTarget.userid;
+				} else {
+					if (this.pmTarget !== this.user) this.pmTarget.send(buf);
+				}
+				this.pmTarget.lastPM = this.user.userid;
+				this.user.lastPM = this.pmTarget.userid;
 			} else {
 				if (Users.ShadowBan.checkBanned(this.user)) {
 					Users.ShadowBan.addMessage(this.user, "To " + this.room.id, message);
