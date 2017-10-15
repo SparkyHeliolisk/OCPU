@@ -285,15 +285,15 @@ class CommandContext {
 		//Output the message
 		if (message && message !== true && typeof message.then !== 'function') {
 			if (this.pmTarget) {
-			let buf = `|pm|${this.user.getIdentity()}|${this.pmTarget.getIdentity()}|${message}`;
-			this.user.send(buf);
-			if (Users.ShadowBan.checkBanned(this.user)) {
-				Users.ShadowBan.addMessage(this.user, "Private to " + this.pmTarget.getIdentity(), noEmotes);
-			} else {
-				if (this.pmTarget !== this.user) this.pmTarget.send(buf);
-			}
-			this.pmTarget.lastPM = this.user.userid;
-			this.user.lastPM = this.pmTarget.userid;
+				let buf = `|pm|${this.user.getIdentity()}|${this.pmTarget.getIdentity()}|${message}`;
+				this.user.send(buf);
+				if (Users.ShadowBan.checkBanned(this.user)) {
+					Users.ShadowBan.addMessage(this.user, "Private to " + this.pmTarget.getIdentity());
+		} else {
+			if (this.pmTarget !== this.user) this.pmTarget.send(buf);
+		}
+		this.pmTarget.lastPM = this.user.userid;
+		this.user.lastPM = this.pmTarget.userid;
 			} else {
 				if (Users.ShadowBan.checkBanned(this.user)) {
 					Users.ShadowBan.addMessage(this.user, "To " + this.room.id, message);
