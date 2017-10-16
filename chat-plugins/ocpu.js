@@ -44,22 +44,6 @@ global.parseStatus = function (text, encoding) {
 	return text;
 };
 
-global.hasBadge = function (user, badge) {
-	let data = fs.readFileSync('badges.txt', 'utf8');
-	let row = data.split('\n');
-	for (let i = row.length; i > -1; i--) {
-		if (!row[i]) continue;
-		let split = row[i].split(':');
-		if (split[0] === toId(user)) {
-			if (split[1].indexOf(badge) > -1) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-	}
-};
-
 OCPU.pmAll = function (message, pmName) {
 	pmName = (pmName ? pmName : '~OCPU Server');
 	Users.users.forEach(curUser => {
@@ -103,11 +87,12 @@ OCPU.regdate = function (target, callback) {
 	});
 };
 
-global.reloadCSS = function () {
+OCPU.reloadCSS = function () {
+	const cssPath = 'ocpu'; // This should be the server id if Config.serverid doesn't exist. Ex: 'serverid'
 	let options = {
 		host: 'play.pokemonshowdown.com',
 		port: 80,
-		path: '/customcss.php?server=ocpu',
+		path: '/customcss.php?server=' + (Config.serverid || cssPath),
 		method: 'GET',
 	};
 	http.get(options);
@@ -185,7 +170,7 @@ function updateColor() {
 	let file = fs.readFileSync('config/custom.css', 'utf8').split('\n');
 	if (~file.indexOf('/* COLORS START */')) file.splice(file.indexOf('/* COLORS START */'), (file.indexOf('/* COLORS END */') - file.indexOf('/* COLORS START */')) + 1);
 	fs.writeFileSync('config/custom.css', file.join('\n') + newCss);
-	reloadCSS();
+	OCPU.reloadCSS();
 }
 
 function generateCSS(name, color) {
