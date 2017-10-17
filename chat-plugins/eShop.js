@@ -9,7 +9,7 @@
 'use strict';
 
 const fs = require('fs');
-let allowThisShop = false; //Change to true to make these command work
+let allowThisShop = true; //Change to true to make these command work
 let writeJSON = true;
 OCPU.eShop = {};
 
