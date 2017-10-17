@@ -105,7 +105,7 @@ try {
 }
 
 exports.commands = {
-	//shop: 'eshop', //Uncomment this if you want this to be able to be used using the /shop command
+	shop: 'eshop', //Uncomment this if you want this to be able to be used using the /shop command
 	eshop: {
 		add: function (target, room, user, connection, cmd, message) {
 			if (!this.can('roomowner')) return false;
@@ -140,7 +140,7 @@ exports.commands = {
 			Economy.readMoney(user.userid, userMoney => {
 				if (item.price > userMoney) return this.errorReply('You need ' + (item.price - userMoney) + ' more ' + ((item.price - userMoney) === 1 ? global.currencyName : global.currenyPlural) + ' to buy this.');
 				if (item.isSSB && !OCPU.ssb[user.userid]) return this.sendReply('You need to run /ssb edit at least once before you can buy this.');
-				/*if (item.isSSB) {
+				if (item.isSSB) {
 					//handle SSB pre-buy events
 					switch (item.id) {
 					case 'shiny':
@@ -166,7 +166,7 @@ exports.commands = {
 					default:
 						//Unhandled
 					}
-				}*/
+				}
 				Economy.writeMoney(user.userid, item.price * -1, () => {
 					Economy.readMoney(user.userid, amount => {
 						Economy.logTransaction(user.name + " has purchased a " + item.name + " for " + item.price + " " + (item.price === 1 ? global.currencyName : global.currenyPlural) + ". They now have " + amount + " " + (userMoney === 1 ? global.currencyName : global.currenyPlural));
@@ -174,7 +174,7 @@ exports.commands = {
 						case 'customsymbol':
 							user.canCustomSymbol = true;
 							break;
-						/*case 'shiny':
+						case 'shiny':
 							OCPU.ssb[user.userid].canShiny = true;
 							writeSSB();
 							break;
@@ -193,7 +193,7 @@ exports.commands = {
 						case 'custommove':
 							OCPU.ssb[user.userid].bought.cMove = true;
 							writeSSB();
-							break;*/
+							break;
 						default:
 							if (!user.tokens) user.tokens = {};
 							let tok = toToken(item.id);
