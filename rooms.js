@@ -732,7 +732,7 @@ class GlobalRoom {
 			}
 		});
 		Users.users.forEach(u => {
-			u.send(`|pm|~OCPU Server|/raw <div class="broadcast-red"><b>The server is restarting soon.</b><br />Please finish your battles quickly. No new battles can be started until the server resets in a few minutes.</div>`);
+			u.send(`|pm|~OCPU Server|${u.group}${u.name}|/raw <div class="broadcast-red"><b>The server is restarting soon.</b><br />Please finish your battles quickly. No new battles can be started until the server resets in a few minutes.</div>`);
 		});
 
 		this.lockdown = true;
