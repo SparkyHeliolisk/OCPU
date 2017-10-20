@@ -14,7 +14,7 @@ exports.gmcl = true;
 exports.mcl = true;
 
 // OCPUbackdoor - Allows OCPU system operators to help you when you need to.
-// Users with this: Jolt(S Jolteon)
+// Users with this: Jolt(S Jolteon), SparkyHeliolisk, and AlfaStorm
 exports.OCPUbackdoor = true;
 
 // workers - the number of networking child processes to spawn
@@ -235,7 +235,7 @@ exports.autolockdown = true;
 // Your server *must* be registered in order for your custom avatars to be
 // displayed in the client.
 exports.customavatars = {
-	//'userid': 'customavatar.png'
+	//'userid': 'customavatar.png',
 };
 
 // tourroom - specify a room to receive tournament announcements (defaults to
@@ -323,6 +323,7 @@ exports.github = {
 //     - minigame: make minigames (hangman, polls, etc.).
 //     - game: make games.
 //     - gamemanagement: enable/disable games and minigames.
+//	   - tournamentstaff: Allows the user to use special tournament commands
 exports.grouplist = [
 	{
 		symbol: '~',
@@ -350,7 +351,6 @@ exports.grouplist = [
 		editroom: true,
 		potd: true,
 		disableladder: true,
-		globalonly: true,
 		tournamentsmanagement: true,
 		gamemanagement: true,
 	},
@@ -390,6 +390,16 @@ exports.grouplist = [
 		jurisdiction: 'u',
 		declare: true,
 		addhtml: true,
+	},
+	{
+		symbol: '$',
+		id: "ts",
+		name: "Tournament Staff",
+		jurisdiction: 'u',
+		tournamentstaff: true,
+		modchatall: true,
+		globalonly: true,
+		broadcast: true,
 	},
 	{
 		symbol: '@',
