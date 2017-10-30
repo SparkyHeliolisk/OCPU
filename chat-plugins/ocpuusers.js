@@ -229,20 +229,22 @@ OCPU.messageSeniorStaff = function (message, pmName, from) {
 	});
 };
 
-OCPU.pmStaff = function (message, pmName, from) {
-	pmName = (pmName ? pmName : '~Staff PM [DO NOT REPLY]');
-	from = (from ? ' (PM from ' + from + ')' : "");
-	Users.users.forEach(curUser => {
-		if (curUser === '%' || curUser === '@' || curUser === '&' || curUser === '~') {
-			curUser.send('|pm|' + pmName + '|' + curUser.getIdentity() + '|' + message + from);
-		}
-	});
-};
 // format: OCPU.messageSeniorStaff('message', 'person')
 //
 // usage: OCPU.messageSeniorStaff('Mystifi is a confirmed user and they were banned from a public room. Assess the situation immediately.', '~Server')
 //
 // this makes a PM from ~OCPU Server stating the message
+
+
+OCPU.pmStaff = function (message, pmName, from) {
+	pmName = (pmName ? pmName : '~Staff PM [DO NOT REPLY]');
+	from = (from ? ' (PM from ' + from + ')' : '');
+	Users.users.forEach(curUser => {
+		if (curUser.isStaff) {
+			curUser.send('|pm|' + pmName + '|' + curUser.getIdentity() + '|' + message + from);
+		}
+	});
+};
 
 OCPU.parseMessage = function (message) {
 	if (message.substr(0, 5) === "/html") {
