@@ -45,7 +45,7 @@ global.parseStatus = function (text, encoding) {
 };
 
 OCPU.pmAll = function (message, pmName) {
-	pmName = (pmName ? pmName : '~OCPU Server');
+	pmName = (pmName ? pmName : '~Server PM [DO NOT REPLY]');
 	Users.users.forEach(curUser => {
 		curUser.send('|pm|' + pmName + '|' + curUser.getIdentity() + '|' + message);
 	});
