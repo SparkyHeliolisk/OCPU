@@ -220,7 +220,7 @@ OCPU.nameColor = function (name, bold, userGroup) {
 // usage: OCPU.nameColor(user.name, true) for bold OR OCPU.nameColor(user.name, false) for non-bolded.
 
 OCPU.messageSeniorStaff = function (message, pmName, from) {
-	pmName = (pmName ? pmName : '~OCPU Server');
+	pmName = (pmName ? pmName : '~Seinor Staff PM [DO NOT REPLY]');
 	from = (from ? ' (PM from ' + from + ')' : '');
 	Users.users.forEach(curUser => {
 		if (curUser.group === '~' || curUser.group === '&') {
