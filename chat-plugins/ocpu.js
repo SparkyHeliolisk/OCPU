@@ -940,7 +940,7 @@ exports.commands = {
 	pmallstaff: function (target, room, user) {
 		if (!target) return this.sendReply('/pmallstaff [message] - Sends a PM to every user in a room.');
 		if (!this.can('pban')) return false;
-		OCPU.pmStaff(target, user.name);
+		OCPU.pmStaff(target, false, user.name);
 	},
 	masspm: 'pmall',
 	pmall: function (target, room, user) {
@@ -1113,7 +1113,7 @@ exports.commands = {
 		let options = {
 			host: 'api.dubtrack.fm',
 			port: 443,
-			path: '/room/enrod-radio-tower',
+			path: '/room/lobby',
 			method: 'GET',
 		};
 		https.get(options, res => {
@@ -1125,7 +1125,7 @@ exports.commands = {
 					data = JSON.parse(data);
 					if (data['data'] && data['data']['currentSong']) nowPlaying = "<br /><strong>Now Playing:</strong> " + Chat.escapeHTML(data['data']['currentSong'].name);
 				}
-				this.sendReplyBox('Join our dubtrack.fm room <a href="https://www.dubtrack.fm/join/enrod-radio-tower">here!</a>' + nowPlaying);
+				this.sendReplyBox('Join our dubtrack.fm room <a href="https://www.dubtrack.fm/join/ocpu_150896577063595">here!</a>' + nowPlaying);
 				room.update();
 			});
 		});
