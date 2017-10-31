@@ -944,7 +944,7 @@ exports.commands = {
 	},
 	masspm: 'pmall',
 	pmall: function (target, room, user) {
-		if (!target) return this.parse('/pmall [message] - Sends a PM to every user in a room.');
+		if (!target) return this.sendReply('/pmall [message] - Sends a PM to every user in a room.');
 		if (!this.can('pban')) return false;
 		OCPU.pmAll(target);
 		Monitor.log("(" + Chat.escapeHTML(user.name) + " has PMed all: " + Chat.escapeHTML(target).replace("&apos;", "'") + ")");
