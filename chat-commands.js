@@ -34,44 +34,6 @@ exports.commands = {
 		this.sendReplyBox("Server version: <b>" + Chat.package.version + "</b>");
 	},
 
-	'!authority': true,
-	auth: 'authority',
-	stafflist: 'authority',
-	globalauth: 'authority',
-	authlist: 'authority',
-	authority: function (target, room, user, connection) {
-		if (target) {
-			let targetRoom = Rooms.search(target);
-			let availableRoom = targetRoom && targetRoom.checkModjoin(user);
-			if (targetRoom && availableRoom) return this.parse('/roomauth1 ' + target);
-			return this.parse('/userauth ' + target);
-		}
-		let rankLists = {};
-		let ranks = Object.keys(Config.groups);
-		for (let u in Users.usergroups) {
-			let rank = Users.usergroups[u].charAt(0);
-			if (rank === ' ' || rank === '+') continue;
-			// In case the usergroups.csv file is not proper, we check for the server ranks.
-			if (ranks.includes(rank)) {
-				let name = Users.usergroups[u].substr(1);
-				if (!rankLists[rank]) rankLists[rank] = [];
-				if (name) rankLists[rank].push(name);
-			}
-		}
-
-		let buffer = Object.keys(rankLists).sort((a, b) =>
-			(Config.groups[b] || {rank: 0}).rank - (Config.groups[a] || {rank: 0}).rank
-		).map(r =>
-			(Config.groups[r] ? "**" + Config.groups[r].name + "s** (" + r + ")" : r) + ":\n" + rankLists[r].sort((a, b) => toId(a).localeCompare(toId(b))).join(", ")
-		);
-
-		if (!buffer.length) return connection.popup("This server has no global authority.");
-		connection.popup(buffer.join("\n\n"));
-	},
-	authhelp: ["/auth - Show global staff for the server.",
-		"/auth [room] - Show what roomauth a room has.",
-		"/auth [user] - Show what global and roomauth a user has."],
-
 	userlist: function (target, room, user) {
 		let userList = [];
 
@@ -449,6 +411,9 @@ exports.commands = {
 		if (!targetUser.connected) {
 			return this.errorReply("User " + this.targetUsername + " is offline.");
 		}
+		if (targetUser === "OCPU Server") {
+			return this.errorReply("You cannot reply to the server's global PM system.");
+		}
 
 		this.parse(target);
 	},
@@ -786,7 +751,7 @@ exports.commands = {
 			if (!this.can('makeroom')) return;
 		}
 
-		if (target === 'off' || !setting) {
+		if (this.meansNo(target) || !setting) {
 			if (!room.isPrivate) {
 				return this.errorReply(`This room is already public.`);
 			}
@@ -837,7 +802,7 @@ exports.commands = {
 		if (!room.chatRoomData) {
 			return this.errorReply(`/officialroom - This room can't be made official`);
 		}
-		if (target === 'off') {
+		if (this.meansNo(target)) {
 			if (!room.isOfficial) return this.errorReply(`This chat room is already unofficial.`);
 			delete room.isOfficial;
 			this.addModCommand(`${user.name} made this chat room unofficial.`);
@@ -857,7 +822,7 @@ exports.commands = {
 		if (!room.chatRoomData) {
 			return this.errorReply(`/psplwinnerroom - This room can't be marked as a PSPL Winner room`);
 		}
-		if (target === 'off') {
+		if (this.meansNo(target)) {
 			if (!room.pspl) return this.errorReply(`This chat room is already not a PSPL Winner room.`);
 			delete room.pspl;
 			this.addModCommand(`${user.name} made this chat room no longer a PSPL Winner room.`);
@@ -921,7 +886,7 @@ exports.commands = {
 			return;
 		}
 		if (!this.can('declare', null, room)) return false;
-		if (target === 'off' || target === 'disable' || target === 'delete') return this.errorReply('Did you mean "/deleteroomintro"?');
+		if (this.meansNo(target) || target === 'delete') return this.errorReply('Did you mean "/deleteroomintro"?');
 		target = this.canHTML(target);
 		if (!target) return;
 		if (!/</.test(target)) {
@@ -976,7 +941,7 @@ exports.commands = {
 		}
 		if (!this.can('ban', null, room)) return false;
 		if (!this.canTalk()) return;
-		if (target === 'off' || target === 'disable' || target === 'delete') return this.errorReply('Did you mean "/deletestaffintro"?');
+		if (this.meansNo(target) || target === 'delete') return this.errorReply('Did you mean "/deletestaffintro"?');
 		target = this.canHTML(target);
 		if (!target) return;
 		if (!/</.test(target)) {
@@ -1349,7 +1314,7 @@ exports.commands = {
 				this.globalModlog("UNROOMBAN", name, " by " + user.name);
 			}
 		} else {
-			this.errorReply("User '" + target + "' is not banned.");
+			this.errorReply("User '" + target + "' is not banned from this room.");
 		}
 	},
 	unbanhelp: ["/roomunban [username] - Unbans the user from the room you are in. Requires: @ # & ~"],
@@ -2759,12 +2724,12 @@ exports.commands = {
 		if (!this.can('lockdown')) return false;
 		if (Config.autolockdown === undefined) Config.autolockdown = true;
 
-		if (target === 'on' || target === 'enable') {
+		if (this.meansYes(target)) {
 			if (Config.autolockdown) return this.errorReply("The server is already set to automatically kill itself upon the final battle finishing.");
 			Config.autolockdown = true;
 			this.sendReply("The server is now set to automatically kill itself upon the final battle finishing.");
 			this.logEntry(`${user.name} used /autolockdownkill on`);
-		} else if (target === 'off' || target === 'disable') {
+		} else if (this.meansNo(target)) {
 			if (!Config.autolockdown) return this.errorReply("The server is already set to not automatically kill itself upon the final battle finishing.");
 			Config.autolockdown = false;
 			this.sendReply("The server is now set to not automatically kill itself upon the final battle finishing.");
@@ -3233,14 +3198,14 @@ exports.commands = {
 		if (!force && !room.game.players[user]) {
 			return this.errorReply(`Access denied`);
 		}
-		if (target === 'off' || target === 'false' || target === 'stop') {
+		if (this.meansNo(target) || target === 'stop') {
 			if (timer.timerRequesters.size) {
 				timer.stop(force ? undefined : user);
 				if (force) room.send(`|inactiveoff|Timer was turned off by staff. Please do not turn it back on until our staff say it's okay.`);
 			} else {
 				this.errorReply(`The timer is already off`);
 			}
-		} else if (target === 'on' || target === 'true') {
+		} else if (this.meansYes(target) || target === 'start') {
 			timer.start(user);
 		} else {
 			this.errorReply(`"${target}" is not a recognized timer state.`);
@@ -3251,10 +3216,10 @@ exports.commands = {
 	forcetimer: function (target, room, user) {
 		target = toId(target);
 		if (!this.can('autotimer')) return;
-		if (target === 'off' || target === 'false' || target === 'stop') {
+		if (this.meansNo(target) || target === 'stop') {
 			Config.forcetimer = false;
 			this.addModCommand("Forcetimer is now OFF: The timer is now opt-in. (set by " + user.name + ")");
-		} else if (target === 'on' || target === 'true' || !target) {
+		} else if (this.meansYes(target) || target === 'start' || !target) {
 			Config.forcetimer = true;
 			this.addModCommand("Forcetimer is now ON: All battles will be timed. (set by " + user.name + ")");
 		} else {

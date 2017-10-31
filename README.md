@@ -9,7 +9,7 @@ Navigation: [Website][1] | **Server repository** | [Client repository][2] | [Dex
 
 [![Build Status](https://travis-ci.org/PSservers15/OCPU.svg?branch=master)](https://travis-ci.org/PSservers15/OCPU)
 [![Dependency Status](https://david-dm.org/PSservers15/OCPU.svg)](https://david-dm.org/PSservers15/OCPU)
-[![devDependency Status](https://david-dm.org/PSservers15/OCPU.svg)](https://david-dm.org/PSserver15/OCPU#info=devDependencies)
+[![devDependency Status](https://david-dm.org/PSservers15/OCPU.svg)](https://david-dm.org/PSserver15/OCPU?type=dev)
 
 Introduction
 ------------------------------------------------------------------------
@@ -180,3 +180,15 @@ Contributors
 Special thanks
 
 - See http://pokemonshowdown.com/credits
+
+OCPU Credits
+------------------------------------------------------------------------
+
+Owner(s)
+
+
+- [Jolts Jolteon](https://github.com/zellman01)
+ 
+Other Contributors
+- [Insist](https://github.com/DeathlyPlays)
+- [SparkyHeliolisk](https://github.com/SparkyHeliolisk)

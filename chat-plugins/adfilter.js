@@ -11,7 +11,7 @@ Config.chatfilter = function (message, user, room, connection, targetUser) {
 	if (!room && !Users(targetUser)) targetUser = {name: 'unknown user'};
 	let pre_matches = (message.match(/psim|psim.us|psim us/g) || []).length;
 	let final_check = (pre_matches >= 1 ? adWhitelist.filter(server => ~message.indexOf(server)).length : 0);
-	if (!user.can('lock') && (pre_matches >= 1 && final_check === 0 || pre_matches >= 2 && final_check >= 1 || message.match(adRegex))) {
+	if (!user.can('roomowner') && (pre_matches >= 1 && final_check === 0 || pre_matches >= 2 && final_check >= 1 || message.match(adRegex))) {
 		if (user.locked) return false;
 		if (!user.advWarns) user.advWarns = 0;
 		user.advWarns++;
@@ -23,8 +23,8 @@ Config.chatfilter = function (message, user, room, connection, targetUser) {
 			return false;
 		}
 		Monitor.log("[AdMonitor] " + user.name + " has attempted to advertise" + (room ? ". **Room:** " + room.id : " in a private message to " + targetUser.name + ".") + " **Message:** " + message);
-		connection.sendTo(room, '|raw|<strong class="message-throttle-notice">Advertising detected, your message has not been sent and Exiled global authorities have been notified.' + '<br />Further attempts to advertise in a chat OR PMs will result in being locked.</strong>');
-		connection.user.popup("|modal|Advertising detected, your message has not been sent and Exiled global authorities have been notified.\n" + "Further attempts to advertise in a chat OR in PMs will result in being locked.");
+		connection.sendTo(room, '|raw|<strong class="message-throttle-notice">Advertising detected, your message has not been sent and OCPU global authorities have been notified.' + '<br />Further attempts to advertise in a chat OR PMs will result in being locked.</strong>');
+		connection.user.popup("|modal|Advertising detected, your message has not been sent and OCPU global authorities have been notified.\n" + "Further attempts to advertise in a chat OR in PMs will result in being locked.");
 		return false;
 	}
 	return message;

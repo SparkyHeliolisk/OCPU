@@ -32,18 +32,18 @@ function showTitle(userid) {
 	userid = toId(userid);
 	if (Db.customtitles.has(userid)) {
 		return '<font color="' + Db.customtitles.get(userid)[1] +
-			'">(<b>' + Db.customtitles.get(userid)[0] + '</b>)</font>';
+			'">(<strong>' + Db.customtitles.get(userid)[0] + '</strong>)</font>';
 	}
 	return '';
 }
 
 function devCheck(user) {
-	if (isDev(user)) return '<font color="#009320">(<b>Developer</b>)</font>';
+	if (isDev(user)) return '<font color="#009320">(<strong>Developer</strong>)</font>';
 	return '';
 }
 
 function vipCheck(user) {
-	if (isVIP(user)) return '<font color="#6390F0">(<b>VIP User</b>)</font>';
+	if (isVIP(user)) return '<font color="#6390F0">(<strong>VIP User</strong>)</font>';
 	return '';
 }
 
@@ -95,7 +95,7 @@ exports.commands = {
 			Db.vips.keys().forEach(vipUser => {
 				display.push(OCPU.nameColor(vipUser, (Users(vipUser) && Users(vipUser).connected)));
 			});
-			this.popupReply('|html|<b><u><font size="3"><center>VIP Users:</center></font></u></b>' + display.join(','));
+			this.popupReply('|html|<strong><u><font size="3"><center>VIP Users:</center></font></u></strong>' + display.join(','));
 		},
 		'': 'help',
 		help: function (target, room, user) {
@@ -140,7 +140,7 @@ exports.commands = {
 			Db.devs.keys().forEach(devUser => {
 				display.push(OCPU.nameColor(devUser, (Users(devUser) && Users(devUser).connected)));
 			});
-			this.popupReply('|html|<b><u><font size="3"><center>DEV Users:</center></font></u></b>' + display.join(','));
+			this.popupReply('|html|<strong><u><font size="3"><center>DEV Users:</center></font></u></strong>' + display.join(','));
 		},
 		'': 'help',
 		help: function (target, room, user) {
@@ -293,12 +293,12 @@ exports.commands = {
 			showProfile();
 		});
 
-		/*function getLastSeen(userid) {
+		function getLastSeen(userid) {
 			if (Users(userid) && Users(userid).connected) return '<font color = "limegreen"><strong>Currently Online</strong></font>';
 			let seen = Db.seen.get(userid);
 			if (!seen) return '<font color = "red"><strong>Never</strong></font>';
 			return Chat.toDurationString(Date.now() - seen, {precision: true}) + " ago.";
-		}*/
+		}
 
 		function getFlag(userid) {
 			let ip = (Users(userid) ? geoip.lookup(Users(userid).latestIp) : false);
@@ -311,13 +311,13 @@ exports.commands = {
 				let profile = '';
 				profile += showBadges(toId(username));
 				profile += '<img src="' + avatar + '" height="80" width="80" align="left">';
-				profile += '&nbsp;<font color="#24678d"><b>Name:</b></font> ' + OCPU.nameColor(username, true) + '&nbsp;' + getFlag(toId(username)) + ' ' + showTitle(username) + '<br />';
-				profile += '&nbsp;<font color="#24678d"><b>Group:</b></font> ' + userGroup + ' ' + devCheck(username) + vipCheck(username) + '<br />';
-				profile += '&nbsp;<font color="#24678d"><b>Registered:</b></font> ' + regdate + '<br />';
-				profile += '&nbsp;<font color="#24678d"><b>' + global.currencyPlural + ':</b></font> ' + currency + '<br />';
-				//profile += '&nbsp;<font color="#24678d"><b>Last Seen:</b></font> ' + getLastSeen(toId(username)) + '</font><br />';
+				profile += '&nbsp;<font color="#24678d"><strong>Name:</strong></font> ' + OCPU.nameColor(username, true) + '&nbsp;' + getFlag(toId(username)) + ' ' + showTitle(username) + '<br />';
+				profile += '&nbsp;<font color="#24678d"><strong>Group:</strong></font> ' + userGroup + ' ' + devCheck(username) + vipCheck(username) + '<br />';
+				profile += '&nbsp;<font color="#24678d"><strong>Registered:</strong></font> ' + regdate + '<br />';
+				profile += '&nbsp;<font color="#24678d"><strong>' + global.currencyPlural + ':</strong></font> ' + currency + '<br />';
+				profile += '&nbsp;<font color="#24678d"><strong>Last Seen:</strong></font> ' + getLastSeen(toId(username)) + '</font><br />';
 				if (Db.friendcodes.has(toId(username))) {
-					profile += '&nbsp;<font color="#24678d"><b>Friend Code:</b></font> ' + Db.friendcodes.get(toId(username));
+					profile += '&nbsp;<font color="#24678d"><strong>Friend Code:</strong></font> ' + Db.friendcodes.get(toId(username));
 				}
 				profile += '<br clear="all">';
 				self.sendReplyBox(profile);
