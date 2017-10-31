@@ -28,8 +28,6 @@ const ADVERTISEMENT_COST = 45; // how much does /advertise cost to use?
 let regdateCache = {};
 let customColors = {};
 
-geoip.startWatchingDataUpdate();
-
 global.parseStatus = function (text, encoding) {
 	if (encoding) {
 		text = text.split('').map(function (char) {
