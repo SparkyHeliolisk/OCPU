@@ -388,7 +388,7 @@ Punishments.punish = function (user, punishment, recursionKeys) {
 		}
 
 		// don't override stronger punishment types
-		const types = ['LOCK', 'NAMELOCK', 'BAN'];
+		const types = ['BATTLELOCK', 'LOCK', 'NAMELOCK', 'BAN'];
 		if (types.indexOf(existingPunishment[0]) > types.indexOf(punishment[0])) {
 			punishment[0] = existingPunishment[0];
 		}
@@ -642,6 +642,21 @@ Punishments.ban = function (user, expireTime, id, ...reason) {
  */
 Punishments.unban = function (name) {
 	return Punishments.unpunish(name, 'BAN');
+};
+/**
+ * @param {user} user
+ * @param {number} expireTime
+ * @param {string} id
+ * @param {...string} [reason]
+ */
+Punishments.battlelock = function (user, expireTime, id, ...reason) {
+	//TODO logic for the punishment
+};
+/**
+ * @param {string} name
+*/
+Punishments.unbattlelock = function (name) {
+	return Punishemtns.unpunish(name, 'BATTLELOCK');
 };
 /**
  * @param {User} user
