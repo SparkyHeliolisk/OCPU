@@ -24,6 +24,7 @@ const SHAREDIPS_FILE = 'config/sharedips.tsv';
 const RANGELOCK_DURATION = 60 * 60 * 1000; // 1 hour
 const LOCK_DURATION = 48 * 60 * 60 * 1000; // 48 hours
 const BAN_DURATION = 7 * 24 * 60 * 60 * 1000; // 1 week
+const BATTLELOCK_DURATION = 2 * 7 * 24 * 60 * 60 * 1000; //2 weeks
 
 const ROOMBAN_DURATION = 48 * 60 * 60 * 1000; // 48 hours
 const BLACKLIST_DURATION = 365 * 24 * 60 * 60 * 1000; // 1 year
@@ -648,9 +649,17 @@ Punishments.unban = function (name) {
  * @param {number} expireTime
  * @param {string} id
  * @param {...string} [reason]
+ * @return {?Array}
  */
 Punishments.battlelock = function (user, expireTime, id, ...reason) {
-	//TODO logic for the punishment
+	if (!id) id = user.getLastId();
+	
+	if (!expireTime) expireTime = Date.now() + BATTLELOCK_DURATION;
+	let punishment = ['BATTLELOCK', id, expireTime, ...reason];
+	
+	let affected = Punishments.punish(user, punishment);
+	
+	return affected;
 };
 /**
  * @param {string} name
