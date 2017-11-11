@@ -1197,7 +1197,8 @@ exports.commands = {
 			"Pok&eacute;mon Showdown is open source:<br />" +
 			"- Language: JavaScript (Node.js)<br />" +
 			"- <a href=\"https://github.com/Zarel/Pokemon-Showdown/commits/master\">What's new?</a><br />" +
-			"- <a href=\"https://github.com/Zarel/Pokemon-Showdown\">Server source code</a><br />" +
+			"- <a href=\"https://github.com/PSservers15/OCPU\">Server source code</a><br />" +
+			"- <a href=\"https://https://github.com/Zarel/Pokemon-Showdown\">Main's source code</a><br />" +
 			"- <a href=\"https://github.com/Zarel/Pokemon-Showdown-Client\">Client source code</a><br />" +
 			"- <a href=\"https://github.com/Zarel/Pokemon-Showdown-Dex\">Dex source code</a>"
 		);
@@ -1214,7 +1215,8 @@ exports.commands = {
 	'!forums': true,
 	forums: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"http://www.smogon.com/forums/forums/pok%C3%A9mon-showdown.209\">Pok&eacute;mon Showdown Forums</a>");
+		this.sendReplyBox("- <a href=\"http://www.smogon.com/forums/forums/pok%C3%A9mon-showdown.209\">Pok&eacute;mon Showdown Forums</a>" +
+				  "- <a href=\"http://ocpu.forumotion.com\">OCPU Form</a>");
 	},
 
 	'!suggestions': true,
