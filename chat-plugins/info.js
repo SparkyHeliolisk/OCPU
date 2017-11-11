@@ -1209,7 +1209,8 @@ exports.commands = {
 	'!staff': true,
 	staff: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		this.sendReplyBox("<a href=\"http://www.smogon.com/sim/staff_list\">Pok&eacute;mon Showdown Staff List</a>");
+		this.sendReplyBox("- <a href=\"http://www.smogon.com/sim/staff_list\">Pok&eacute;mon Showdown Staff List</a><br />" +
+				  "- <a href=\"http://ocpu.forumotion.com\">OCPU Form</a>");
 	},
 
 	'!forums': true,
