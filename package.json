@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "pokemon-showdown",
   "preferGlobal": true,
   "description": "The server for the Pokémon Showdown battle simulator",
@@ -17,7 +17,7 @@
     "origindb": "^2.6.1",
     "querystring": "^0.2.0",
     "request": "^2.83.0",
-    "sockjs": "0.3.18",
+    "sockjs": "0.3.19",
     "sqlite3": "^3.1.9",
     "url": "^0.11.0",
     "websocket": "^1.0.17"
