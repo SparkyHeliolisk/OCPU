@@ -652,20 +652,17 @@ Punishments.unban = function (name) {
  * @return {?Array}
  */
 Punishments.battlelock = function (user, expireTime, id, ...reason) {
-	if (!id) id = user.getLastId();
-	
+	if (!id) id = user.getLastId();	
 	if (!expireTime) expireTime = Date.now() + BATTLELOCK_DURATION;
 	let punishment = ['BATTLELOCK', id, expireTime, ...reason];
-	
 	let affected = Punishments.punish(user, punishment);
-	
 	return affected;
 };
 /**
  * @param {string} name
 */
 Punishments.unbattlelock = function (name) {
-	return Punishemtns.unpunish(name, 'BATTLELOCK');
+	return Punishments.unpunish(name, 'BATTLELOCK');
 };
 /**
  * @param {User} user
