@@ -494,42 +494,6 @@ exports.commands = {
 
 		user.popup("You must have something significant to say to all staff members or it will immediately end.");
 	},
-
-	ts: 'tournamentstaff',
-	tournamentstaff: function (target, room, user, connection) {
-		let ignoreUsers = [];
-		fs.readFile('config/usergroups.csv', 'utf8', (err, data) => {
-			let staff = {
-				"admins": [],
-				"leaders": [],
-				"bots": [],
-				"mods": [],
-				"drivers": [],
-			};
-			let row = ('' + data).split('\n');
-			for (let i = row.length; i > -1; i--) {
-				if (!row[i]) continue;
-				let rank = row[i].split(',')[1].replace("\r", '');
-				let person = row[i].split(',')[0];
-				let personId = toId(person);
-				switch (rank) {
-				case '[':
-					if (~ignoreUsers.indexOf(personId)) break;
-					staff['tournamentstaffs'].push(person);
-					break;
-				default:
-					continue;
-				}
-			}
-			connection.popup('|html|' +
-				'<h3> Tournament Staff</h3>' +
-				'<br /><strong><u>(' + staff['tournamentstaffs'].length + ')</u></strong><br />' + staff['tournamentstaffs'].join(', ') +
-				'<br /><br />(<strong>Bold</strong> / <i>italic</i> = currently online)' +
-				'<br />Users who are administrators working for the tournament:' +
-				OCPU.nameColor('joltsjolteon', true) + '.'
-			);
-		});
-	},
 	protectroom: function (target, room, user) {
 		if (!this.can('pban')) return false;
 		if (room.type !== 'chat' || room.isOfficial) return this.errorReply("This room does not need to be protected.");

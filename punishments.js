@@ -24,6 +24,7 @@ const SHAREDIPS_FILE = 'config/sharedips.tsv';
 const RANGELOCK_DURATION = 60 * 60 * 1000; // 1 hour
 const LOCK_DURATION = 48 * 60 * 60 * 1000; // 48 hours
 const BAN_DURATION = 7 * 24 * 60 * 60 * 1000; // 1 week
+const BATTLELOCK_DURATION = 2 * 7 * 24 * 60 * 60 * 1000; //2 weeks
 
 const ROOMBAN_DURATION = 48 * 60 * 60 * 1000; // 48 hours
 const BLACKLIST_DURATION = 365 * 24 * 60 * 60 * 1000; // 1 year
@@ -388,7 +389,7 @@ Punishments.punish = function (user, punishment, recursionKeys) {
 		}
 
 		// don't override stronger punishment types
-		const types = ['LOCK', 'NAMELOCK', 'BAN'];
+		const types = ['BATTLELOCK', 'LOCK', 'NAMELOCK', 'BAN'];
 		if (types.indexOf(existingPunishment[0]) > types.indexOf(punishment[0])) {
 			punishment[0] = existingPunishment[0];
 		}
@@ -642,6 +643,26 @@ Punishments.ban = function (user, expireTime, id, ...reason) {
  */
 Punishments.unban = function (name) {
 	return Punishments.unpunish(name, 'BAN');
+};
+/**
+ * @param {user} user
+ * @param {number} expireTime
+ * @param {string} id
+ * @param {...string} [reason]
+ * @return {?Array}
+ */
+Punishments.battlelock = function (user, expireTime, id, ...reason) {
+	if (!id) id = user.getLastId();
+	if (!expireTime) expireTime = Date.now() + BATTLELOCK_DURATION;
+	let punishment = ['BATTLELOCK', id, expireTime, ...reason];
+	let affected = Punishments.punish(user, punishment);
+	return affected;
+};
+/**
+ * @param {string} name
+*/
+Punishments.unbattlelock = function (name) {
+	return Punishments.unpunish(name, 'BATTLELOCK');
 };
 /**
  * @param {User} user
