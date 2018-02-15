@@ -917,8 +917,9 @@ exports.commands = {
 	credits: function (target, room, user) {
 		let popup = "|html|" + "<font size=5>OCPU Credits</font><br />" +
 		    "<u>Owners:</u><br />" +
-		    "- " + OCPU.nameColor('Jolt (S Jolteon)', true) + " (Founder, Sysop, Development, Owner of GitHub repository)<br />" +
-		    "- " + OCPU.nameColor('AlfaStorm', true) + " (Programming Administrator, Sysop)<br />" +
+		    "- " + OCPU.nameColor('Jolt (S Jolteon)', true) + " (Founder, Sysop, Technical Admin, Development)<br />" +
+		    "- " + OCPU.nameColor('SparkyHeliolisk', true) + " (Sysop, Policy Admin, Development)<br />" +
+		    "- " + OCPU.nameColor('AlfaStorm', true) + " (Sysop, Technical Admin, Development)<br />" 
 		    "<br />" +
 		    "<u>Development:</u><br />" +
 		    "- " + OCPU.nameColor('Insist', true) + " (Development, Fixed Eslint)<br />" +
