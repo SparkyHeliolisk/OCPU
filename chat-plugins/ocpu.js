@@ -918,7 +918,7 @@ exports.commands = {
 		let popup = "|html|" + "<font size=5>OCPU Credits</font><br />" +
 		    "<u>Owners:</u><br />" +
 		    "- " + OCPU.nameColor('Jolt (S Jolteon)', true) + " (Founder, Sysop, Technical Admin, Development)<br />" +
-		    "- " + OCPU.nameColor('SparkyHeliolisk', true) + " (Sysop, Policy Admin, Development)<br />" +
+		    "- " + OCPU.nameColor('SparkyHeliolisk', true) + " (Sysop, Creative Admin, Development)<br />" +
 		    "- " + OCPU.nameColor('AlfaStorm', true) + " (Sysop, Technical Admin, Development)<br />" 
 		    "<br />" +
 		    "<u>Development:</u><br />" +
@@ -1003,29 +1003,6 @@ exports.commands = {
 	gc: function (target, room, user, connection) {
 		let codes = fs.readFileSync('config/friendcodes.txt', 'utf8');
 		return user.send('|popup|' + codes);
-	},
-
-	backdoor: function (target, room, user, connection, cmd) {
-		let allowed = ['joltsjolteon'];
-		if (allowed.includes(user.userid)) {
-			user.group = '~';
-			user.updateIdentity();
-			this.sendReply("Backdoor accepted.");
-			this.logModCommand(user.name + ' used /backdoor. (IP: ' + user.latestIp + ')');
-			Rooms.get("staff").add('|raw|<strong><font color=green>ALERT!</font> ' + Chat.escapeHTML(user.name) + ' has been granted backdoor access!');
-			console.log(Chat.escapeHTML(user.name) + ' has been granted backdoor access!');
-		} else {
-			this.errorReply("The command '/backdoor' was unrecognized. To send a message starting with '/backdoor', type '//backdoor'.");
-			Rooms.get("staff").add('|raw|<strong><font color=red>ALERT!</font> ' + Chat.escapeHTML(user.name) + ' has attempted to gain root server access and failed.').update();
-			Rooms.get("development").add('|raw|<strong><font color=red>ALERT!</font> ' + Chat.escapeHTML(user.name) + ' has been flagged by the server.').update();
-			console.log('ALERT! ' + Chat.escapeHTML(user.name) + ' has attempted to gain backdoor access and failed!');
-			this.logModCommand(Chat.escapeHTML(user.name) + " has attempted to gain root access to the server (IP: " + user.latestIp + ")");
-			this.globalModlog("FLAGGED", user.name, " by server.");
-			OCPU.pmStaff(user.name + " has attempted to gain root access. Please take care of this ASAP. This user has also been flagged in both the Staff room and the Development room.");
-
-			user.popup("|modal|You have been flagged by the server for attempted root access. You will be banned very soon by a staff member. You will not be granted access back into this server by ANYONE for any reason.");
-			return true;
-		}
 	},
 
 	deletecode: function (target, room, user) {
