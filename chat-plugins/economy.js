@@ -112,7 +112,7 @@ global.rankLadder = function (title, type, array, prop, group) {
 		}
 	}
 	return ladderTitle + tableTop + tableRows + tableBottom;
-}
+};
 
 exports.commands = {
 	'!wallet': true,
