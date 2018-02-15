@@ -156,7 +156,7 @@ exports.commands = {
 				cardsShown++;
 				return `<button name="send" value="/psgo card ${card.id}" style="border-radius: 12px; box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) inset;"><img src="${card.image}" width="100" title="${card.id}"></button>`;
 			});
-			this.sendReplyBox(`<div style="max-height: 300px; overflow-y: scroll;">${cardsMapping.join('')}</div><br><center><b>${WL.nameColor(toId(target), true)} has ${cards.length} cards</b></center>`);
+			this.sendReplyBox(`<div style="max-height: 300px; overflow-y: scroll;">${cardsMapping.join('')}</div><br><center><b>${OCPU.nameColor(toId(target), true)} has ${cards.length} cards</b></center>`);
 		},
 		showcasehelp: ['/psgo showcase (user) - Show all of the selected users cards.'],
 
@@ -182,7 +182,7 @@ exports.commands = {
 				return this.popupReply(`|html|<center>` +
 					`<button class = "card-td button" name = "send" value = "/psgo confirmtransfercard ${targetUser.userid}, ${card}"` +
 					`style = "outline: none; width: 200px; font-size: 11pt; padding: 10px; border-radius: 14px ; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.4) inset; transition: all 0.2s;">` +
-					`Confirm transfer to <br><b style = "color:${WL.hashColor(targetUser.userid)}; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8)">${Chat.escapeHTML(targetUser.name)}</b></button></center>`
+					`Confirm transfer to <br><b style = "color:${OCPU.hashColor(targetUser.userid)}; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8)">${Chat.escapeHTML(targetUser.name)}</b></button></center>`
 				);
 			}
 

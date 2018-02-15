@@ -918,7 +918,6 @@ exports.commands = {
 		let popup = "|html|" + "<font size=5>OCPU Credits</font><br />" +
 		    "<u>Owners:</u><br />" +
 		    "- " + OCPU.nameColor('Jolt (S Jolteon)', true) + " (Founder, Sysop, Development, Owner of GitHub repository)<br />" +
-		    "- " + OCPU.nameColor('SparkyHeliolisk', true) + " (Creative Administrator, Sysop)<br />" +
 		    "- " + OCPU.nameColor('AlfaStorm', true) + " (Programming Administrator, Sysop)<br />" +
 		    "<br />" +
 		    "<u>Development:</u><br />" +
@@ -928,7 +927,8 @@ exports.commands = {
 		    "- Current staff team<br />" +
 		    "- Our regular users<br />" +
 		    "- SpacialGaze for the news plugin, the profile plugin, complete economy plugin and the roomrequest plugin.<br />" +
-		    "- Origin for the base CSS file" +
+		    "- Origin for the base CSS file<br />" +
+			"- WaveLength for the complete PSGO plugin" +
 		    "<br />";
 		user.popup(popup);
 	},
