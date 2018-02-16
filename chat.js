@@ -291,6 +291,7 @@ class CommandContext {
 
 		if (message && message !== true && typeof message.then !== 'function') {
 			if (this.pmTarget) {
+				Chat.sendPM(message, this.user, this.pmTarget);
 				let noEmotes = message;
 				let emoticons = OCPU.parseEmoticons(message);
 				if (emoticons) {
