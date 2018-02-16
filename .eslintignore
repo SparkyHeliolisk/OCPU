@@ -1,4 +1,8 @@
 tournaments/lib/
 logs/
 dev-tools/globals.js
+<<<<<<< HEAD
 chat-plugins/ocpuusers.js
+=======
+node_modules/
+>>>>>>> d52041f7ebfecd0409a912af295d6037ecfa1ad8

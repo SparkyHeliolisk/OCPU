@@ -10,6 +10,7 @@
 /chat-plugins/backdoor.js
 npm-debug.log
 .eslintcache
+package-lock.json
 
 # boilerplate #
 ###############

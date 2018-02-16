@@ -8,7 +8,7 @@
  */
 'use strict';
 
-const FS = require('../fs');
+const FS = require('./../lib/fs');
 
 const HF_DATA_PATH = 'config/chat-plugins/health-fitness.json';
 const MAX_DATA_LENGTH = 500;
@@ -24,29 +24,11 @@ class HealthFitness {
 		try {
 			this.hfData = require(`../${HF_DATA_PATH}`);
 		} catch (error) {
-			if (error.code !== 'MODULE_NOT_FOUND') throw error;
+			if (error.code !== 'MODULE_NOT_FOUND' && error.code !== 'ENOENT') throw error;
 		}
-
-		this.saveData = (() => {
-			let writing = false;
-			let writePending = false;
-			return async () => {
-				if (writing) {
-					writePending = true;
-					return;
-				}
-				writing = true;
-
-				await FS(`${HF_DATA_PATH}.0`).write(JSON.stringify(this.hfData));
-				await FS(`${HF_DATA_PATH}.0`).rename(HF_DATA_PATH);
-
-				writing = false;
-				if (writePending) {
-					writePending = false;
-					setImmediate(() => this.saveData());
-				}
-			};
-		})();
+	}
+	saveData() {
+		FS(HF_DATA_PATH).writeUpdate(() => JSON.stringify(this.hfData));
 	}
 	setCardio(cardio) {
 		this.hfData.cardio = cardio;
@@ -73,9 +55,9 @@ exports.commands = {
 		'': function (target, room, user) {
 			if (room.id !== 'healthfitness') return this.errorReply("This command can only be used in Health & Fitness.");
 			if (!this.runBroadcast()) return;
-			const cardio = Chat.parseText(HF.hfData.cardio || NOT_SET);
-			const gym = Chat.parseText(HF.hfData.gym || NOT_SET);
-			const quote = Chat.parseText(HF.hfData.quote || NOT_SET);
+			const cardio = Chat.formatText(HF.hfData.cardio || NOT_SET, true);
+			const gym = Chat.formatText(HF.hfData.gym || NOT_SET, true);
+			const quote = Chat.formatText(HF.hfData.quote || NOT_SET, true);
 			return this.sendReplyBox(
 				`<strong>Cardio Challenge:</strong> ${cardio}<br />` +
 				`<strong>Gym Challenge:</strong> ${gym}<br />` +
@@ -90,7 +72,7 @@ exports.commands = {
 
 				if (!this.runBroadcast('!healthfitness cardio')) return;
 
-				const cardio = Chat.parseText(HF.hfData.cardio || NOT_SET);
+				const cardio = Chat.formatText(HF.hfData.cardio || NOT_SET, true);
 				return this.sendReplyBox(`<strong>Cardio Challenge:</strong> ${cardio}`);
 			} else {
 				if (!this.can('broadcast', null, room)) return;
@@ -101,7 +83,8 @@ exports.commands = {
 				if (!target) return;
 
 				HF.setCardio(target);
-				this.privateModCommand(`(${user.name} has set the cardio challenge to: ${target})`);
+				this.privateModAction(`(${user.name} has set the cardio challenge to: ${target})`);
+				this.modlog('CARDIO CHALLENGE', null, target);
 				this.sendReply(`The daily cardio challenge has been updated to: ${target}`);
 			}
 		},
@@ -113,7 +96,7 @@ exports.commands = {
 
 				if (!this.runBroadcast('!healthfitness gym')) return;
 
-				const gym = Chat.parseText(HF.hfData.gym || NOT_SET);
+				const gym = Chat.formatText(HF.hfData.gym || NOT_SET, true);
 				return this.sendReplyBox(`<strong>Gym Challenge:</strong> ${gym}`);
 			} else {
 				if (!this.can('broadcast', null, room)) return;
@@ -124,7 +107,8 @@ exports.commands = {
 				if (!target) return;
 
 				HF.setGym(target);
-				this.privateModCommand(`(${user.name} has set the gym challenge to: ${target})`);
+				this.privateModAction(`(${user.name} has set the gym challenge to: ${target})`);
+				this.modlog('GYM CHALLENGE', null, target);
 				this.sendReply(`The daily gym challenge has been updated to: ${target}`);
 			}
 		},
@@ -136,7 +120,7 @@ exports.commands = {
 
 				if (!this.runBroadcast('!healthfitness quote')) return;
 
-				const quote = Chat.parseText(HF.hfData.quote || NOT_SET);
+				const quote = Chat.formatText(HF.hfData.quote || NOT_SET, true);
 				return this.sendReplyBox(`<strong>Quote of the Day:</strong> ${quote}`);
 			} else {
 				if (!this.can('broadcast', null, room)) return;
@@ -147,7 +131,8 @@ exports.commands = {
 				if (!target) return;
 
 				HF.setQuote(target);
-				this.privateModCommand(`(${user.name} has set the daily quote to: ${target})`);
+				this.privateModAction(`(${user.name} has set the daily quote to: ${target})`);
+				this.modlog('HF QUOTE', null, target);
 				this.sendReply(`The daily quote has been updated to: ${target}`);
 			}
 		},
@@ -156,13 +141,13 @@ exports.commands = {
 		},
 	},
 	healthfitnesshelp: [
-		"/healthfitness - Shows the daily cardio challenge, gym challenge, and quote of the day.",
-		"/healthfitness cardio - Shows the cardio challenge of the day.",
-		"/healthfitness cardio [challenge] - Sets the cardio challenge of the day. Requires: + or above",
-		"/healthfitness gym - Shows the gym challenge of the day.",
-		"/healthfitness gym [challenge] - Sets the gym challenge of the day. Requires: + or above",
-		"/healthfitness quote - Shows the quote of the day.",
-		"/healthfitness quote [quote] - Sets the quote of the day. Requires: + or above",
-		"Note: These challenges and quotes support PS formatting (**bold**, __italics__, etc.)",
+		`/healthfitness - Shows the daily cardio challenge, gym challenge, and quote of the day.`,
+		`/healthfitness cardio - Shows the cardio challenge of the day.`,
+		`/healthfitness cardio [challenge] - Sets the cardio challenge of the day. Requires: + or above`,
+		`/healthfitness gym - Shows the gym challenge of the day.`,
+		`/healthfitness gym [challenge] - Sets the gym challenge of the day. Requires: + or above`,
+		`/healthfitness quote - Shows the quote of the day.`,
+		`/healthfitness quote [quote] - Sets the quote of the day. Requires: + or above`,
+		`Note: These challenges and quotes support PS formatting (**bold**, __italics__, etc.)`,
 	],
 };
