@@ -229,11 +229,8 @@ New mechanic: Intrinsics:
 
   - Flygon: Compoundeyes, Sand Rush
 
-<<<<<<< HEAD
-=======
   - Gengar: Cursed Body
 
->>>>>>> Restart all files
   - Hydreigon: Sheer Force
 
   - Mesprit: Serene Grace
@@ -394,11 +391,7 @@ Minor learnset changes:
 
 - Scolipede and Steelix get Coil
 
-<<<<<<< HEAD
-- Lumineon, Ampharos, and Lanturn get Tail Glow
 
-=======
->>>>>>> Restart all files
 - Rotom formes learn more things:
   - Rotom-Wash: BubbleBeam
   - Rotom-Fan: Hurricane, Twister
@@ -445,13 +438,7 @@ Minor ability changes:
 
 - Magma Armor reduces incoming move damage by 1/10 of the user's max HP,
   provides immunity to Hail and freeze, and provides a one-time immunity
-<<<<<<< HEAD
-  to Water and Ice, after which it turns into Battle Armor
-
-- Prism Armor reduces incoming move damage by 1/10 of the user's max HP in addition to its normal effects.
-=======
   to Water and Ice, after which it turns into Shell Armor
->>>>>>> Restart all files
 
 - Adaptability is now 1.33x to non-STAB moves instead of to STAB moves
 
@@ -464,11 +451,7 @@ Minor ability changes:
 
 - Telepathy grants Imprison on switch-in
 
-<<<<<<< HEAD
-- Compound Eyes and Keen Eye now grant 1.6x accuracy (this replaces Keen
-=======
 - Compoundeyes and Keen Eye now grant 1.6x accuracy (this replaces Keen
->>>>>>> Restart all files
   Eye's previous effect)
 
 - Victory Star grants 1.5x accuracy (but only for the user)

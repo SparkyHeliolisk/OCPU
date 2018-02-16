@@ -708,31 +708,7 @@ Punishments.unban = function (name) {
 	return Punishments.unpunish(name, 'BAN');
 };
 /**
-<<<<<<< HEAD
- * @param {user} user
- * @param {number} expireTime
- * @param {string} id
- * @param {...string} [reason]
- * @return {?Array}
- */
-Punishments.battlelock = function (user, expireTime, id, ...reason) {
-	if (!id) id = user.getLastId();
-	if (!expireTime) expireTime = Date.now() + BATTLELOCK_DURATION;
-	let punishment = ['BATTLELOCK', id, expireTime, ...reason];
-	let affected = Punishments.punish(user, punishment);
-	return affected;
-};
-/**
- * @param {string} name
-*/
-Punishments.unbattlelock = function (name) {
-	return Punishments.unpunish(name, 'BATTLELOCK');
-};
-/**
- * @param {User} user
-=======
  * @param {User? | string} user
->>>>>>> d52041f7ebfecd0409a912af295d6037ecfa1ad8
  * @param {number} expireTime
  * @param {string} id
  * @param {...string} [reason]
