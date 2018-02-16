@@ -781,7 +781,6 @@ class User {
 			return false;
 		}
 
-<<<<<<< HEAD
 		if (Tells.inbox[userid]) Tells.sendTell(userid, this);
 		OCPU.showNews(userid, this);
 		return false;
@@ -789,8 +788,6 @@ class User {
 	validateRename(name, tokenData, newlyRegistered, challenge) {
 		let userid = toId(name);
 
-=======
->>>>>>> d52041f7ebfecd0409a912af295d6037ecfa1ad8
 		let tokenDataSplit = tokenData.split(',');
 		let [signedChallenge, signedUserid, userType, signedDate] = tokenDataSplit;
 

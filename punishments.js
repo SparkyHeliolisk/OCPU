@@ -23,13 +23,8 @@ const SHAREDIPS_FILE = 'config/sharedips.tsv';
 
 const RANGELOCK_DURATION = 60 * 60 * 1000; // 1 hour
 const LOCK_DURATION = 48 * 60 * 60 * 1000; // 48 hours
-<<<<<<< HEAD
-const BAN_DURATION = 7 * 24 * 60 * 60 * 1000; // 1 week
-const BATTLELOCK_DURATION = 2 * 7 * 24 * 60 * 60 * 1000; //2 weeks
-=======
 const GLOBALBAN_DURATION = 7 * 24 * 60 * 60 * 1000; // 1 week
 const BATTLEBAN_DURATION = 48 * 60 * 60 * 1000; // 48 hours
->>>>>>> d52041f7ebfecd0409a912af295d6037ecfa1ad8
 
 const ROOMBAN_DURATION = 48 * 60 * 60 * 1000; // 48 hours
 const BLACKLIST_DURATION = 365 * 24 * 60 * 60 * 1000; // 1 year

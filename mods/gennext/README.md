@@ -145,11 +145,7 @@ Major changes:
 
 - Twister is now a 80 base power Flying move with a 30% confusion chance
 
-<<<<<<< HEAD
-- Floette-Eternal-Flower is released.
-=======
 - Floette-Eternal-Flower and Volcanion are released.
->>>>>>> Restart all files
 
 New mechanic: Signature Pokémon:
 

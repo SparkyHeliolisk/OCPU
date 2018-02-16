@@ -291,7 +291,6 @@ class CommandContext {
 
 		if (message && message !== true && typeof message.then !== 'function') {
 			if (this.pmTarget) {
-<<<<<<< HEAD
 				let noEmotes = message;
 				let emoticons = OCPU.parseEmoticons(message);
 				if (emoticons) {
@@ -307,9 +306,6 @@ class CommandContext {
 				}
 				this.pmTarget.lastPM = this.user.userid;
 				this.user.lastPM = this.pmTarget.userid;
-=======
-				Chat.sendPM(message, this.user, this.pmTarget);
->>>>>>> d52041f7ebfecd0409a912af295d6037ecfa1ad8
 			} else {
 				let emoticons = OCPU.parseEmoticons(message);
 				if (emoticons && !this.room.disableEmoticons) {

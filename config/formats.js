@@ -5,7 +5,6 @@
 
 exports.Formats = [
 
-<<<<<<< HEAD
 	//Custom Formats
 	////////////////////////////////////////////////////////////////////
 	{
@@ -98,10 +97,7 @@ exports.Formats = [
 		banlist: ['Baton Pass'],
 	},
 
-	// SM Singles
-=======
 	// US/UM Singles
->>>>>>> d52041f7ebfecd0409a912af295d6037ecfa1ad8
 	///////////////////////////////////////////////////////////////////
 	{
 		section: "US/UM Singles",
