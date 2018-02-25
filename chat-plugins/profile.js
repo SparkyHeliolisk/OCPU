@@ -10,7 +10,7 @@
 let geoip = require('geoip-lite-country');
 
 // fill in '' with the server IP
-let serverIp = "50.25.35.92";
+let serverIp = "ocpu-test-zellman01.c9users.io-8080";
 
 function isVIP(user) {
 	if (!user) return;
@@ -282,7 +282,7 @@ exports.commands = {
 		let userSymbol = (Users.usergroups[userid] ? Users.usergroups[userid].substr(0, 1) : "Regular User");
 		let userGroup = (Config.groups[userSymbol] ? 'Global ' + Config.groups[userSymbol].name : "Regular User");
 		let regdate = '(Unregistered)';
-		OCPU.regdate(userid, date => {
+		/*OCPU.regdate(userid, date => {
 			if (date) {
 				let d = new Date(date);
 				let MonthNames = ["January", "February", "March", "April", "May", "June",
@@ -291,7 +291,7 @@ exports.commands = {
 				regdate = MonthNames[d.getUTCMonth()] + ' ' + d.getUTCDate() + ", " + d.getUTCFullYear();
 			}
 			showProfile();
-		});
+		});*/
 
 		function getLastSeen(userid) {
 			if (Users(userid) && Users(userid).connected) return '<font color = "limegreen"><strong>Currently Online</strong></font>';

@@ -54,7 +54,7 @@ function pluralFormat(length, ending) {
 	return (length === 1 ? '' : ending);
 }
 
-OCPU.regdate = function (target, callback) {
+/*OCPU.regdate = function (target, callback) {
 	target = toId(target);
 	if (regdateCache[target]) return callback(regdateCache[target]);
 	let options = {
@@ -82,7 +82,7 @@ OCPU.regdate = function (target, callback) {
 			callback((date === 0 ? false : date));
 		});
 	});
-};
+};*/
 
 OCPU.reloadCSS = function () {
 	const cssPath = 'ocpu'; // This should be the server id if Config.serverid doesn't exist. Ex: 'serverid'
@@ -129,7 +129,7 @@ function parseStatus(text, encoding) {
 	return text;
 }
 
-OCPU.regdate = function (target, callback) {
+/*OCPU.regdate = function (target, callback) {
 	target = toId(target);
 	if (regdateCache[target]) return callback(regdateCache[target]);
 	let options = {
@@ -157,7 +157,7 @@ OCPU.regdate = function (target, callback) {
 			callback((date === 0 ? false : date));
 		});
 	});
-};
+};*/
 
 function load() {
 	fs.readFile('config/customcolors.json', 'utf8', function (err, file) {
@@ -423,14 +423,14 @@ exports.commands = {
 		if ((room.isMuted(targetUser) && !canBeMutedFurther) || targetUser.locked || !targetUser.connected) {
 			let problem = " but was already " + (!targetUser.connected ? "offline" : targetUser.locked ? "locked" : "muted");
 			if (!target) {
-				return this.privateModCommand("(" + targetUser.name + " would be muted by " + user.name + problem + ".)");
+				return this.privateModAction("(" + targetUser.name + " would be muted by " + user.name + problem + ".)");
 			}
-			return this.addModCommand("" + targetUser.name + " would be muted by " + user.name + problem + "." + (target ? " (" + target + ")" : ""));
+			return this.addModAction("" + targetUser.name + " would be muted by " + user.name + problem + "." + (target ? " (" + target + ")" : ""));
 		}
 
 		if (targetUser in room.users) targetUser.popup("|modal|" + user.name + " has muted you in " + room.id + " for 24 hours. " + target);
-		this.addModCommand("" + targetUser.name + " was muted by " + user.name + " for 24 hours." + (target ? " (" + target + ")" : ""));
-		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModCommand("(" + targetUser.name + "'s ac account: " + targetUser.autoconfirmed + ")");
+		this.addModAction("" + targetUser.name + " was muted by " + user.name + " for 24 hours." + (target ? " (" + target + ")" : ""));
+		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModAction("(" + targetUser.name + "'s ac account: " + targetUser.autoconfirmed + ")");
 		this.add('|unlink|' + toId(this.inputUsername));
 
 		room.mute(targetUser, muteDuration, false);
@@ -453,14 +453,14 @@ exports.commands = {
 		if ((room.isMuted(targetUser) && !canBeMutedFurther) || targetUser.locked || !targetUser.connected) {
 			let problem = " but was already " + (!targetUser.connected ? "offline" : targetUser.locked ? "locked" : "muted");
 			if (!target) {
-				return this.privateModCommand("(" + targetUser.name + " would be muted by " + user.name + problem + ".)");
+				return this.privateModAction("(" + targetUser.name + " would be muted by " + user.name + problem + ".)");
 			}
-			return this.addModCommand("" + targetUser.name + " would be muted by " + user.name + problem + "." + (target ? " (" + target + ")" : ""));
+			return this.addModAction("" + targetUser.name + " would be muted by " + user.name + problem + "." + (target ? " (" + target + ")" : ""));
 		}
 
 		if (targetUser in room.users) targetUser.popup("|modal|" + user.name + " has muted you in " + room.id + " for 45 seconds. " + target);
-		this.addModCommand("" + targetUser.name + " was muted by " + user.name + " for 45 seconds." + (target ? " (" + target + ")" : ""));
-		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModCommand("(" + targetUser.name + "'s ac account: " + targetUser.autoconfirmed + ")");
+		this.addModAction("" + targetUser.name + " was muted by " + user.name + " for 45 seconds." + (target ? " (" + target + ")" : ""));
+		if (targetUser.autoconfirmed && targetUser.autoconfirmed !== targetUser.userid) this.privateModAction("(" + targetUser.name + "'s ac account: " + targetUser.autoconfirmed + ")");
 		this.add('|unlink|' + toId(this.inputUsername));
 
 		room.mute(targetUser, muteDuration, false);
@@ -502,13 +502,13 @@ exports.commands = {
 			room.protect = false;
 			room.chatRoomData.protect = room.protect;
 			Rooms.global.writeChatRoomData();
-			this.privateModCommand("(" + user.name + " has unprotected this room from being automatically deleted.)");
+			this.privateModAction("(" + user.name + " has unprotected this room from being automatically deleted.)");
 		} else {
 			if (room.protect) return this.errorReply("This room is already protected.");
 			room.protect = true;
 			room.chatRoomData.protect = room.protect;
 			Rooms.global.writeChatRoomData();
-			this.privateModCommand("(" + user.name + " has protected this room from being automatically deleted.)");
+			this.privateModAction("(" + user.name + " has protected this room from being automatically deleted.)");
 		}
 	},
 
@@ -548,7 +548,7 @@ exports.commands = {
 		};
 		user.updateIdentity();
 		this.sendReply('You are now hiding your auth symbol as \'' + tar + '\'.');
-		this.logModCommand(user.name + ' is hiding auth symbol as \'' + tar + '\'');
+		this.addModAction(user.name + ' is hiding auth symbol as \'' + tar + '\'');
 		user.isHiding = true;
 	},
 
@@ -559,7 +559,7 @@ exports.commands = {
 		user.updateIdentity();
 		user.isHiding = false;
 		this.sendReply("You have now revealed your auth symbol.");
-		return this.logModCommand(user.name + " has revealed their auth symbol.");
+		return this.addModAction(user.name + " has revealed their auth symbol.");
 	},
 
 	pb: 'permaban',
@@ -577,10 +577,10 @@ exports.commands = {
 
 		if (targetUser.banned && !target && !targetUser.connected) {
 			let problem = " but was already banned";
-			return this.privateModCommand('(' + name + " would be banned by " + user.name + problem + '.) (' + targetUser.latestIp + ')');
+			return this.privateModAction('(' + name + " would be banned by " + user.name + problem + '.) (' + targetUser.latestIp + ')');
 		}
 		targetUser.popup(user.name + " has permanently banned you." + (target ? " (" + target + ")" : ""));
-		this.addModCommand(name + " was permanently banned by " + user.name + "." + (target ? " (" + target + ")" : ""));
+		this.addModAction(name + " was permanently banned by " + user.name + "." + (target ? " (" + target + ")" : ""));
 
 		let alts = targetUser.getAlts();
 		let acAccount = (targetUser.autoconfirmed !== userid && targetUser.autoconfirmed);
@@ -588,12 +588,12 @@ exports.commands = {
 			let guests = alts.length;
 			alts = alts.filter(alt => alt.substr(0, 6) !== 'Guest ');
 			guests -= alts.length;
-			this.privateModCommand("(" + name + "'s " + (acAccount ? " ac account: " + acAccount + ", " : "") + "banned alts: " + alts.join(", ") + (guests ? " [" + guests + " guests]" : "") + ")");
+			this.privateModAction("(" + name + "'s " + (acAccount ? " ac account: " + acAccount + ", " : "") + "banned alts: " + alts.join(", ") + (guests ? " [" + guests + " guests]" : "") + ")");
 			for (let i = 0; i < alts.length; ++i) {
 				this.add('|unlink|hide|' + toId(alts[i]));
 			}
 		} else if (acAccount) {
-			this.privateModCommand("(" + name + "'s ac account: " + acAccount + ")");
+			this.privateModAction("(" + name + "'s ac account: " + acAccount + ")");
 		}
 
 		this.add('|unlink|hide|' + userid);
@@ -613,10 +613,10 @@ exports.commands = {
 		if (!this.can('pban')) return false;
 		if (room.battle) return this.sendReply("You cannot clearall in battle rooms.");
 
-		let len = room.log.length;
+		let len = (room.log.log && room.log.log.length) || 0;
 		let users = [];
 		while (len--) {
-			room.log[len] = '';
+			room.log.log[len] = '';
 		}
 		for (let u in room.users) {
 			if (!Users.get(u) || !Users.get(u).connected) continue;
@@ -870,7 +870,7 @@ exports.commands = {
 		} else if (cmd === 'pdeclare') {
 			this.add('|raw|<div class="broadcast-purple"><strong>' + target + '</strong></div>');
 		}
-		this.logModCommand(user.name + ' declared ' + target);
+		this.addModAction(user.name + ' declared ' + target);
 	},
 
 	sd: 'declaremod',
@@ -881,8 +881,8 @@ exports.commands = {
 		if (!target) return this.parse('/help declaremod');
 		if (!this.can('declare', null, room)) return false;
 		if (!this.canTalk()) return;
-		this.privateModCommand('|raw|<div class="broadcast-red"><strong><font size=1><i>Private Auth (Driver +) declare from ' + user.name + '<br /></i></font size>' + target + '</strong></div>');
-		this.logModCommand(user.name + ' mod declared ' + target);
+		this.privateModAction('|raw|<div class="broadcast-red"><strong><font size=1><i>Private Auth (Driver +) declare from ' + user.name + '<br /></i></font size>' + target + '</strong></div>');
+		this.addModAction(user.name + ' mod declared ' + target);
 	},
 	declaremodhelp: ['/declaremod [message] - Displays a red [message] to all authority in the respected room.  Requires #, &, ~'],
 
@@ -902,7 +902,7 @@ exports.commands = {
 	},
 	pas: 'pmallstaff',
 	pmallstaff: function (target, room, user) {
-		if (!target) return this.sendReply('/pmallstaff [message] - Sends a PM to every user in a room.');
+		if (!target) return this.sendReply('/pmallstaff [message] - Sends a PM to every staff user in a room.');
 		if (!this.can('pban')) return false;
 		OCPU.pmStaff(target, false, user.name);
 	},
@@ -958,7 +958,7 @@ exports.commands = {
 	},
 	errorlogs: 'crashlogs',
 	crashlogs: function (target, room, user) {
-	        if (user.userid === "mystifi" || user.userid === 'joltsjolteon' || user.userid === 'insist') {
+	        if (user.userid === "alfastorm" || user.userid === 'joltsjolteon') {
 	                let crashes = fs.readFileSync('logs/errors.txt', 'utf8').split('\n').splice(-100).join('\n');
 		        user.send('|popup|' + crashes);
 		        return;
@@ -1082,7 +1082,7 @@ exports.commands = {
 			'<button name="joinRoom" value="enrodradiotower" target="_blank">Join now</button> to nominate your favorite artist for AOTD to be featured on the ' +
 			'official page next to your name for a chance to win the monthly prize at the end of the month!</strong></div>'
 		);
-		this.logModCommand(user.name + " used declareaotd.");
+		this.addModAction(user.name + " used declareaotd.");
 	},
 
 	hideconsoleuser: function (target, room, user, connection) {
@@ -1190,7 +1190,7 @@ exports.commands = {
 			if (!target[1]) return this.parse('/help customcolor');
 			if (toId(target[0]).length > 19) return this.errorReply("Usernames are not this long...");
 			this.sendReply("|raw|You have given <strong><font color=" + target[1] + ">" + Chat.escapeHTML(target[0]) + "</font></strong> a custom color.");
-			this.privateModCommand("(" + target[0] + " has received custom color: '" + target[1] + "' from " + user.name + ".)");
+			this.privateModAction("(" + target[0] + " has received custom color: '" + target[1] + "' from " + user.name + ".)");
 			Monitor.adminlog(target[0] + " has received custom color: '" + target[1] + "' from " + user.name + ".");
 			customColors[toId(target[0])] = target[1];
 			updateColor();
@@ -1202,7 +1202,7 @@ exports.commands = {
 			delete customColors[toId(target)];
 			updateColor();
 			this.sendReply("You removed " + target + "'s custom color.");
-			this.privateModCommand("(" + target + "'s custom color was removed by " + user.name + ".)");
+			this.privateModAction("(" + target + "'s custom color was removed by " + user.name + ".)");
 			Monitor.adminlog(target + "'s custom color was removed by " + user.name + ".");
 			if (Users(target) && Users(target).connected) Users(target).popup(user.name + " removed your custom color.");
 			return;
@@ -1217,7 +1217,7 @@ exports.commands = {
 		reload: function (target, room, user) {
 			if (!this.can('hotpatch')) return false;
 			updateColor();
-			this.privateModCommand("(" + user.name + " has reloaded custom colours.)");
+			this.privateModAction("(" + user.name + " has reloaded custom colours.)");
 		},
 		'': function (target, room, user) {
 			return this.parse("/help customcolor");
@@ -1354,7 +1354,7 @@ exports.commands = {
 		room.auth[userid] = '#';
 		room.chatRoomData.founder = userid;
 		room.founder = userid;
-		this.addModCommand(`${name} was appointed Room Founder by ${user.name}.`);
+		this.addModAction(`${name} was appointed Room Founder by ${user.name}.`);
 		if (targetUser) {
 			targetUser.popup(`|html|You were appointed Room Founder by ${OCPU.nameColor(user.name, true)} in ${room.title}.`);
 			room.onUpdateIdentity(targetUser);
@@ -1399,7 +1399,7 @@ exports.commands = {
 		if (!room.auth) room.auth = room.chatRoomData.auth = {};
 
 		room.auth[userid] = '#';
-		this.addModCommand(`${name} was appointed Room Owner by ${user.name}.`);
+		this.addModAction(`${name} was appointed Room Owner by ${user.name}.`);
 		if (targetUser) {
 			targetUser.popup(`|html|You were appointed Room Owner by ${OCPU.nameColor(user.name, true)} in ${room.title}.`);
 			room.onUpdateIdentity(targetUser);

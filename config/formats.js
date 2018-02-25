@@ -5,98 +5,6 @@
 
 exports.Formats = [
 
-	//Custom Formats
-	////////////////////////////////////////////////////////////////////
-	{
-		section: "Custom",
-	},
-	{
-		name: "[Gen 7] Custom Pokemon",
-		desc: ["Current placeholder for a future meta"],
-		ruleset: ['HP Percentage Mod', 'Team Preview', 'Cancel Mod'],
-	},
-	{
-		name: "Insanity",
-		desc: ["A format where almost every legendary/mythical in the game has their type changed and base stats changed. \"/Insanity [pokemon-name]\" will let you check what has been changed."],
-		ruleset: ['HP Percentage Mod', 'Cancel Mod', 'Sleep Clause Mod'],
-		mod: 'insanity',
-	},
-	{
-		name: "[Gen 7] Super Staff Bros",
-
-		mod: 'ocpussb',
-		team: 'randomSeasonalRegStaff',
-		ruleset: ['HP Percentage Mod', 'Cancel Mod', 'Sleep Clause Mod'],
-		onBegin: function () {
-			this.add('message', 'GET READY FOR THE NEXT BATTLE!');
-
-			let allPokemon = this.p1.pokemon.concat(this.p2.pokemon);
-			for (let i = 0, len = allPokemon.length; i < len; i++) {
-				let pokemon = allPokemon[i];
-				let last = pokemon.moves.length - 1;
-				if (pokemon.moves[last]) {
-					pokemon.moves[last] = toId(pokemon.set.signatureMove);
-					pokemon.moveset[last].move = pokemon.set.signatureMove;
-					pokemon.baseMoveset[last].move = pokemon.set.signatureMove;
-				}
-			}
-		},
-		onSwitchIn: function (pokemon) {
-			let name = toId(pokemon.illusion ? pokemon.illusion.name : pokemon.name);
-			//Add the mon's status effect to it as a volatile.
-			if (this.data.Statuses[name] && this.data.Statuses[name].exists) {
-				pokemon.addVolatile(name, pokemon);
-			}
-		},
-		onModifyPokemon: function (pokemon) {
-			//let name = toId(pokemon.name);
-			// Enforce choice item locking on custom moves.
-			let moves = pokemon.moveset;
-			if (pokemon.getItem().isChoice && pokemon.lastMove === moves[3].id) {
-				for (let i = 0; i < 3; i++) {
-					if (!moves[i].disabled) {
-						pokemon.disableMove(moves[i].id, false);
-						moves[i].disabled = true;
-					}
-				}
-			}
-		},
-	},
-	{
-		name: "[Gen 7] Super Staff Bros Free For All",
-		desc: ['Duke it out with other users custom made pokemon.',
-			'Make your own as well! Get started with <button class="button" name="send" value="/ssb edit">/ssb edit</button>.',
-			'Use <button class="button" name="send" value="/ssb">/ssb</button> for the commands you can use.',
-		],
-
-		mod: 'ssbffa',
-		team: 'randomCustomSSB',
-		ruleset: ['Pokemon', 'Sleep Clause Mod', 'Freeze Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
-		onBegin: function () {
-			this.add("raw|<h2>Free for All!</h2>");
-			this.add("raw|<h3>3</h3>");
-			this.add("raw|<h3>2</h3>");
-			this.add("raw|<h3>1</h3>");
-			this.add("raw|<h1>BATTLE!</h1>");
-		},
-		onSwitchInPriority: 1,
-		onSwitchIn: function (pokemon) {
-			if (!pokemon.template.isMega) pokemon.canMegaEvo = this.canMegaEvo(pokemon);
-		},
-	},
-	// Draft League
-	///////////////////////////////////////////////////////////////////
-	{
-		section: "Draft League",
-	},
-	{
-		name: "[Gen 7] Draft League",
-		desc: ["A format specifically made for the Draft League."],
-		mod: 'gen7',
-		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Mega Rayquaza Clause'],
-		banlist: ['Baton Pass'],
-	},
-
 	// US/UM Singles
 	///////////////////////////////////////////////////////////////////
 	{
@@ -499,7 +407,7 @@ exports.Formats = [
 
 		mod: 'sharedpower',
 		ruleset: ['[Gen 7] OU', 'Evasion Abilities Clause'],
-		banlist: ['Gyarados-Mega', 'Shedinja', 'Emergency Exit ++ Regenerator', 'Wimp Out ++ Regenerator', 'Substitute'],
+		banlist: ['Banette-Mega', 'Gyarados-Mega', 'Shedinja', 'Emergency Exit ++ Regenerator', 'Wimp Out ++ Regenerator'],
 		unbanlist: ['Aegislash', 'Blaziken', 'Blaziken-Mega', 'Deoxys-Defense'],
 		restrictedAbilities: [
 			'Chlorophyll', 'Comatose', 'Fluffy', 'Fur Coat', 'Huge Power', 'Illusion', 'Imposter', 'Innards Out', 'Magic Guard',

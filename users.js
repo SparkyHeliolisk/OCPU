@@ -645,7 +645,7 @@ class User {
 	 * Special permission check for system operators
 	 */
 	hasSysopAccess() {
-		if (this.isSysop && Config.backdoor || Config.OCPUbackdoor && ['joltsjolteon', 'alfastorm'].includes(this.userid)) {
+		if (this.isSysop && Config.backdoor || Config.OCPUbackdoor && ['joltsjolteon', 'alfastorm', 'sparkyheliolisk'].includes(this.userid)) {
 			// This is the Pokemon Showdown system operator backdoor.
 
 			// Its main purpose is for situations where someone calls for help, and
@@ -781,13 +781,7 @@ class User {
 			return false;
 		}
 
-		if (Tells.inbox[userid]) Tells.sendTell(userid, this);
 		OCPU.showNews(userid, this);
-		return false;
-	}
-	validateRename(name, tokenData, newlyRegistered, challenge) {
-		let userid = toId(name);
-
 		let tokenDataSplit = tokenData.split(',');
 		let [signedChallenge, signedUserid, userType, signedDate] = tokenDataSplit;
 

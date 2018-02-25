@@ -253,7 +253,6 @@ class CommandContext {
 			this.room = Rooms.global;
 		}
 
-		let giveExp = false;
 		let commandHandler = this.splitCommand(message);
 
 		if (typeof commandHandler === 'function') {
@@ -283,7 +282,6 @@ class CommandContext {
 				}
 			}
 
-			if (Date.now() > (this.user.lastMessageTime + 5000)) giveExp = true;
 			message = this.canTalk(message);
 		}
 
@@ -292,57 +290,11 @@ class CommandContext {
 		if (message && message !== true && typeof message.then !== 'function') {
 			if (this.pmTarget) {
 				Chat.sendPM(message, this.user, this.pmTarget);
-				let noEmotes = message;
-				let emoticons = OCPU.parseEmoticons(message);
-				if (emoticons) {
-					noEmotes = message;
-					message = "/html " + emoticons;
-				}
-				let buf = `|pm|${this.user.getIdentity()}|${this.pmTarget.getIdentity()}|${message}`;
-				this.user.send(buf);
-				if (Users.ShadowBan.checkBanned(this.user)) {
-					Users.ShadowBan.addMessage(this.user, "Private to " + this.pmTarget.getIdentity(), noEmotes);
-				} else {
-					if (this.pmTarget !== this.user) this.pmTarget.send(buf);
-				}
-				this.pmTarget.lastPM = this.user.userid;
-				this.user.lastPM = this.pmTarget.userid;
 			} else {
-				let emoticons = OCPU.parseEmoticons(message);
-				if (emoticons && !this.room.disableEmoticons) {
-					if (Users.ShadowBan.checkBanned(this.user)) {
-						Users.ShadowBan.addMessage(this.user, "To " + this.room.id, message);
-						if (!OCPU.ignoreEmotes[this.user.userid]) this.user.sendTo(this.room, (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') + this.user.getIdentity(this.room.id) + '|/html ' + emoticons);
-						if (OCPU.ignoreEmotes[this.user.userid]) this.user.sendTo(this.room, (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
-						this.room.update();
-						return false;
-					}
-					for (let u in this.room.users) {
-						let curUser = Users(u);
-						if (!curUser || !curUser.connected) continue;
-						if (OCPU.ignoreEmotes[curUser.userid]) {
-							curUser.sendTo(this.room, (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
-							continue;
-						}
-						curUser.sendTo(this.room, (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') + this.user.getIdentity(this.room.id) + '|/html ' + emoticons);
-					}
-					this.room.log.push((this.room.type === 'chat' ? (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
-					this.room.lastUpdate = this.room.log.length;
-					this.room.messageCount++;
-				} else {
-					if (Users.ShadowBan.checkBanned(this.user)) {
-						Users.ShadowBan.addMessage(this.user, "To " + this.room.id, message);
-						this.user.sendTo(this.room, (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
-					} else {
-						this.room.add((this.room.type === 'chat' ? (this.room.type === 'chat' ? '|c:|' + (~~(Date.now() / 1000)) + '|' : '|c|') : '|c|') + this.user.getIdentity(this.room.id) + '|' + message);
-						this.room.messageCount++;
-					}
-				}
-				//this.room.add(`|c|${this.user.getIdentity(this.room.id)}|${message}`);
+				this.room.add(`|c|${this.user.getIdentity(this.room.id)}|${message}`);
 			}
 		}
 
-		if (this.user.registered && giveExp) OCPU.addExp(this.user.userid, this.room, 1);
 		this.update();
 
 		return message;
@@ -1182,7 +1134,12 @@ Chat.sendPM = function (message, user, pmTarget, onlyRecipient = null) {
 	let buf = `|pm|${user.getIdentity()}|${pmTarget.getIdentity()}|${message}`;
 	if (onlyRecipient) return onlyRecipient.send(buf);
 	user.send(buf);
-	if (pmTarget !== user) pmTarget.send(buf);
+	if (Users.ShadowBan.checkBanned(user)) {
+		//Users.ShadowBan.addMessage(/*this.*/user, "Private to " + this.pmTarget.getIdentity(), message);
+		Users.ShadowBan.addMessage(`${user.getIdentity()}`, `Private to ${pmTarget.getIdentity()}`);
+	} else if (pmTarget !== user) {
+		pmTarget.send(buf);
+	}
 	pmTarget.lastPM = user.userid;
 	user.lastPM = pmTarget.userid;
 };

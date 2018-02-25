@@ -75,6 +75,8 @@ try {
 
 global.Config = require('./config/config');
 
+global.Monitor = require('./monitor');
+
 if (Config.watchconfig) {
 	let configPath = require.resolve('./config/config');
 	FS(configPath).onModify(() => {
@@ -93,8 +95,6 @@ if (Config.watchconfig) {
  * Set up most of our globals
  *********************************************************/
 
-global.Monitor = require('./monitor');
-
 global.Dex = require('./sim/dex');
 global.toId = Dex.getId;
 
@@ -109,9 +109,6 @@ global.Punishments = require('./punishments');
 global.Chat = require('./chat');
 
 global.Rooms = require('./rooms');
-
-global.Verifier = require('./verifier');
-Verifier.PM.spawn();
 
 global.Tells = require('./tells.js');
 
@@ -172,11 +169,6 @@ if (require.main === module) {
 
 global.TeamValidatorAsync = require('./team-validator-async');
 TeamValidatorAsync.PM.spawn();
-
-/*********************************************************
- * Start up the githubhook server
- ********************************************************/
-require('./github');
 
 /*********************************************************
  * Start up the REPL server

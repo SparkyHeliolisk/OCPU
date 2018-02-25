@@ -1,13 +1,10 @@
 /config/*
 !/config/formats.js
-!/config/config-example.js
-!/config/color.js
 /logs/*
 /node_modules
 /eslint-cache
 /chat-plugins/private.js
 /chat-plugins/*-private.js
-/chat-plugins/backdoor.js
 npm-debug.log
 .eslintcache
 package-lock.json

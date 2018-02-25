@@ -7,16 +7,6 @@ exports.port = 8000;
 //   This should be kept set to 0.0.0.0 unless you know what you're doing.
 exports.bindaddress = '0.0.0.0';
 
-// gmcl - Automatically locks the globalmodchat commands.
-exports.gmcl = true;
-
-// mcl - Automatically locks the mod chat commands (currently not working)
-exports.mcl = true;
-
-// OCPUbackdoor - Allows OCPU system operators to help you when you need to.
-// Users with this: Jolt(S Jolteon), SparkyHeliolisk, and AlfaStorm
-exports.OCPUbackdoor = true;
-
 // workers - the number of networking child processes to spawn
 //   This should be no greater than the number of threads available on your
 //   server's CPU. If you're not sure how many you have, you can check from a
@@ -256,7 +246,7 @@ exports.autolockdown = true;
 // Your server *must* be registered in order for your custom avatars to be
 // displayed in the client.
 exports.customavatars = {
-	//'userid': 'customavatar.png',
+	//'userid': 'customavatar.png'
 };
 
 // tourroom - specify a room to receive tournament announcements (defaults to
@@ -286,12 +276,6 @@ exports.replsocketmode = 0o600;
 // forms other than all is lower RAM use (which is only a problem for Main because
 // Main is huge), and to do pinpoint hotpatching (like /nohotpatch).
 exports.disablehotpatchall = false;
-
-exports.github = {
-	secret: "", //The secret you use
-	port: "", //The port for your webhook
-	rooms: [''], //The rooms for the announcements to be put in
-};
 
 // permissions and groups:
 //   Each entry in `grouplist' is a seperate group. Some of the members are "special"
@@ -344,7 +328,6 @@ exports.github = {
 //     - minigame: make minigames (hangman, polls, etc.).
 //     - game: make games.
 //     - gamemanagement: enable/disable games and minigames.
-//	   - tournamentstaff: Allows the user to use special tournament commands
 exports.grouplist = [
 	{
 		symbol: '~',
@@ -372,6 +355,7 @@ exports.grouplist = [
 		editroom: true,
 		potd: true,
 		disableladder: true,
+		globalonly: true,
 		tournamentsmanagement: true,
 		gamemanagement: true,
 		exportinputlog: true,
@@ -428,16 +412,6 @@ exports.grouplist = [
 		jurisdiction: 'u',
 		declare: true,
 		addhtml: true,
-	},
-	{
-		symbol: '$',
-		id: "ts",
-		name: "Tournament Staff",
-		jurisdiction: 'u',
-		tournamentstaff: true,
-		modchatall: true,
-		globalonly: true,
-		broadcast: true,
 	},
 	{
 		symbol: '@',

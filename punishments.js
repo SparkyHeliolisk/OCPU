@@ -435,7 +435,7 @@ Punishments.punish = function (user, punishment, recursionKeys) {
 		}
 
 		// don't override stronger punishment types
-		const types = ['BATTLELOCK', 'LOCK', 'NAMELOCK', 'BAN'];
+		const types = ['LOCK', 'NAMELOCK', 'BAN'];
 		if (types.indexOf(existingPunishment[0]) > types.indexOf(punishment[0])) {
 			punishment[0] = existingPunishment[0];
 		}

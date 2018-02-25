@@ -167,7 +167,7 @@ exports.commands = {
 
 	ts: 'takecurrency', //You can change "ts" and "takestardust" to your currency name for an alias that applies to your currency Example: AwesomeBucks could be "ta" and "takeawesomebucks"
 	takestardust: 'takecurrency',
-	tc:'takecurrency',
+	tc: 'takecurrency',
 	takecurrency: function (target, room, user, connection, cmd) {
 		if (!this.can('forcewin')) return false;
 		if (!target) return this.sendReply("Usage: /" + cmd + " [user], [amount]");
