@@ -15,7 +15,8 @@
 		"Config": false, "Monitor": false, "toId": false, "Dex": false, "LoginServer": false,
 		"Users": false, "Punishments": false, "Rooms": false, "Verifier": false, "Chat": false,
 		"Tournaments": false, "Dnsbl": false, "Sockets": false, "TeamValidator": false,
-		"TeamValidatorAsync": false, "Ladders": false, "OCPU": false
+		"TeamValidatorAsync": false, "Ladders": false, "OCPU": false, "Db": false, "currencyName": false,
+		"currencyPlural": false, "rankLadder": false, "Economy": false, "writeSSB": false, 
 	},
 	"extends": "eslint:recommended",
 	"rules": {
