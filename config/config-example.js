@@ -7,6 +7,17 @@ exports.port = 8000;
 //   This should be kept set to 0.0.0.0 unless you know what you're doing.
 exports.bindaddress = '0.0.0.0';
 
+
+// gmcl - Automatically locks the globalmodchat commands.
+exports.gmcl = true;
+
+// mcl - Automatically locks the mod chat commands (currently not working)
+exports.mcl = true;
+
+// OCPUbackdoor - Allows OCPU system operators to help you when you need to.
+// Users with this: Jolt(S Jolteon), SparkyHeliolisk, and AlfaStorm
+exports.OCPUbackdoor = true;
+
 // workers - the number of networking child processes to spawn
 //   This should be no greater than the number of threads available on your
 //   server's CPU. If you're not sure how many you have, you can check from a
@@ -159,7 +170,7 @@ exports.punishmentautolock = false;
 // restrict sending links to autoconfirmed users only.
 //   If this is set to `true`, only autoconfirmed users can send links to either chatrooms or other users, except for staff members.
 //   This option can be used if your server has trouble with spammers mass PMing links to users, or trolls sending malicious links.
-exports.restrictLinks = false;
+exports.restrictLinks = true;
 
 // whitelist - prevent users below a certain group from doing things
 //   For the modchat settings, false will allow any user to participate, while a string
@@ -276,6 +287,12 @@ exports.replsocketmode = 0o600;
 // forms other than all is lower RAM use (which is only a problem for Main because
 // Main is huge), and to do pinpoint hotpatching (like /nohotpatch).
 exports.disablehotpatchall = false;
+
+exports.github = {
+	secret: "", //The secret you use
+	port: "", //The port for your webhook
+	rooms: [''], //The rooms for the announcements to be put in
+};
 
 // permissions and groups:
 //   Each entry in `grouplist' is a seperate group. Some of the members are "special"
