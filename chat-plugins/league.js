@@ -415,10 +415,10 @@ if (!Rooms.global.LvL) Rooms.global.LvL = {};
 if (!Rooms.global.pendingLvLRooms) Rooms.global.pendingLvLRooms = {};
 
 let typeChart = {
-	"bug":"Bug", "dark":"Dark", "dragon":"Dragon", "electric":"Electric",
-	"fairy":"Fairy", "fighting":"Fighting", "fire":"Fire", "flying":"Flying",
-	"ghost":"Ghost", "grass":"Grass", "ground":"Ground", "ice":"Ice", "normal":"Normal",
-	"poison":"Poison", "psychic":"Psychic", "rock":"Rock", "steel":"Steel", "water":"Water",
+	"bug": "Bug", "dark": "Dark", "dragon": "Dragon", "electric": "Electric",
+	"fairy": "Fairy", "fighting": "Fighting", "fire": "Fire", "flying": "Flying",
+	"ghost": "Ghost", "grass": "Grass", "ground": "Ground", "ice": "Ice", "normal": "Normal",
+	"poison": "Poison", "psychic": "Psychic", "rock": "Rock", "steel": "Steel", "water": "Water",
 };
 
 function formatType(type) {
