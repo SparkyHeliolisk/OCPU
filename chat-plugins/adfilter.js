@@ -27,5 +27,7 @@ Config.chatfilter = function (message, user, room, connection, targetUser) {
 		connection.user.popup("|modal|Advertising detected, your message has not been sent and OCPU global authorities have been notified.\n" + "Further attempts to advertise in a chat OR in PMs will result in being locked.");
 		return false;
 	}
+	
+	OCPU.pmStaff(user.name + " has advertised in " + (room ? ". **Room:** " + room.id : " in a private message to " + targetUser.name + ".") + " **Message:** " + message);
 	return message;
 };
