@@ -3125,14 +3125,13 @@ exports.commands = {
 			return this.errorReply("We're already in emergency mode.");
 		}
 		Config.emergency = true;
-		
+
 		if (Config.pmmodchat !== '%' || Config.pmmodchat !== '@' || Config.pmmodchat !== '&' || Config.pmmodchat !== '~') {
 			Config.pmmodchat = '%';
 		}
 		Rooms.rooms.forEach((curRoom, id) => {
 			if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-red\">The server has entered emergency mode. Some features might be disabled or limited.</div>").update();
 			if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-red\">PMs have been restricted to Global Staff only.").update();
-			
 		});
 
 		const logRoom = Rooms('staff') || room;
@@ -3146,9 +3145,9 @@ exports.commands = {
 			return this.errorReply("We're not in emergency mode.");
 		}
 		Config.emergency = false;
-		
-		if (Config.pmmodchat == '%') {
-			Config.pmmodchat == false;
+
+		if (Config.pmmodchat === '%') {
+			Config.pmmodchat = false;
 		}
 		Rooms.rooms.forEach((curRoom, id) => {
 			if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-green\"><b>The server is no longer in emergency mode.</b></div>").update();
