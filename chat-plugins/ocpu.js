@@ -103,7 +103,7 @@ OCPU.formatName = function (name) {
 	}
 };
 
-function loadRegdateCache() {
+/*function loadRegdateCache() {
 	try {
 		regdateCache = JSON.parse(fs.readFileSync('config/regdate.json', 'utf8'));
 	} catch (e) {}
