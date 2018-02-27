@@ -25,7 +25,7 @@ let asciiMap = new Map([
 
 // misc
 const ADVERTISEMENT_COST = 45; // how much does /advertise cost to use?
-let regdateCache = {};
+//let regdateCache = {};
 let customColors = {};
 
 global.parseStatus = function (text, encoding) {
