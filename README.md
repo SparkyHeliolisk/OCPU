@@ -1,14 +1,15 @@
 Pokémon Showdown
 ========================================================================
 
-Navigation: [Website][1] | **Server repository** | [Client repository][2] | [Dex repository][3]
+Navigation: [Website][1] | [PS Server Repo][11] | [Client repository][2] | [Dex repository][3]
 
-  [1]: http://pokemonshowdown.com/
+  [1]: http://ocpu.psim.us/
   [2]: https://github.com/Zarel/Pokemon-Showdown-Client
   [3]: https://github.com/Zarel/Pokemon-Showdown-Dex
+  [11]: https://github.com/Zarel/Pokemon-Showdown
 
 [![Build Status](https://travis-ci.org/PSservers15/OCPU.svg)](https://travis-ci.org/PSservers15/OCPU)
-[![Dependency Status](https://david-dm.org/PSServer15/OCPU.svg)](https://david-dm.org/PSServer15/OCPU)
+[![Dependency Status](https://david-dm.org/PSServer15/OCPU/status.svg)](https://david-dm.org/PSServer15/OCPU)
 [![devDependency Status](https://david-dm.org/PSServer15/OCPU/dev-status.svg)](https://david-dm.org/PSServer15/OCPU?type=dev)
 
 Introduction
