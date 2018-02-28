@@ -54,7 +54,7 @@ function pluralFormat(length, ending) {
 	return (length === 1 ? '' : ending);
 }
 
-/*OCPU.regdate = function (target, callback) {
+OCPU.regdate = function (target, callback) {
 	target = toId(target);
 	if (regdateCache[target]) return callback(regdateCache[target]);
 	let options = {
@@ -82,7 +82,7 @@ function pluralFormat(length, ending) {
 			callback((date === 0 ? false : date));
 		});
 	});
-};*/
+};
 
 OCPU.reloadCSS = function () {
 	const cssPath = 'ocpu'; // This should be the server id if Config.serverid doesn't exist. Ex: 'serverid'
@@ -103,16 +103,16 @@ OCPU.formatName = function (name) {
 	}
 };
 
-/*function loadRegdateCache() {
+function loadRegdateCache() {
 	try {
 		regdateCache = JSON.parse(fs.readFileSync('config/regdate.json', 'utf8'));
 	} catch (e) {}
 }
 loadRegdateCache();
 
-/*function saveRegdateCache() {
+function saveRegdateCache() {
 	fs.writeFileSync('config/regdate.json', JSON.stringify(regdateCache));
-}*/
+}
 
 function parseStatus(text, encoding) {
 	if (encoding) {
