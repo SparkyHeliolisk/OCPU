@@ -781,7 +781,9 @@ class User {
 			return false;
 		}
 
+		// @ts-ignore
 		OCPU.showNews(userid, this);
+
 		let tokenDataSplit = tokenData.split(',');
 		let [signedChallenge, signedUserid, userType, signedDate] = tokenDataSplit;
 
