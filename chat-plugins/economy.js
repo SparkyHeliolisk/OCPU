@@ -130,9 +130,7 @@ exports.commands = {
 		});
 	},
 
-	gs: 'givecurrency', //You can change "gs" and "givestardust" to your currency name for an alias that applies to your currency Example: AwesomeBucks could be "ga" and "giveawesomebucks"
-	givestardust: 'givecurrency',
-	gc:'givecurrency',
+	gc: 'givecurrency',
 	givecurrency: function (target, room, user, connection, cmd) {
 		if (!this.can('forcewin')) return false;
 		if (!target) return this.sendReply("Usage: /" + cmd + " [user], [amount]");

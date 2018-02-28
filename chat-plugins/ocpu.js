@@ -25,7 +25,7 @@ let asciiMap = new Map([
 
 // misc
 const ADVERTISEMENT_COST = 45; // how much does /advertise cost to use?
-let regdateCache = {};
+//let regdateCache = {};
 let customColors = {};
 
 global.parseStatus = function (text, encoding) {
@@ -103,16 +103,16 @@ OCPU.formatName = function (name) {
 	}
 };
 
-function loadRegdateCache() {
+/*function loadRegdateCache() {
 	try {
 		regdateCache = JSON.parse(fs.readFileSync('config/regdate.json', 'utf8'));
 	} catch (e) {}
 }
 loadRegdateCache();
 
-function saveRegdateCache() {
+/*function saveRegdateCache() {
 	fs.writeFileSync('config/regdate.json', JSON.stringify(regdateCache));
-}
+}*/
 
 function parseStatus(text, encoding) {
 	if (encoding) {
@@ -1483,7 +1483,7 @@ exports.commands = {
 		}
 
 		let buffer = Object.keys(rankLists).sort((a, b) =>
-			(Config.groups[b] || {rank:0}).rank - (Config.groups[a] || {rank:0}).rank
+			(Config.groups[b] || {rank: 0}).rank - (Config.groups[a] || {rank: 0}).rank
 		).map(r => {
 			let roomRankList = rankLists[r].sort();
 			roomRankList = roomRankList.map(s => ((Users(s) && Users(s).connected) ? OCPU.nameColor(s, true) : OCPU.nameColor(s)));

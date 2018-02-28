@@ -1134,10 +1134,9 @@ Chat.sendPM = function (message, user, pmTarget, onlyRecipient = null) {
 	let buf = `|pm|${user.getIdentity()}|${pmTarget.getIdentity()}|${message}`;
 	if (onlyRecipient) return onlyRecipient.send(buf);
 	user.send(buf);
-	if (Users.ShadowBan.checkBanned(user)) {
-		//Users.ShadowBan.addMessage(/*this.*/user, "Private to " + this.pmTarget.getIdentity(), message);
-		Users.ShadowBan.addMessage(`${user.getIdentity()}`, `Private to ${pmTarget.getIdentity()}`);
-	} else if (pmTarget !== user) {
+	/*if (Users.ShadowBan.checkBanned(user)) {
+		Users.ShadowBan.addMessage(this.user, "Private to " + this.pmTarget.getIdentity(), message);
+	} else */if (pmTarget !== user) {
 		pmTarget.send(buf);
 	}
 	pmTarget.lastPM = user.userid;

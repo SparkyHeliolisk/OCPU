@@ -100,7 +100,7 @@ exports.BattleAbilities = {
 		desc: "If the user makes the foe faint, the user gets +2 Atk and Spe",
 		onSourceFaint: function (target, source, effect) {
 			if (effect && effect.effectType === 'Move') {
-				this.boost({atk:2, spe: 2}, source);
+				this.boost({atk: 2, spe: 2}, source);
 			}
 		},
 	},
