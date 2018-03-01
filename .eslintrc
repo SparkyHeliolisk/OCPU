@@ -17,7 +17,6 @@
 		"Tournaments": false, "Dnsbl": false, "Sockets": false, "TeamValidator": false,
 		"TeamValidatorAsync": false, "Ladders": false, "OCPU": false, "Db": false, "currencyName": false,
 		"currencyPlural": false, "rankLadder": false, "Economy": false, "writeSSB": false, "Tells":false,
-		"regdateCache": true,
 	},
 	"extends": "eslint:recommended",
 	"rules": {
