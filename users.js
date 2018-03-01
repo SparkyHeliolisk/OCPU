@@ -783,6 +783,7 @@ class User {
 
 		// @ts-ignore
 		OCPU.showNews(userid, this);
+		// @ts-ignore
 		OCPU.checkFriends(this, userid);
 
 		let tokenDataSplit = tokenData.split(',');
