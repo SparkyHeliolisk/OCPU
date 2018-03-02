@@ -13,72 +13,72 @@ exports.commands = {
 		}
 		if (!Config.gmodchatlock) {
 			switch (target) {
-				case "off":
-					if (Config.laddermodchat === false) return this.errorReply("Ladder Modchat is already disabled!");
-					Config.laddermodchat = false;
-					this.popupReply("Ladder Modchat disabled.");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-green\">Ladder modchat was disabled!</div>").update();
-					});
-					break;
-				case "ac":
-					if (Config.laddermodchat === target) return this.errorReply("Ladder Modchat is already set to " + target + "!");
-					Config.laddermodchat = target;
-					this.popupReply("Ladder Modchat set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Ladder Modchat was set to " + target + ".</div>").update();
-					});
-					break;
-				case "+":
-					if (Config.laddermodchat === target) return this.errorReply("Ladder Modchat is already set to " + target + "!");
-					Config.laddermodchat = target;
-					this.popupReply("Ladder Modchat set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Ladder Modchat was set to " + target + ".</div>").update();
-					});
-					break;
-				case "%":
-					if (Config.laddermodchat === target) return this.errorReply("Ladder Modchat is already set to " + target + "!");
-					Config.laddermodchat = target;
-					this.popupReply("Ladder Modchat set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Ladder Modchat was set to " + target + ".</div>").update();
-					});
-					break;
-				case "@":
-					if (Config.laddermodchat === target) return this.errorReply("Ladder Modchat is already set to " + target + "!");
-					Config.laddermodchat = target;
-					this.popupReply("Ladder Modchat set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Ladder Modchat was set to " + target + ".</div>").update();
-					});
-					break;
-				case "*":
-					if (Config.laddermodchat === target) return this.errorReply("Ladder Modchat is already set to " + target + "!");
-					Config.laddermodchat = target;
-					this.popupReply("Ladder Modchat set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Ladder Modchat was set to " + target + ".</div>").update();
-					});
-					break;
-				case "&":
-					if (Config.laddermodchat === target) return this.errorReply("Ladder Modchat is already set to " + target + "!");
-					Config.laddermodchat = target;
-					this.popupReply("Ladder Modchat set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Ladder Modchat was set to " + target + ".</div>").update();
-					});
-					break;
-				case "~":
-					if (Config.laddermodchat === target) return this.errorReply("Ladder Modchat is already set to " + target + "!");
-					Config.laddermodchat = target;
-					this.popupReply("Ladder Modchat set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Ladder Modchat was set to " + target + ".</div>").update();
-					});
-					break;
-				default:
-					return this.errorReply("You have selected a wrong value. Possible values are: off, ac, +, %, @, *, &, ~.");
+			case "off":
+				if (Config.laddermodchat === false) return this.errorReply("Ladder Modchat is already disabled!");
+				Config.laddermodchat = false;
+				this.popupReply("Ladder Modchat disabled.");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-green\">Ladder modchat was disabled!</div>").update();
+				});
+				break;
+			case "ac":
+				if (Config.laddermodchat === target) return this.errorReply("Ladder Modchat is already set to " + target + "!");
+				Config.laddermodchat = target;
+				this.popupReply("Ladder Modchat set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Ladder Modchat was set to " + target + ".</div>").update();
+				});
+				break;
+			case "+":
+				if (Config.laddermodchat === target) return this.errorReply("Ladder Modchat is already set to " + target + "!");
+				Config.laddermodchat = target;
+				this.popupReply("Ladder Modchat set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Ladder Modchat was set to " + target + ".</div>").update();
+				});
+				break;
+			case "%":
+				if (Config.laddermodchat === target) return this.errorReply("Ladder Modchat is already set to " + target + "!");
+				Config.laddermodchat = target;
+				this.popupReply("Ladder Modchat set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Ladder Modchat was set to " + target + ".</div>").update();
+				});
+				break;
+			case "@":
+				if (Config.laddermodchat === target) return this.errorReply("Ladder Modchat is already set to " + target + "!");
+				Config.laddermodchat = target;
+				this.popupReply("Ladder Modchat set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Ladder Modchat was set to " + target + ".</div>").update();
+				});
+				break;
+			case "*":
+				if (Config.laddermodchat === target) return this.errorReply("Ladder Modchat is already set to " + target + "!");
+				Config.laddermodchat = target;
+				this.popupReply("Ladder Modchat set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Ladder Modchat was set to " + target + ".</div>").update();
+				});
+				break;
+			case "&":
+				if (Config.laddermodchat === target) return this.errorReply("Ladder Modchat is already set to " + target + "!");
+				Config.laddermodchat = target;
+				this.popupReply("Ladder Modchat set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Ladder Modchat was set to " + target + ".</div>").update();
+				});
+				break;
+			case "~":
+				if (Config.laddermodchat === target) return this.errorReply("Ladder Modchat is already set to " + target + "!");
+				Config.laddermodchat = target;
+				this.popupReply("Ladder Modchat set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Ladder Modchat was set to " + target + ".</div>").update();
+				});
+				break;
+			default:
+				return this.errorReply("You have selected a wrong value. Possible values are: off, ac, +, %, @, *, &, ~.");
 			}
 		} else {
 			return this.errorReply("Global lock is enabled. This is unabled to be changed at this current time. PM zellman01 if you think the lock should be removed.");
@@ -92,72 +92,72 @@ exports.commands = {
 		}
 		if (!Config.gmodchatlock) {
 			switch (target) {
-				case "off":
-					if (Config.pmmodchat === false) return this.errorReply("PM Modchat is already disabled!");
-					Config.pmmodchat = false;
-					this.popupReply("PM Modchat disabled.");
-					Rooms.rooms.forEach((curRoom, id) => {
-					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-green\">PM modchat was disabled!</div>").update(); 
-					});
-					break;
-				case "ac":
-					if (Config.pmmodchat === target) return this.errorReply("PM Modchat is already set to " + target + "!");
-					Config.pmmodchat = target;
-					this.popupReply("PM Modchat set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">PM Modchat was set to " + target + ".</div>").update();
-					});
-					break;
-				case "+":
-					if (Config.pmmodchat === target) return this.errorReply("PM Modchat is already set to " + target + "!");
-					Config.pmmodchat = target;
-					this.popupReply("PM Modchat set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">PM Modchat was set to " + target + ".</div>").update();
-					});
-					break;
-				case "%":
-					if (Config.pmmodchat === target) return this.errorReply("PM Modchat is already set to " + target + "!");
-					Config.pmmodchat = target;
-					this.popupReply("PM Modchat set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">PM Modchat was set to " + target + ".</div>").update();
-					});
-					break;
-				case "@":
-					if (Config.pmmodchat === target) return this.errorReply("PM Modchat is already set to " + target + "!");
-					Config.pmmodchat = target;
-					this.popupReply("PM Modchat set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">PM Modchat was set to " + target + ".</div>").update();
-					});
-					break;
-				case "*":
-					if (Config.pmmodchat === target) return this.errorReply("PM Modchat is already set to " + target + "!");
-					Config.pmmodchat = target;
-					this.popupReply("PM Modchat set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">PM Modchat was set to " + target + ".</div>").update();
-					});
-					break;
-				case "&":
-					if (Config.pmmodchat === target) return this.errorReply("PM Modchat is already set to " + target + "!");
-					Config.pmmodchat = target;
-					this.popupReply("PM Modchat set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">PM Modchat was set to " + target + ".</div>").update();
-					});
-					break;
-				case "~":
-					if (Config.pmmodchat === target) return this.errorReply("PM Modchat is already set to " + target + "!");
-					Config.pmmodchat = target;
-					this.popupReply("PM Modchat set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">PM Modchat was set to " + target + ".</div>").update();
-					});
-					break;
-				default:
-					return this.errorReply("You have selected a wrong value. Possible values are: off, ac, +, %, @, *, &, ~.");
+			case "off":
+				if (Config.pmmodchat === false) return this.errorReply("PM Modchat is already disabled!");
+				Config.pmmodchat = false;
+				this.popupReply("PM Modchat disabled.");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-green\">PM modchat was disabled!</div>").update();
+				});
+				break;
+			case "ac":
+				if (Config.pmmodchat === target) return this.errorReply("PM Modchat is already set to " + target + "!");
+				Config.pmmodchat = target;
+				this.popupReply("PM Modchat set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">PM Modchat was set to " + target + ".</div>").update();
+				});
+				break;
+			case "+":
+				if (Config.pmmodchat === target) return this.errorReply("PM Modchat is already set to " + target + "!");
+				Config.pmmodchat = target;
+				this.popupReply("PM Modchat set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">PM Modchat was set to " + target + ".</div>").update();
+				});
+				break;
+			case "%":
+				if (Config.pmmodchat === target) return this.errorReply("PM Modchat is already set to " + target + "!");
+				Config.pmmodchat = target;
+				this.popupReply("PM Modchat set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">PM Modchat was set to " + target + ".</div>").update();
+				});
+				break;
+			case "@":
+				if (Config.pmmodchat === target) return this.errorReply("PM Modchat is already set to " + target + "!");
+				Config.pmmodchat = target;
+				this.popupReply("PM Modchat set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">PM Modchat was set to " + target + ".</div>").update();
+				});
+				break;
+			case "*":
+				if (Config.pmmodchat === target) return this.errorReply("PM Modchat is already set to " + target + "!");
+				Config.pmmodchat = target;
+				this.popupReply("PM Modchat set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">PM Modchat was set to " + target + ".</div>").update();
+				});
+				break;
+			case "&":
+				if (Config.pmmodchat === target) return this.errorReply("PM Modchat is already set to " + target + "!");
+				Config.pmmodchat = target;
+				this.popupReply("PM Modchat set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">PM Modchat was set to " + target + ".</div>").update();
+				});
+				break;
+			case "~":
+				if (Config.pmmodchat === target) return this.errorReply("PM Modchat is already set to " + target + "!");
+				Config.pmmodchat = target;
+				this.popupReply("PM Modchat set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">PM Modchat was set to " + target + ".</div>").update();
+				});
+				break;
+			default:
+				return this.errorReply("You have selected a wrong value. Possible values are: off, ac, +, %, @, *, &, ~.");
 			}
 		} else {
 			return this.errorReply("Global lock is enabled. This is unabled to be changed at this current time. PM zellman01 if you think the lock should be removed.");
@@ -171,95 +171,87 @@ exports.commands = {
 		}
 		if (!Config.gmodchatlock) {
 			switch (target) {
-				case "off":
-					if (Config.chatmodchat === false) return this.errorReply("Global room modchat is currently disabled!");
-
-					Config.chatmodchat = false;
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-green\">Room modchat was disabled!</div>").update();
-						curRoom.modchat = false;
-					});
-					this.popupReply("Room Modchat was disabled.");
-					break;
-				case "ac":
-					if (Config.chatmodchat === target) return this.errorReply("Global room modchat is currently set to " + target + "!");
-
-					Config.chatmodchat = target;
-					this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Room modchat was set to " + target + ".</div>").update();
-						curRoom.modchat = target;
-					});
-					Config.battlemodchat = target;
-					break;
-				case "+":
-					if (Config.chatmodchat === target) return this.errorReply("Global room modchat is currently set to " + target + "!");
-
-					Config.chatmodchat = target;
-					this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Room modchat was set to " + target + ".</div>").update();
-						curRoom.modchat = target;
-					});
-					Config.battlemodchat = target;
-					break;
-				case "%":
-					if (Config.chatmodchat === target) return this.errorReply("Global room modchat is currently set to " + target + "!");
-
-					Config.chatmodchat = target;
-					this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Room modchat was set to " + target + ".</div>").update();
-						curRoom.modchat = target;
-					});
-					Config.battlemodchat = target;
-					break;
-				case "@":
-					if (Config.chatmodchat === target) return this.errorReply("Global room modchat is currently set to " + target + "!");
-
-					Config.chatmodchat = target;
-					this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Room modchat was set to " + target + ".</div>").update();
-						curRoom.modchat = target;
-					});
-					Config.battlemodchat = target;
-					break;
-				case "*":
-					if (Config.chatmodchat === target) return this.errorReply("Global room modchat is currently set to " + target + "!");
-
-					Config.chatmodchat = target;
-					this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Room modchat was set to " + target + ".</div>").update();
-						curRoom.modchat = target;
-					});
-					Config.battlemodchat = target;
-					break;
-				case "&":
-					if (Config.chatmodchat === target) return this.errorReply("Global room modchat is currently set to " + target + "!");
-
-					Config.chatmodchat = target;
-					this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Room modchat was set to " + target + ".</div>").update();
-						curRoom.modchat = target;
-					});
-					Config.battlemodchat = target;
-					break;
-				case "~":
-					if (Config.chatmodchat === target) return this.errorReply("Global room modchat is currently set to " + target + "!");
-
-					Config.chatmodchat = target;
-					this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
-					Rooms.rooms.forEach((curRoom, id) => {
-						if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Room modchat was set to " + target + ".</div>").update();
-						curRoom.modchat = target;
-					});
-					Config.battlemodchat = target;
-					break;
-				default:
-					return this.errorReply("You have selected a wrong value. Possible values are: off, ac, +, %, @, *, &, ~.");
+			case "off":
+				if (Config.chatmodchat === false) return this.errorReply("Global room modchat is currently disabled!");
+				Config.chatmodchat = false;
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-green\">Room modchat was disabled!</div>").update();
+					curRoom.modchat = false;
+				});
+				this.popupReply("Room Modchat was disabled.");
+				break;
+			case "ac":
+				if (Config.chatmodchat === target) return this.errorReply("Global room modchat is currently set to " + target + "!");
+				Config.chatmodchat = target;
+				this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Room modchat was set to " + target + ".</div>").update();
+					curRoom.modchat = target;
+				});
+				Config.battlemodchat = target;
+				break;
+			case "+":
+				if (Config.chatmodchat === target) return this.errorReply("Global room modchat is currently set to " + target + "!");
+				Config.chatmodchat = target;
+				this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Room modchat was set to " + target + ".</div>").update();
+					curRoom.modchat = target;
+				});
+				Config.battlemodchat = target;
+				break;
+			case "%":
+				if (Config.chatmodchat === target) return this.errorReply("Global room modchat is currently set to " + target + "!");
+				Config.chatmodchat = target;
+				this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Room modchat was set to " + target + ".</div>").update();
+					curRoom.modchat = target;
+				});
+				Config.battlemodchat = target;
+				break;
+			case "@":
+				if (Config.chatmodchat === target) return this.errorReply("Global room modchat is currently set to " + target + "!");
+				Config.chatmodchat = target;
+				this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Room modchat was set to " + target + ".</div>").update();
+					curRoom.modchat = target;
+				});
+				Config.battlemodchat = target;
+				break;
+			case "*":
+				if (Config.chatmodchat === target) return this.errorReply("Global room modchat is currently set to " + target + "!");
+				Config.chatmodchat = target;
+				this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Room modchat was set to " + target + ".</div>").update();
+					curRoom.modchat = target;
+				});
+				Config.battlemodchat = target;
+				break;
+			case "&":
+				if (Config.chatmodchat === target) return this.errorReply("Global room modchat is currently set to " + target + "!");
+				Config.chatmodchat = target;
+				this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Room modchat was set to " + target + ".</div>").update();
+					curRoom.modchat = target;
+				});
+				Config.battlemodchat = target;
+				break;
+			case "~":
+				if (Config.chatmodchat === target) return this.errorReply("Global room modchat is currently set to " + target + "!");
+				Config.chatmodchat = target;
+				this.popupReply("Room Modchat was set to " + target + ". Battle modchat was also set to " + target + ".");
+				Rooms.rooms.forEach((curRoom, id) => {
+					if (id !== 'global') curRoom.addRaw("<div class=\"broadcast-blue\">Room modchat was set to " + target + ".</div>").update();
+					curRoom.modchat = target;
+				});
+				Config.battlemodchat = target;
+				break;
+			default:
+				return this.errorReply("You have selected a wrong value. Possible values are: off, ac, +, %, @, *, &, ~.");
 			}
 		} else {
 			return this.errorReply("Global lock is enabled. This is unabled to be changed at this current time. PM zellman01 if you think the lock should be removed.");
