@@ -263,6 +263,7 @@ exports.pages = {
 				harassment: `Someone is harassing me`,
 				inap: `Someone is being inappropriate`,
 				timerstalling: `Someone is timerstalling`,
+				advertising: `Someone advertised this server`,
 				staff: `I want to report a staff member`,
 
 				appeal: `I want to appeal a punishment`,
@@ -284,6 +285,7 @@ exports.pages = {
 				confirminapname: `Report an inappropriate username`,
 				confirminappokemon: `Report inappropriate Pok&eacute;mon nicknames`,
 				confirmtimerstalling: `Report timerstalling`,
+				confirmadvertising: `Report someone advertising`,
 				confirmreportroomowner: `Report a Room Owner`,
 				confirmreportglobal: `Report a Global Staff member`,
 				confirmappeal: `Appeal your lock`,
@@ -300,6 +302,7 @@ exports.pages = {
 				inapname: `Inappropriate Username`,
 				inappokemon: `Inappropriate Pokemon Nicknames`,
 				timerstalling: `Timerstalling`,
+				advertising: `Server Advertising`,
 				reportroomowner: `Room Owner Complaint`,
 				reportglobal: `Global Staff Complaint`,
 				appeal: `Appeal`,
