@@ -2,4 +2,4 @@ tournaments/lib/
 logs/
 dev-tools/globals.js
 node_modules/
-chat-plugins/ocpuusers.js
+ocpu-plugins/ocpuusers.js
