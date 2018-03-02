@@ -78,7 +78,7 @@ exports.commands = {
 			if (user.locked || !user.autoconfirmed) return this.errorReply(`To prevent spamming you must be on an autoconfirmed account and unlocked to send friend requests.`);
 			if (Db.disabledfriends.has(toId(target))) return this.errorReply(`${targetUser} has disabled adding friends.`);
 			if (Db.disabledfriends.has(user.userid)) return this.errorReply(`You must enable friend requests before attempting to add others.`);
-			if (friends[targetUser.userid].pendingRequests.includes(user.userid)) return this.parse(`/friends accept ${targetUser}`);
+			if (friends[targetUser.userid] && friends[targetUser.userid].pendingRequests.includes(user.userid)) return this.parse(`/friends accept ${targetUser}`);
 			if (friends[user.userid].pendingRequests.includes(targetUser.userid)) return this.errorReply(`${targetUser} already has a pending request from you.`);
 			if (friends[user.userid].friendsList.includes(targetUser.userid)) return this.errorReply(`${targetUser} is already registered on your friends list.`);
 			friends[user.userid].pendingRequests.push(targetUser.userid);
@@ -170,7 +170,11 @@ exports.commands = {
 					display += `<td style="border: 2px solid #000000; width: 20%; text-align: center"><button class="button" name="send" value="/friends unfriend ${friend}">Unfriend ${friend}</button></td>`;
 				}
 			});
-			display += `</tr></table></div>`;
+			display += `</tr></table>`;
+			if (!this.broadcasting) {
+				display += `<center><button class="button" name="send" value="/friends notifications">${(Db.friendnotifications.has(user.userid) ? `Disable Friend Notifications` : `Enable Friend Notifications`)}</center>`;
+			}
+			display += `</div>`;
 			return this.sendReplyBox(display);
 		},
 
