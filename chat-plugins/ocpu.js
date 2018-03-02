@@ -892,7 +892,7 @@ exports.commands = {
 		    "- " + OCPU.nameColor('AlfaStorm', true) + " (Sysop, Technical Admin, Development)<br />" +
 		    "<br />" +
 			 "<u>Contributors</u><br />" +
-			 "- " + OCPU.nameColor('Glameowch', true) + "(Events Admin)<br />" +
+			 "- " + OCPU.nameColor('Glameowch', true) + " (Events Admin)<br />" +
 			 "<br />" +
 		    "<u>Development:</u><br />" +
 		    "- " + OCPU.nameColor('Insist', true) + " (Development, Fixed Eslint)<br />" +
@@ -931,7 +931,7 @@ exports.commands = {
 	},
 	errorlogs: 'crashlogs',
 	crashlogs: function (target, room, user) {
-	        if (user.userid === "alfastorm" || user.userid === 'joltsjolteon') {
+	        if (user.userid === "alfastorm" || user.userid === 'joltsjolteon' || user.userid === 'insist') {
 	                let crashes = fs.readFileSync('logs/errors.txt', 'utf8').split('\n').splice(-100).join('\n');
 		        user.send('|popup|' + crashes);
 		        return;
