@@ -79,6 +79,7 @@ exports.commands = {
 					break;
 				default:
 					return this.errorReply("You have selected a wrong value. Possible values are: off, ac, +, %, @, *, &, ~.");
+			}
 		} else {
 			return this.errorReply("Global lock is enabled. This is unabled to be changed at this current time. PM zellman01 if you think the lock should be removed.");
 		}
