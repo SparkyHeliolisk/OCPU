@@ -345,6 +345,9 @@ exports.github = {
 //     - minigame: make minigames (hangman, polls, etc.).
 //     - game: make games.
 //     - gamemanagement: enable/disable games and minigames.
+//   OCPU-specific permissions:
+//     - customtitle: Allows special profile management.
+
 exports.grouplist = [
 	{
 		symbol: '~',
@@ -466,6 +469,7 @@ exports.grouplist = [
 		jeopardy: true,
 		joinbattle: true,
 		minigame: true,
+		customtitle: true,
 	},
 	{
 		symbol: '+',
