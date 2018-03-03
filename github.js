@@ -92,4 +92,17 @@ github.on('issues', function issues(repo, ref, result) {
 	sendMessages(message);
 });
 
+github.on('pull_request_review', function pullRequestReview(repo, ref, result) {
+	let requestNumber = result.pull_request.number;
+	let url = result.pull_request_html_url;
+	let action = result.action;
+
+	let message = "";
+	message += "[<font color='FF00FF'>" + repo + "</font>] ";
+	message += OCPU.nameColor(result.sender.login, true) + " ";
+	message += action + " pull request <a href=\"" + url + "\">#" + requestNumber + "</a>: ";
+	message += result.pull_request.title;
+	sendMessages(message);
+});
+
 github.listen();
