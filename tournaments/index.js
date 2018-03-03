@@ -902,6 +902,72 @@ class Tournament {
 		}));
 		this.isEnded = true;
 		if (this.autoDisqualifyTimer) clearTimeout(this.autoDisqualifyTimer);
+
+		//
+		// Tournament Winnings
+		// Credits to Wavelength
+		//
+
+		let color = '#088CC7';
+		let sizeRequiredToEarn = 4;
+		let data = this.generator.getResults().map(usersToNames).toString();
+		let winner, runnerUp;
+
+		if (data.indexOf(',') >= 0) {
+			data = data.split(',');
+			winner = data[0];
+			if (data[1]) runnerUp = data[1];
+		} else {
+			winner = data;
+		}
+
+		let wid = toId(winner);
+		let rid = toId(runnerUp);
+		let tourSize = this.generator.users.size;
+
+		if ((tourSize >= sizeRequiredToEarn) && this.room.isOfficial) {
+			let firstMoney = Math.round(tourSize / 4);
+			if (firstMoney < 2) firstMoney = 2;
+			/*if (Db.userBadges.has(wid) && Db.userBadges.get(wid).indexOf('Tournament Champion') > -1)*/ firstMoney = Math.ceil(firstMoney * 1.5);
+			if (Users(wid).tourBoost) firstMoney *= 2;
+			if (Users(wid).gameBoost) firstMoney *= 2;
+			let secondMoney = Math.round(firstMoney / 2);
+			if (runnerUp) {
+				if (Users(rid).tourBoost) secondMoney *= 2;
+				if (Users(rid).gameBoost) secondMoney *= 2;
+				/*if (Db.userBadges.has(rid) && Db.userBadges.get(rid).indexOf('Tournament Champion') > -1)*/ secondMoney = Math.ceil(firstMoney * 1.5);
+			}
+
+			Economy.writeMoney(wid, firstMoney, () => {
+				Economy.readMoney(wid, newAmount => {
+					if (Users(wid) && Users(wid).connected) {
+						Users.get(wid).popup('|html|You have received ' + firstMoney + ' ' + (firstMoney === 1 ? global.currencyName : global.currencyPlural) + ' from winning the tournament.');
+					}
+					Economy.logTransaction(Chat.escapeHTML(winner) + ' has won ' + firstMoney + ' ' + (firstMoney === 1 ? global.currencyName : global.currencyPlural) + ' from a tournament.');
+				});
+			});
+			this.room.addRaw("<b><font color='" + color + "'>" + Chat.escapeHTML(winner) + "</font> has won " + "<font color='" + color + "'>" + firstMoney + " </font>" + (firstMoney === 1 ? global.currencyName : global.currencyPlural) + " for winning the tournament!</b>");
+
+			if (runnerUp) {
+				Economy.writeMoney(rid, secondMoney, () => {
+					Economy.readMoney(rid, newAmount => {
+						if (Users(rid) && Users(rid).connected) {
+							Users.get(rid).popup('|html|You have received ' + secondMoney + ' ' + (secondMoney === 1 ? global.currencyName : global.currencyPlural) + ' from winning the tournament.');
+						}
+						Economy.logTransaction(Chat.escapeHTML(runnerUp) + ' has won ' + secondMoney + ' ' + (secondMoney === 1 ? global.currencyName : global.currencyPlural) + ' from a tournament.');
+					});
+				});
+				this.room.addRaw("<b><font color='" + color + "'>" + Chat.escapeHTML(runnerUp) + "</font> has won " + "<font color='" + color + "'>" + secondMoney + "</font>" + (firstMoney === 1 ? global.currencyName : global.currencyPlural) + " for winning the tournament!</b>");
+			}
+
+			if (OCPU.getFaction(winner)) {
+				let factionName = OCPU.getFaction(winner);
+				let factionId = toId(factionName);
+				Db.factionbank.set(factionId, Db.factionbank.get(factionId, 0) + 10);
+				this.room.addRaw(`<strong>Congratulations to ${factionName}! Your faction has gained 10 faction money! To view it type /faction bank atm (faction) </strong>`);
+			}
+		}
+
 		delete exports.tournaments[this.room.id];
 		delete this.room.game;
 		for (let i in this.players) {
