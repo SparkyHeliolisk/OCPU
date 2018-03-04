@@ -406,51 +406,12 @@ exports.Formats = [
 			`&bullet; <a href="http://www.smogon.com/forums/threads/3606989/">2v2 Doubles</a>`,
 		],
 
-<<<<<<< HEAD
-		mod: 'sharedpower',
-		ruleset: ['[Gen 7] OU', 'Evasion Abilities Clause'],
-		banlist: ['Banette-Mega', 'Gyarados-Mega', 'Shedinja', 'Emergency Exit ++ Regenerator', 'Wimp Out ++ Regenerator'],
-		unbanlist: ['Aegislash', 'Blaziken', 'Blaziken-Mega', 'Deoxys-Defense'],
-		restrictedAbilities: [
-			'Chlorophyll', 'Comatose', 'Fluffy', 'Fur Coat', 'Huge Power', 'Illusion', 'Imposter', 'Innards Out', 'Magic Guard',
-			'Mold Breaker', 'Protean', 'Pure Power', 'Quick Feet', 'Rattled', 'Sand Rush', 'Simple', 'Skill Link', 'Slush Rush',
-			'Speed Boost', 'Surge Surfer', 'Swift Swim', 'Teravolt', 'Tinted Lens', 'Trace', 'Unburden', 'Water Bubble', 'Weak Armor',
-		],
-		getSharedPower: function (pokemon) {
-			let sharedPower = new Set();
-			for (const ally of pokemon.side.pokemon) sharedPower.add(ally.baseAbility);
-			for (const ability of this.restrictedAbilities) sharedPower.delete(toId(ability));
-			sharedPower.delete(pokemon.baseAbility);
-			return sharedPower;
-		},
-		onBeforeSwitchIn: function (pokemon) {
-			for (const ability of this.getFormat().getSharedPower(pokemon)) {
-				let effect = 'ability' + ability;
-				pokemon.volatiles[effect] = {id: effect, target: pokemon};
-			}
-		},
-		onSwitchInPriority: 2,
-		onSwitchIn: function (pokemon) {
-			for (const ability of this.getFormat().getSharedPower(pokemon)) {
-				let effect = 'ability' + ability;
-				delete pokemon.volatiles[effect];
-				pokemon.addVolatile(effect);
-			}
-		},
-		onAfterMega: function (pokemon) {
-			pokemon.removeVolatile('ability' + pokemon.baseAbility);
-			for (const ability of this.getFormat().getSharedPower(pokemon)) {
-				let effect = 'ability' + ability;
-				pokemon.addVolatile(effect);
-			}
-=======
 		mod: 'gen7',
 		gameType: 'doubles',
 		// searchShow: false,
 		teamLength: {
 			validate: [2, 4],
 			battle: 2,
->>>>>>> f5f2b386a2485b56c2e624613dec11f4376ab9ac
 		},
 		ruleset: ['Gen 7] Doubles OU'],
 		banlist: ['Tapu Lele', 'Focus Sash', 'Perish Song'],
