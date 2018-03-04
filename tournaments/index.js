@@ -909,7 +909,7 @@ class Tournament {
 		//
 
 		let color = '#088CC7';
-		let sizeRequiredToEarn = 4;
+		let sizeRequiredToEarn = Config.tournamentWinningUserAmount;
 		let data = this.generator.getResults().map(usersToNames).toString();
 		let winner, runnerUp;
 
