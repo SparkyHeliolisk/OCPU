@@ -55,8 +55,7 @@ function lastActive(user) {
 }
 
 function showBadges(user) {
-	// Disabled
-	/*if (Db.userBadges.has(toId(user))) {
+	if (Db.userBadges.has(toId(user))) {
 		let badges = Db.userBadges.get(toId(user));
 		let css = `border:none; background:none; padding:0;`;
 		if (typeof badges !== 'undefined' && badges !== null) {
@@ -70,7 +69,7 @@ function showBadges(user) {
 			output += `</tr> </table></div></td>`;
 			return output;
 		}
-	}*/
+	}
 	return ``;
 }
 
@@ -614,9 +613,9 @@ exports.commands = {
 				if (Db.nature.has(toId(username))) {
 					profile += `&nbsp;${pColor(toId(username))}<b>Nature:</b> ${Db.nature.get(toId(username))}</font><br />`;
 				}
-				/*if (OCPU.getFaction(toId(username))) {
+				if (OCPU.getFaction(toId(username))) {
 					profile += `&nbsp;${pColor(toId(username))}<b>Faction:</b> ${OCPU.getFaction(toId(username))}</font><br />`;
-				}*/
+				}
 				profile += `&nbsp;${pColor(toId(username))}<b>EXP Level:</b> ${OCPU.ExpControl.level(toId(username))}</font><br />`;
 				if (online && lastActive(toId(username))) {
 					profile += `&nbsp;${pColor(toId(username))}<b>Last Activity:</b> ${lastActive(toId(username))}</font><br />`;
