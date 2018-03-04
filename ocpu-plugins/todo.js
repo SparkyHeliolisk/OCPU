@@ -45,16 +45,11 @@ OCPU.showTodo = function (userid, user) {
 };
 
 exports.commands = {
-	/*todo: function (target, room, user) {
-		if (!this.can("ban", null, room)) return this.errorReply("/todo - Access Denied.");
-		if (room.id !== 'development') return this.errorReply("This command can only be used in Development.");
-		user.popup("This command is currently not completed right now.");
-	},*/
 	todo: 'devchecklist',
 	devchecklist: {
 		'': 'view',
 		display: 'view',
-		view: function(target, room, user) {
+		view: function (target, room, user) {
 			if (!isDev(user)) return this.errorReply("/todo - Access Denied");
 			if (room.id !== 'development') return this.errorReply("This command can only be used in Development.");
 			let output = `<center><strong>OCPU Todo List:</strong></center>${generateTodo().join(`<hr>`)}${showSubButton(user.userid)}`;
@@ -83,14 +78,14 @@ exports.commands = {
 			let title = parts[0], desc = parts[1], postedBy = user.name;
 			let d = new Date();
 			const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
-			"July", "Aug", "Sep", "Oct", "Nov", "Dec",
+				"July", "Aug", "Sep", "Oct", "Nov", "Dec",
 			];
-			let postTime = `${MonthNames[d.getUTCMonth()} ${d.getUTCDate()} ${d.getUTCFullYear()}`;
+			let postTime = `${monthNames[d.getUTCMonth()]} ${d.getUTCDate()} ${d.getUTCFullYear()}`;
 			Db.todo.set(title, [postedBy, desc, postTime]);
 		},
 		subscribe: function (target, room, user) {
 			if (!isDev(user)) return this.errorReply("/todo - Access Denied.");
-			if (Db.todoSubscribers.has(user.userid)) return this.errorReply("You are already subscribed to the dev news server.");
+			if (Db.todoSubscribers.has(user.userid)) return this.errorReply("You are already subscribed to the dev server news.");
 			Db.todoSubscribers.set(user.userid, true);
 			this.sendReply("You have successfully subscribed to the dev news server.");
 		},
@@ -103,10 +98,11 @@ exports.commands = {
 		help: function (target, room, user) {
 			if (!isDev(user)) return this.errorReply("/todo - Access Denied");
 			return this.sendReplyBox(
-			`/todo view - View current dev issues on this server<br />` +
-			`/todo add [title], [desc] - Adds the current issue to the dev list on the server<br />` +
-			`/todo delete [title] - Delete issue from the list (once completed)<br />` +
-			`/todo <subscribe/unsubscribe> - Subscribes or unscribes to the dev news`
+				`/todo view - View current dev issues on this server<br />` +
+				`/todo add [title], [desc] - Adds the current issue to the dev list on the server<br />` +
+				`/todo delete [title] - Delete issue from the list (once completed)<br />` +
+				`/todo <subscribe/unsubscribe> - Subscribes or unscribes to the dev news`
+			);
 		},
 	},
 };
