@@ -40,7 +40,7 @@ OCPU.showTodo = function (userid, user) {
 		notifiedUsers[userid] = setTimeout(() => {
 			delete notifiedUsers[userid];
 		}, 60 * 60 * 1000);
-		return user.send(`|pm|~OCPU Dev Server|${user.getIdentity()}|/raw ${todoDisplay}`;
+		return user.send(`|pm|~OCPU Dev Server|${user.getIdentity()}|/raw ${todoDisplay}`);
 	}
 };
 
