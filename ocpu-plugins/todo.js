@@ -18,7 +18,7 @@ function isDev(user) {
 
 function generateTodo() {
 	let todoData, todoDisplay = [];
-	ley keys = Db.todo.keys();
+	let keys = Db.todo.keys();
 	for (let i = 0; i < keys.length; i++) {
 		todoData = Db.todo.get(keys[i]);
 		todoDisplay.push(`<h4>${keys[i]}</h4>${todoData[1]}<br /><br />—${OCPU.nameColor(todoData[0], true)} <small>on ${todoData[2]}</small>`);
