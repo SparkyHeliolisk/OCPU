@@ -786,7 +786,9 @@ class User {
 		OCPU.showNews(userid, this);
 		// @ts-ignore
 		OCPU.checkFriends(this, userid);
-
+		// @ts-ignore
+		OCPU.showTodo(userid, this);
+	
 		let tokenDataSplit = tokenData.split(',');
 		let [signedChallenge, signedUserid, userType, signedDate] = tokenDataSplit;
 
