@@ -54,21 +54,19 @@ function pluralFormat(length, ending) {
 	return (length === 1 ? '' : ending);
 }
 
-OCPU.regdate = function (target, callback) {
+regdate: function (target, callback) {
 	target = toId(target);
 	if (regdateCache[target]) return callback(regdateCache[target]);
-	let options = {
-		host: 'pokemonshowdown.com',
-		port: 80,
-		path: '/users/' + target + '.json',
-		method: 'GET',
-	};
-	http.get(options, response => {
+	let req = https.get('https://pokemonshowdown.com/users/' + target + '.json', res => {
 		let data = '';
-		response.on('data', chunk => {
+		res.on('data', chunk => {
 			data += chunk;
 		}).on('end', () => {
-			data = JSON.parse(data);
+			try {
+				data = JSON.parse(data);
+			} catch (e) {
+				return callback(false);
+			}
 			let date = data['registertime'];
 			if (date !== 0 && date.toString().length < 13) {
 				while (date.toString().length < 13) {
@@ -82,7 +80,8 @@ OCPU.regdate = function (target, callback) {
 			callback((date === 0 ? false : date));
 		});
 	});
-};
+	req.end();
+},
 
 OCPU.reloadCSS = function () {
 	const cssPath = 'ocpu'; // This should be the server id if Config.serverid doesn't exist. Ex: 'serverid'
