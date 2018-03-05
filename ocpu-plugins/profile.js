@@ -616,7 +616,6 @@ exports.commands = {
 				if (OCPU.getFaction(toId(username))) {
 					profile += `&nbsp;${pColor(toId(username))}<b>Faction:</b> ${OCPU.getFaction(toId(username))}</font><br />`;
 				}
-				profile += `&nbsp;${pColor(toId(username))}<b>EXP Level:</b> ${OCPU.ExpControl.level(toId(username))}</font><br />`;
 				if (online && lastActive(toId(username))) {
 					profile += `&nbsp;${pColor(toId(username))}<b>Last Activity:</b> ${lastActive(toId(username))}</font><br />`;
 				}
