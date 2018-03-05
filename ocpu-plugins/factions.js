@@ -316,6 +316,10 @@ exports.commands = {
 						title: 'Owner',
 						users: [user.userid],
 					},
+					'admin': {
+						title: 'Administrator',
+						users: [],
+					},
 					'noble': {
 						title: 'Noble',
 						users: [],
@@ -500,7 +504,7 @@ exports.commands = {
 				if (factions[faction].id === faction) continue;
 				if (factions[faction].users.includes(targetUser.userid)) return this.errorReply('That user is a member of ' + factions[faction].name + '.');
 			}
-			if (toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply('You can\'t invite people!');
+			if (toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'admin' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply('You can\'t invite people!');
 
 			factions[factionid].invites.push(targetUser.userid);
 			write();
@@ -570,8 +574,8 @@ exports.commands = {
 			if (!factions[factionid]) return this.errorReply('You aren\'t in a faction!');
 			if (!factions[factionid].users.includes(targetid)) return this.errorReply('This user is not in a faction!');
 
-			if (toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to kick users from '" + factionName + "'.");
-			if (toId(getFactionRank(user.userid)) === 'noble' && toId(getFactionRank(targetid)) === 'noble' || toId(getFactionRank(user.userid)) === 'noble' && toId(getFactionRank(targetid)) === 'owner' || toId(getFactionRank(user.userid)) === 'owner' && toId(getFactionRank(targetid)) === 'owner') return this.errorReply('You cannot kick them from the faction!');
+			if (toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'admin' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to kick users from '" + factionName + "'.");
+			if (toId(getFactionRank(user.userid)) === 'noble' && toId(getFactionRank(targetid)) === 'admin' || toId(getFactionRank(user.userid)) === 'noble' && toId(getFactionRank(targetid)) === 'owner' || toId(getFactionRank(user.userid)) === 'admin' && toId(getFactionRank(targetid)) === 'owner') return this.errorReply('You cannot kick them from the faction!');
 
 			for (let rank in factions[factionid].ranks) {
 				if (factions[factionid].ranks[rank].users.includes(targetid)) {
@@ -586,8 +590,8 @@ exports.commands = {
 		ban: function (target, room, user) {
 			if (!getFaction(user.userid)) return false;
 			if (!target) return this.errorReply('/faction ban (target)');
-			if (toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return false;
-			if (toId(getFactionRank(user.userid)) === 'noble' && toId(getFactionRank(toId(target))) === 'noble' || toId(getFactionRank(user.userid)) === 'noble' && toId(getFactionRank(toId(target))) === 'owner' || toId(getFactionRank(user.userid)) === 'owner' && toId(getFactionRank(toId(target))) === 'owner') return this.errorReply('You cannot kick them from the faction!');
+			if (toId(getFactionRank(user.userid)) !== 'admin' && toId(getFactionRank(user.userid)) !== 'owner') return false;
+			if (toId(getFactionRank(user.userid)) === 'admin' && toId(getFactionRank(toId(target))) === 'admin' || toId(getFactionRank(user.userid)) === 'admin' && toId(getFactionRank(toId(target))) === 'owner' || toId(getFactionRank(user.userid)) === 'owner' && toId(getFactionRank(toId(target))) === 'owner') return this.errorReply('You cannot kick them from the faction!');
 			if (factions[toId(getFaction(user.userid))].bans.includes(toId(target))) return this.errorReply("User is already banned!");
 			factions[toId(getFaction(user.userid))].bans.push(toId(target));
 			if (factions[toId(getFaction(user.userid))].users.includes(toId(target))) factions[toId(getFaction(user.userid))].users.splice(factions[toId(getFaction(user.userid))].users.indexOf(toId(target)), 1);
@@ -600,7 +604,7 @@ exports.commands = {
 		unban: function (target, room, user) {
 			if (!getFaction(user.userid)) return false;
 			if (!target) return this.errorReply('/faction unban (target)');
-			if (toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return false;
+			if (toId(getFactionRank(user.userid)) !== 'admin' && toId(getFactionRank(user.userid)) !== 'owner') return false;
 			if (!factions[toId(getFaction(user.userid))].bans.includes(toId(target))) return this.errorReply(toId(target) + ' is not banned from your faction!');
 			factions[toId(getFaction(user.userid))].bans.splice(factions[toId(getFaction(user.userid))].bans.indexOf(toId(target)), 1);
 			write();
