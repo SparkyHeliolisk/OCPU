@@ -153,6 +153,11 @@ exports.reportbattles = true;
 //   Note that the feature of turning this off is deprecated.
 exports.reportbattlejoins = true;
 
+// modify the amount of users needed to be in a tournament for
+//  tournament winnings to work. Default is 4.
+//  If you don't know what this means, do not change it.
+exports.tournamentWinningUserAmount = 4;
+
 // notify staff when users have a certain amount of room punishments.
 //   Setting this to a number greater than zero will notify staff for everyone with
 //   the required amount of room punishments.
@@ -347,6 +352,7 @@ exports.github = {
 //     - gamemanagement: enable/disable games and minigames.
 //   OCPU-specific permissions:
 //     - customtitle: Allows special profile management.
+//     - faction: Allows special management of all factions on this server
 
 exports.grouplist = [
 	{
@@ -447,6 +453,7 @@ exports.grouplist = [
 		alts: '@u',
 		tournaments: true,
 		game: true,
+		faction: true,
 	},
 	{
 		symbol: '%',
