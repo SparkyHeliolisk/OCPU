@@ -399,7 +399,12 @@ class Connection {
 		this.onDisconnect();
 	}
 	onDisconnect() {
-		Db.seen.set(this.id, Date.now());
+		if (!Db.seen.get(toId(this.user)) {
+			Db.seen.set(this.user, Date.now());
+		} else {
+			Db.seen.remove(toId(this.user));
+			Db.seen.set(this.user, Date.now());
+		}
 		connections.delete(this.id);
 		if (this.user) this.user.onDisconnect(this);
 		this.user = /** @type {any} */ (null);
