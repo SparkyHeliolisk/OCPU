@@ -125,7 +125,7 @@ class ExpFunctions {
 						break;
 					case 35:
 						Economy.writeMoney(user.userid, 50);
-						reward = `50 ${moneyPlural}.`;
+						reward = `50 ${currencyPlural}.`;
 						break;
 					case 40:
 						Economy.logTransaction(`${user.name} received a chatroom for reaching level ${level}.`);
@@ -134,7 +134,7 @@ class ExpFunctions {
 						break;
 					default:
 						Economy.writeMoney(user.userid, Math.ceil(level * 0.5));
-						reward = `${Math.ceil(level * 0.5)} ${(Math.ceil(level * 0.5) === 1 ? moneyName : moneyPlural)}.`;
+						reward = `${Math.ceil(level * 0.5)} ${(Math.ceil(level * 0.5) === 1 ? currencyName : currencyPlural)}.`;
 					}
 					user.sendTo(room, `|html|<center><font size=4><strong><i>Level Up!</i></strong></font><br />You have reached level ${level}, and have earned ${reward}</strong></center>`);
 				}
@@ -181,7 +181,7 @@ exports.commands = {
 					"Level 20 unlocks a free Custom Userlist Icon. <br /><br />" +
 					"Level 25 unlocks a free Emote. <br /><br />" +
 					"Level 30 unlocks a free Custom Color.  <br /><br />" +
-					"Level 35 unlocks 50 " + moneyPlural + ". <br /><br />" +
+					"Level 35 unlocks 50 " + currencyPlural + ". <br /><br />" +
 					"Level 40 unlocks a free Chatroom. <br /><br />"
 				);
 			});
