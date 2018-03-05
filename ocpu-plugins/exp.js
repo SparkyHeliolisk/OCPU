@@ -8,6 +8,9 @@
 const DEFAULT_AMOUNT = 0;
 let DOUBLE_XP = false;
 
+const minLevelExp = 15;
+const multiply = 1.9;
+
 function isExp(exp) {
 	let numExp = Number(exp);
 	if (isNaN(exp)) return "Must be a number.";
@@ -48,142 +51,112 @@ let EXP = OCPU.EXP = {
 	},
 };
 
-function addExp(user, room, amount) {
-	if (!user || !room) return;
-	user = Users(toId(user));
-	if (Db.expoff.get(user.userid)) return false;
-	if (DOUBLE_XP) amount = amount * 2;
-	EXP.readExp(user.userid, totalExp => {
-		let oldLevel = OCPU.level(user.userid);
-		EXP.writeExp(user.userid, amount, newTotal => {
-			let level = OCPU.level(user.userid);
-			if (oldLevel < level) {
-				let reward = '';
-				switch (level) {
-				case 5:
-					Economy.logTransaction(user.userid + ' received a custom symbol for reaching level ' + level + '.');
-					user.canCustomSymbol = true;
-					reward = 'a Custom Symbol. To claim your custom symbol, use the command /customsymbol [symbol]';
-					break;
-				case 10:
-					Economy.logTransaction(user.userid + ' received a custom avatar for reaching level ' + level + '.');
-					if (!user.tokens) user.tokens = {};
-					user.tokens.avatar = true;
-					reward = 'a Custom Avatar. To claim your avatar, use the command /usetoken avatar, [link to the image you want]';
-					break;
-				case 15:
-					Economy.logTransaction(user.userid + ' received a custom title for reaching level ' + level + '.');
-					if (!user.tokens) user.tokens = {};
-					user.tokens.title = true;
-					reward = 'a Profile Title. To claim your profile title, use the command /usetoken title, [title], [hex color]';
-					break;
-				case 20:
-					Economy.logTransaction(user.userid + ' received a custom icon for reaching level ' + level + '.');
-					if (!user.tokens) user.tokens = {};
-					user.tokens.icon = true;
-					reward = 'a Custom Userlist Icon. To claim your icon, use the command /usetoken icon, [link to the image you want]';
-					break;
-				case 25:
-					Economy.logTransaction(user.userid + ' received a emote for reaching level ' + level + '.');
-					if (!user.tokens) user.tokens = {};
-					user.tokens.emote = true;
-					reward = 'an Emote. To claim your emote, use the command /usetoken emote, [name], [image]';
-					break;
-				case 30:
-					Economy.logTransaction(user.userid + ' received a custom color for reaching level ' + level + '.');
-					if (!user.tokens) user.tokens = {};
-					user.tokens.color = true;
-					reward = 'a Custom Color. To claim your custom color, use the command /usetoken color, [hex color]';
-					break;
-				case 35:
-					Economy.writeMoney(user.userid, 50);
-					reward = '50 ' + currencyPlural + '.';
-					break;
-				case 40:
-					Economy.logTransaction(user.userid + ' received a chatroom for reaching level ' + level + '.');
-					OCPU.messageSeniorStaff(user.userid + ' has earned a chatroom for reaching level ' + level + '!');
-					Monitor.adminlog(user.userid + ' has earned a chatroom for reaching level ' + level + '!');
-					reward = 'a Chatroom. To claim your chatroom, Contact a Leader (&) or Administrator (~).';
-					break;
-				default:
-					Economy.writeMoney(user.userid, Math.ceil(level * 0.5));
-					reward = Math.ceil(level * 0.5) + ' ' + (Math.ceil(level * 0.5) === 1 ? currencyName : currencyPlural) + '.';
-				}
-				user.sendTo(room, '|html|<center><font size=4><strong><i>Level Up!</i></strong></font><br />' +
-				'You have reached level ' + level + ', and have earned ' + reward + '</strong></center>');
-			}
+class ExpFunctions {
+	constructor() {
+		this.start();
+	}
+
+	grantExp() {
+		Users.users.forEach(user => {
+			if (!user || !user.named || !user.connected || !user.lastPublicMessage) return;
+			if (Date.now() - user.lastPublicMessage > 300000) return;
+			this.addExp(user, null, 1);
 		});
-	});
-}
-OCPU.addExp = addExp;
-
-function level(userid) {
-	userid = toId(userid);
-	let curExp = Db.exp.get(userid, 0);
-	let benchmarks = [0, 40, 90, 165, 250, 400, 600, 810, 1250, 1740, 2450, 3300, 4400, 5550, 6740, 8120, 9630, 11370, 13290, 15520, 18050, 23000, 28000, 33720, 39900, 46440, 52690, 58000, 63600, 69250, 75070, 81170, 87470, 93970, 100810, 107890, 115270, 122960, 131080, 140000];
-	for (let i = 0; i < benchmarks.length; i++) {
-		if (curExp >= benchmarks[i]) {
-			continue;
-		} else {
-			return i;
-		}
 	}
-	return benchmarks.length;
-}
-OCPU.level = level;
 
-function nextLevel(user) {
-	let curExp = Db.exp.get(user, 0);
-	let benchmarks = [0, 40, 90, 165, 250, 400, 600, 810, 1250, 1740, 2450, 3300, 4400, 5550, 6740, 8120, 9630, 11370, 13290, 15520, 18050, 23000, 28000, 33720, 39900, 46440, 52690, 58000, 63600, 69250, 75070, 81170, 87470, 93970, 100810, 107890, 115270, 122960, 131080, 140000];
-	for (let i = 0; i < benchmarks.length; i++) {
-		if (curExp >= benchmarks[i]) {
-			continue;
-		} else {
-			return benchmarks[i] - curExp + " exp";
-		}
+	level(userid) {
+		userid = toId(userid);
+		let curExp = Db.exp.get(userid, 0);
+		return Math.floor(Math.pow(curExp / minLevelExp, 1 / multiply) + 1);
 	}
-	return "[Cannot level up]";
-}
-OCPU.nextLevel = nextLevel;
 
-//Shamelessly ripped from economy
-function rankLadder(title, type, array, prop, group) {
-	let groupHeader = group || 'Username';
-	const ladderTitle = '<center><h4><u>' + title + '</u></h4></center>';
-	const thStyle = 'class="rankladder-headers default-td" style="background: -moz-linear-gradient(#576468, #323A3C); background: -webkit-linear-gradient(#576468, #323A3C); background: -o-linear-gradient(#576468, #323A3C); background: linear-gradient(#576468, #323A3C); box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
-	const tableTop = '<div style="max-height: 310px; overflow-y: scroll;">' +
-		'<table style="width: 100%; border-collapse: collapse;">' +
-		'<tr>' +
-			'<th ' + thStyle + '>Rank</th>' +
-			'<th ' + thStyle + '>' + groupHeader + '</th>' +
-			'<th ' + thStyle + '>' + type + '</th>' +
-		'</tr>';
-	const tableBottom = '</table></div>';
-	const tdStyle = 'class="rankladder-tds default-td" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
-	const first = 'class="first default-td important" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
-	const second = 'class="second default-td important" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
-	const third = 'class="third default-td important" style="box-shadow: -1px -1px 2px rgba(0, 0, 0, 0.3) inset, 1px 1px 1px rgba(255, 255, 255, 0.7) inset;"';
-	let midColumn;
-
-	let tableRows = '';
-
-	for (let i = 0; i < array.length; i++) {
-		if (i === 0) {
-			midColumn = '</td><td ' + first + '>';
-			tableRows += '<tr><td ' + first + '>' + (i + 1) + midColumn + OCPU.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
-		} else if (i === 1) {
-			midColumn = '</td><td ' + second + '>';
-			tableRows += '<tr><td ' + second + '>' + (i + 1) + midColumn + OCPU.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
-		} else if (i === 2) {
-			midColumn = '</td><td ' + third + '>';
-			tableRows += '<tr><td ' + third + '>' + (i + 1) + midColumn + OCPU.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
-		} else {
-			midColumn = '</td><td ' + tdStyle + '>';
-			tableRows += '<tr><td ' + tdStyle + '>' + (i + 1) + midColumn + OCPU.nameColor(array[i].name, true) + midColumn + array[i][prop] + '</td></tr>';
-		}
+	nextLevel(user) {
+		let curExp = Db.exp.get(toId(user), 0);
+		let lvl = this.level(toId(user));
+		return Math.floor(Math.pow(lvl, multiply) * minLevelExp) - curExp;
 	}
-	return ladderTitle + tableTop + tableRows + tableBottom;
+
+	addExp(user, room, amount) {
+		if (!user) return;
+		if (!room) room = Rooms('lobby');
+		user = Users(toId(user));
+		if (!user.registered) return false;
+		if (Db.expoff.get(user.userid)) return false;
+		if (DOUBLE_XP) amount = amount * 2;
+		EXP.readExp(user.userid, totalExp => {
+			let oldLevel = this.level(user.userid);
+			EXP.writeExp(user.userid, amount, newTotal => {
+				let level = this.level(user.userid);
+				if (oldLevel < level) {
+					let reward = '';
+					switch (level) {
+					case 5:
+						Economy.logTransaction(`${user.name} received a profile background and profile music for reaching level ${level}.`);
+						Monitor.log(`${user.userid} has earned a profile background and profile music for reaching level ${level}!`);
+						if (!user.tokens) user.tokens = {};
+						user.tokens.bg = true;
+						user.tokens.music = true;
+						reward = `a Profile Background and Profile Music. To claim your profile background and profile music, use the command /usetoken bg, [img] and /usetoken music, [song url], [title of the song] respectively.`;
+						break;
+					case 10:
+						Economy.logTransaction(`${user.name} received a custom avatar for reaching level ${level}.`);
+						Monitor.log(`${user.name} has reached Level ${level} and earned a Custom Avatar.`);
+						reward = `a Custom Avatar. To claim your avatar, please PM a Global Voice or higher to set your avatar.`;
+						break;
+					case 15:
+						Economy.logTransaction(`${user.name} received a custom title for reaching level ${level}.`);
+						Monitor.log(`${user.name} has reached Level ${level} and earned a Profile Title.`);
+						reward = `a Profile Title. To claim your profile title, please PM a Global Driver or higher to set your Profile Title.`;
+						break;
+					case 20:
+						Economy.logTransaction(`${user.name} received a custom icon for reaching level ${level}.`);
+						Monitor.log(`${user.name} has reached Level ${level} and earned a Custom Icon.`);
+						reward = `a Custom Userlist Icon. To claim your icon, please PM a Global Driver or higher to set your Custom Icon.`;
+						break;
+					case 25:
+						Economy.logTransaction(`${user.name} received a emote for reaching level ${level}.`);
+						Monitor.log(`${user.name} has reached Level ${level} and earned a Custom Emoticon.`);
+						reward = `an Emote. To claim your emote, use the command please PM a Global Driver or higher to set your Custom Emoticon.`;
+						break;
+					case 30:
+						Economy.logTransaction(`${user.name} received a custom color for reaching level ${level}.`);
+						Monitor.log(`${user.name} has reached Level ${level} and earned a Custom Color.`);
+						reward = `a Custom Color. To claim your custom color, use the command please PM a Global Driver or higher to set your Custom Color.`;
+						break;
+					case 35:
+						Economy.writeMoney(user.userid, 50);
+						reward = `50 ${moneyPlural}.`;
+						break;
+					case 40:
+						Economy.logTransaction(`${user.name} received a chatroom for reaching level ${level}.`);
+						OCPU.messageSeniorStaff(`${user.name} has earned a chatroom for reaching level ${level}!`);
+						reward = `a Chatroom. To claim your chatroom, Contact a Leader (&) or Administrator (~).`;
+						break;
+					default:
+						Economy.writeMoney(user.userid, Math.ceil(level * 0.5));
+						reward = `${Math.ceil(level * 0.5)} ${(Math.ceil(level * 0.5) === 1 ? moneyName : moneyPlural)}.`;
+					}
+					user.sendTo(room, `|html|<center><font size=4><strong><i>Level Up!</i></strong></font><br />You have reached level ${level}, and have earned ${reward}</strong></center>`);
+				}
+			});
+		});
+	}
+
+	start() {
+		this.granting = setInterval(() => this.grantExp(), 30000);
+	}
+
+	end() {
+		clearInterval(this.granting);
+		this.granting = null;
+	}
 }
+
+if (OCPU.ExpControl) {
+	OCPU.ExpControl.end();
+	delete OCPU.ExpControl;
+}
+OCPU.ExpControl = new ExpFunctions();
 
 exports.commands = {
 	'!exp': true,
@@ -191,18 +164,33 @@ exports.commands = {
 	xp: 'exp',
 	exp: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		if (!target) target = user.name;
-
-		const targetId = toId(target);
-
-		EXP.readExp(targetId, exp => {
-			this.sendReplyBox('<strong>' + OCPU.nameColor(targetId, true) + '</strong> has ' + exp + ' exp and is level ' + OCPU.level(targetId) + ' and needs ' + OCPU.nextLevel(targetId) + ' to reach the next level.');
-		});
+		let targetId = toId(target);
+		if (target || !target && this.broadcasting) {
+			if (!target) targetId = user.userid;
+			EXP.readExp(targetId, exp => {
+				this.sendReplyBox(`${OCPU.nameColor(targetId, true)} has ${exp} exp and is level ${OCPU.ExpControl.level(targetId)} and needs ${OCPU.ExpControl.nextLevel(targetId)} to reach the next level.`);
+			});
+		} else {
+			EXP.readExp(user.userid, exp => {
+				this.sendReplyBox(
+					"Name: " + OCPU.nameColor(user.userid, true) + "<br />Current level: " + OCPU.ExpControl.level(user.userid) + "<br />Current Exp: " + exp + "<br />Exp Needed for Next level: " + OCPU.ExpControl.nextLevel(user.userid) +
+					"<br />All rewards have a 1 time use! <br /><br />" +
+					"Level 5 unlocks a free Profile Background and Song. <br /><br />" +
+					"Level 10 unlocks a free Custom Avatar. <br /><br />" +
+					"Level 15 unlocks a free Profile Title. <br /><br />" +
+					"Level 20 unlocks a free Custom Userlist Icon. <br /><br />" +
+					"Level 25 unlocks a free Emote. <br /><br />" +
+					"Level 30 unlocks a free Custom Color.  <br /><br />" +
+					"Level 35 unlocks 50 " + moneyPlural + ". <br /><br />" +
+					"Level 40 unlocks a free Chatroom. <br /><br />"
+				);
+			});
+		}
 	},
 
 	givexp: 'giveexp',
 	giveexp: function (target, room, user) {
-		if (!this.can('roomowner')) return false;
+		if (!this.can("exp")) return false;
 		if (!target || target.indexOf(',') < 0) return this.parse('/help giveexp');
 
 		let parts = target.split(',');
@@ -215,9 +203,8 @@ exports.commands = {
 		if (typeof amount === 'string') return this.errorReply(amount);
 		if (!Users.get(username)) return this.errorReply("The target user could not be found");
 
-
-		OCPU.addExp(uid, this.room, amount);
-		this.sendReply(uid + " has received " + amount + ((amount === 1) ? " exp." : " exp."));
+		OCPU.ExpControl.addExp(uid, room, amount);
+		this.sendReply(`${uid} has received ${amount} ${((amount === 1) ? " exp." : " exp.")}`);
 	},
 	giveexphelp: ["/giveexp [user], [amount] - Give a user a certain amount of exp."],
 
@@ -227,33 +214,50 @@ exports.commands = {
 		if (!target) return this.errorReply('USAGE: /resetxp (USER)');
 		let parts = target.split(',');
 		let targetUser = parts[0].toLowerCase().trim();
-		if (!this.can('roomowner')) return false;
-		if (cmd !== 'confirmresetexp') {
-			return this.popupReply('|html|<center><button name="send" value="/confirmresetexp ' + targetUser + '"style="background-color:red;height:300px;width:150px"><strong><font color="white" size=3>Confirm XP reset of ' + OCPU.nameColor(targetUser, true) + '; this is only to be used in emergencies, cannot be undone!</font></strong></button>');
+		if (!this.can("exp")) return false;
+		if (cmd !== "confirmresetexp") {
+			return this.popupReply(`|html|<center><button name="send" value="/confirmresetexp ${targetUser}" style="background-color: red; height: 300px; width: 150px"><strong><font color= "white" size= 3>Confirm XP reset of ${OCPU.nameColor(targetUser, true)}; this is only to be used in emergencies, cannot be undone!</font></strong></button>`);
 		}
 		Db.exp.set(toId(target), 0);
 		if (Users.get(target)) Users.get(target).popup('Your XP was reset by an Administrator. This cannot be undone and nobody below the rank of Administrator can assist you or answer questions about this.');
-		user.popup("|html|You have reset the XP of " + OCPU.nameColor(targetUser, true) + ".");
-		Monitor.adminlog('[EXP Monitor] ' + user.name + ' has reset the XP of ' + target);
+		user.popup(`|html|You have reset the XP of ${OCPU.nameColor(targetUser, true)}.`);
+		Monitor.adminlog(`[EXP Monitor] ${user.name} has reset the XP of ${target}`);
 		room.update();
 	},
 
-	doublexp: 'doubleexp',
+	doublexp: "doubleexp",
 	doubleexp: function (target, room, user) {
-		if (!this.can('roomowner')) return;
+		if (!this.can("exp")) return;
 		DOUBLE_XP = !DOUBLE_XP;
-		return this.sendReply('Double XP was turned ' + (DOUBLE_XP ? 'ON' : 'OFF') + '.');
+		Rooms.rooms.forEach((curRoom, id) => {
+			if (id !== "global") curRoom.addRaw(`<div class="broadcast-${(DOUBLE_XP ? "green" : "red")}"><strong>Double XP is turned ${(DOUBLE_XP ? "on! You will now " : "off! You will no longer ")} receive double XP.</strong></div>`).update();
+		});
+		return this.sendReply(`Double XP was turned ${(DOUBLE_XP ? "ON" : "OFF")}.`);
 	},
 
-	expon: function (target, room, user) {
-		Db.expoff.remove(user.userid);
-		this.sendReply("You are no longer exempt from exp");
+	expunban: function (target, room, user) {
+		if (!this.can("exp")) return false;
+		if (!target) return this.parse('/help expunban');
+		let targetId = toId(target);
+		if (!Db.expoff.has(targetId)) return this.errorReply(`${target} is not currently exp banned.`);
+		Db.expoff.remove(targetId);
+		this.globalModlog(`EXPUNBAN`, targetId, ` by ${user.name}`);
+		this.addModAction(`${target} was exp unbanned by ${user.name}.`);
+		this.sendReply(`${target} is no longer banned from exp.`);
 	},
+	expunbanhelp: ['/expunban target - allows a user to gain exp if they were exp banned'],
 
-	expoff: function (target, room, user) {
-		Db.expoff.set(user.userid, true);
-		this.sendReply("You are now exempt from exp");
+	expban: function (target, room, user) {
+		if (!this.can("exp")) return false;
+		if (!target) return this.parse('/help expban');
+		let targetId = toId(target);
+		if (Db.expoff.has(targetId)) return this.errorReply(`${target} is not currently exp banned.`);
+		Db.expoff.set(targetId, true);
+		this.globalModlog(`EXPUNBAN`, targetId, ` by ${user.name}`);
+		this.addModAction(`${target} was exp unbanned by ${user.name}.`);
+		this.sendReply(`${target} is no longer banned from exp.`);
 	},
+	expbanhelp: ['/expban target - bans a user from gaining exp until removed'],
 
 	'!xpladder': true,
 	expladder: 'xpladder',
