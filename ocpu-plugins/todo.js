@@ -53,7 +53,7 @@ exports.commands = {
 			if (!isDev(user)) return this.errorReply("/todo - Access Denied");
 			if (room.id !== 'development') return this.errorReply("This command can only be used in Development.");
 			let output = `<center><strong>OCPU Todo List:</strong></center>${generateTodo().join(`<hr>`)}${showSubButton(user.userid)}`;
-			return user.send(`|popup||wide|html|${output}`);
+			return user.send(`|popup||wide||html|${output}`);
 		},
 		remove: 'delete',
 		delete: function (target, room, user) {
