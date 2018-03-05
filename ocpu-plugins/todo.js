@@ -68,7 +68,7 @@ exports.commands = {
 			let parts = target.split(",");
 			if (parts.length < 2) return this.errorReply("Usage: /todo add [title], [desc]");
 			let descArray = [];
-			if (parts.legnth - 2 > 0) {
+			if (parts.length - 2 > 0) {
 				for (let j = 0; j < parts.length; j++) {
 					if (j < 1) continue;
 					descArray.push(parts[j]);
