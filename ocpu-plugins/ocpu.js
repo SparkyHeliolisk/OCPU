@@ -54,7 +54,7 @@ function pluralFormat(length, ending) {
 	return (length === 1 ? '' : ending);
 }
 
-regdate: function (target, callback) {
+OCPU.regdate = function (target, callback) {
 	target = toId(target);
 	if (regdateCache[target]) return callback(regdateCache[target]);
 	let req = https.get('https://pokemonshowdown.com/users/' + target + '.json', res => {
@@ -81,7 +81,7 @@ regdate: function (target, callback) {
 		});
 	});
 	req.end();
-},
+};
 
 OCPU.reloadCSS = function () {
 	const cssPath = 'ocpu'; // This should be the server id if Config.serverid doesn't exist. Ex: 'serverid'
@@ -368,12 +368,6 @@ function toHex(N) {
 }
 
 exports.commands = {
-	todo: function (target, room, user) {
-		if (!this.can("ban", null, room)) return this.errorReply("/todo - Access Denied.");
-		if (room.id !== 'development') return this.errorReply("This command can only be used in Development.");
-		user.popup("This command is currently not completed right now.");
-	},
-
 	dm: 'daymute',
 	daymute: function (target, room, user, connection, cmd) {
 		if (!target) return this.errorReply("Usage: /dm [user], [reason].");
