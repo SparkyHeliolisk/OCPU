@@ -398,6 +398,7 @@ class Connection {
 		Sockets.socketDisconnect(this.worker, this.socketid);
 		this.onDisconnect();
 	}
+	// @ts-ignore Cannot find name Db error
 	onDisconnect() {
 		if (!Db.seen.get(toId(this.user))) {
 			Db.seen.set(this.user, Date.now());
