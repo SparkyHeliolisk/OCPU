@@ -971,6 +971,7 @@ class Tournament {
 		delete exports.tournaments[this.room.id];
 		delete this.room.game;
 		for (let i in this.players) {
+			OCPU.ExpControl.addExp(this.players[i].userid, this.room, 20);
 			this.players[i].destroy();
 		}
 	}
