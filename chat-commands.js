@@ -2765,11 +2765,15 @@ exports.commands = {
 					if (manager.filename.startsWith(FS('chat-plugins').path)) {
 						manager.destroy();
 					}
+					if (manager.filename.startsWith(FS('ocpu-plugins').path)) {
+						manager.destroy();
+					}
 				}
 
 				Chat.uncache('./chat');
 				Chat.uncache('./chat-commands');
 				Chat.uncacheDir('./chat-plugins');
+				Chat.uncacheDir('./ocpu-plugins');
 				global.Chat = require('./chat');
 
 				let runningTournaments = Tournaments.tournaments;
