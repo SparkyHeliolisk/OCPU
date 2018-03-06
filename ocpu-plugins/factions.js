@@ -439,6 +439,7 @@ exports.commands = {
 			output += '<br />&nbsp;Faction Vs Faction wins: ' + factions[factionId].tourwins + '<br /> &nbsp;Usercount: ' + factions[factionId].users.length + '<br />';
 			output += '&nbsp;Description: ' + factions[factionId].desc + '<br />';
 			output += '&nbsp;Owners: ' + factions[factionId].ranks['owner'].users.join(', ') + '<br />';
+			output += '&nbsp;Admins: ' + factions[factionId].ranks['admin'].users.join(', ') + '<br />';
 			output += '&nbsp;Nobles: ' + factions[factionId].ranks['noble'].users.join(', ') + '<br />';
 			output += '&nbsp;Commoners: ' + factions[factionId].ranks['commoner'].users.join(', ') + '<br />';
 			this.sendReplyBox(output);
@@ -807,7 +808,7 @@ exports.commands = {
 			if (Rooms.global.FvF[factionId] && Rooms.global.FvF[factionId].challenging) return this.errorReply("You're already challenging " + factions[Rooms.global.FvF[factionId].challenging].name + ".");
 			if (Rooms.global.FvF[factionId] && Rooms.global.FvF[factionId].challenger) return this.errorReply("Your faction is being challenged by " + factions[Rooms.global.FvF[factionId].challenger].name + ". Please accept or deny it before challenging a faction.");
 			if (room.fvf) return this.errorReply("There's currently a faction vs faction running in this room.");
-			if (!toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to start a faction vs faction.");
+			if (!toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'admin' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to start a faction vs faction.");
 			if (!user.can('ban', null, room)) return this.errorReply("You don't have permission to start a faction vs faction in that room.");
 
 			let fvfId = OCPU.randomString(10);
@@ -870,7 +871,7 @@ exports.commands = {
 
 		accept: function (target, room, user) {
 			if (!getFaction(user.userid)) return this.errorReply("You're not in a faction.");
-			if (!toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to accept Faction vs Factions.");
+			if (!toId(getFactionRank(user.userid)) !== 'admin' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to accept Faction vs Factions.");
 			let factionId = toId(getFaction(user.userid));
 			if (!Rooms.global.FvF[factionId] || !Rooms.global.FvF[factionId].challenger) return this.errorReply("Your faction doesn't have any pending challenges.");
 			let targetFactionid = Rooms.global.FvF[factionId].challenger;
@@ -887,7 +888,7 @@ exports.commands = {
 
 		deny: function (target, room, user) {
 			if (!getFaction(user.userid)) return this.errorReply("You're not in a faction.");
-			if (!toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to deny Faction vs Factions.");
+			if (!toId(getFactionRank(user.userid)) !== 'admin' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to deny Faction vs Factions.");
 			let factionId = toId(getFaction(user.userid));
 			if (!Rooms.global.FvF[factionId] || !Rooms.global.FvF[factionId].challenger) return this.errorReply("Your faction doesn't have any pending challenges.");
 			let targetFactionid = Rooms.global.FvF[factionId].challenger;
@@ -909,7 +910,7 @@ exports.commands = {
 		invite: function (target, room, user) {
 			if (!target) return this.errorReply("Usage: /fvf invite [user] - Invites a faction member to the join a Faction vs Faction.");
 			if (!getFaction(user.userid)) return this.errorReply("You're not in a faction.");
-			if (!toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to invite users to join a Faction vs Faction.");
+			if (!toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'admin' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to invite users to join a Faction vs Faction.");
 
 			let factionId = toId(getFaction(user.userid));
 			let targetUser = Users(target);
@@ -979,7 +980,7 @@ exports.commands = {
 			if (!target) return this.errorReply("Usage: /fvf end [room]");
 			if (!getFaction(user.userid)) return this.errorReply("You're not in a faction.");
 
-			if (!toId(getFactionRank(user.userid)) !== 'noble' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to end Faction vs Factions.");
+			if (!toId(getFactionRank(user.userid)) !== 'admin' && toId(getFactionRank(user.userid)) !== 'owner') return this.errorReply("You don't have permission to end Faction vs Factions.");
 
 			let targetRoom = Rooms(toId(target));
 			if (!targetRoom) return this.errorReply("That room does not exist.");
