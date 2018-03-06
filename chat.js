@@ -294,7 +294,7 @@ class CommandContext {
 			} else {
 				this.room.add(`|c|${this.user.getIdentity(this.room.id)}|${message}`);
 				// @ts-ignore
-				grantExp();
+				//grantExp();
 			}
 		}
 
