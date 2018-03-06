@@ -5,6 +5,7 @@
 /eslint-cache
 /chat-plugins/private.js
 /chat-plugins/*-private.js
+/ocpu-plugins/tournamentpenalties.js
 npm-debug.log
 .eslintcache
 package-lock.json
