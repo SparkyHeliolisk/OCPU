@@ -293,6 +293,8 @@ class CommandContext {
 				Chat.sendPM(message, this.user, this.pmTarget);
 			} else {
 				this.room.add(`|c|${this.user.getIdentity(this.room.id)}|${message}`);
+				// @ts-ignore
+				OCPU.grantExp();
 			}
 		}
 
